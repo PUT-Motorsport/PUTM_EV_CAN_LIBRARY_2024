@@ -3,13 +3,12 @@
 #define TELEMETRY
 
 #include <cstdint>
-#include "hal_can.hpp"
 #include "message_abstraction.hpp"
 
 enum struct Telemetry_states: uint8_t {
 	Power_up,
 	Gathering_Data,
-	Transmitting,
+	Transmitting
 };
 
 struct __attribute__ ((packed)) Telemetry_Main{

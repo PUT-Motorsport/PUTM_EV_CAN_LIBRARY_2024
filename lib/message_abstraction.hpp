@@ -1,7 +1,7 @@
 #ifndef MESSAGE_ABSTRACTION_H
 #define MESSAGE_ABSTRACTION_H
 
-#include "hal_can.hpp"
+#include "stm32l4xx_hal.h"
 #include <cstdint>
 #include <cstring>
 
@@ -64,16 +64,5 @@ public:
     std::memcpy(&data, m.data, sizeof(T));
   }
 };
-
-void print_can_message(const Can_rx_message &m)
-{
-  printf("IDE: %d \n", (int)m.header.IDE);
-  printf("DLC: %d \n", (int)m.header.DLC);
-  for (std::size_t i = 0; i < max_dlc_size; ++i)
-  {
-    printf("data [%d] = %d \n", (int)i, (int)m.data[i]);
-  }
-  printf("status %d \n\n", m.status);
-}
 
 #endif

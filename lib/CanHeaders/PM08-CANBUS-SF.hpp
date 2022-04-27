@@ -3,7 +3,6 @@
 #define SF
 
 #include <cstdint>
-#include "hal_can.hpp"
 #include "message_abstraction.hpp"
 
 typedef struct { 

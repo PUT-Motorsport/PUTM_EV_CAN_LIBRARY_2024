@@ -3,7 +3,6 @@
 #define AQ
 
 #include <cstdint>
-#include "hal_can.hpp"
 #include "message_abstraction.hpp"
 
 enum struct AQ_states: uint8_t {

@@ -3,7 +3,6 @@
 #define BMS_LV
 
 #include <cstdint>
-#include "hal_can.hpp"
 #include "message_abstraction.hpp"
 
 enum struct BMS_LV_states: uint8_t {

@@ -3,7 +3,6 @@
 #define DASH
 
 #include <cstdint>
-#include "hal_can.hpp"
 #include "message_abstraction.hpp"
 
 enum struct Dash_states: uint8_t {
@@ -12,7 +11,7 @@ enum struct Dash_states: uint8_t {
 	Driverless,
 };
 
-struct __attribute__ ((packed)) Dash_Main{
+struct __attribute__ ((packed)) Dash_main{
 	Dash_states device_state; 
 };
 

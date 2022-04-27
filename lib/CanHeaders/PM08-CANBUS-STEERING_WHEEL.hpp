@@ -3,7 +3,6 @@
 #define STEERING_WHEEL
 
 #include <cstdint>
-#include "hal_can.hpp"
 #include "message_abstraction.hpp"
 
 
@@ -18,7 +17,7 @@ enum struct buttonStates: uint8_t {
 	button1_4,	//button1 + button4
 	button2_3,	//button2 + button3
 	button2_4,	//button2 + button4
-	button3_4,	//button3 + button4
+	button3_4	//button3 + button4
 };
 
 enum struct scrollStates: uint8_t {

@@ -3,7 +3,6 @@
 #define APPS
 
 #include <cstdint>
-#include "hal_can.hpp"
 #include "message_abstraction.hpp"
 
 enum struct Apps_states: uint8_t {
