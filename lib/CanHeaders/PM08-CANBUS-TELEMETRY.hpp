@@ -8,7 +8,7 @@
 enum struct Telemetry_states: uint8_t {
 	Power_up,
 	Gathering_Data,
-	Transmitting
+	Transmitting,
 };
 
 struct __attribute__ ((packed)) Telemetry_Main{

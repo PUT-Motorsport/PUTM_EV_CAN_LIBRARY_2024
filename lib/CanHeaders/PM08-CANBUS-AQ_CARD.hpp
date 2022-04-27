@@ -14,8 +14,8 @@ enum struct AQ_states: uint8_t {
 struct __attribute__ ((packed)) AQ_main{
 	uint16_t adc_susp_right; 
 	uint16_t adc_susp_left; // i brake balance
-	uint8_t break_pressure; // pressure of braking lquid front in %
-	uint8_t break_pressure; // pressure of braking lquid back in %
+	uint8_t break_pressure_front; // pressure of braking lquid front in %
+	uint8_t break_pressure_rear; // pressure of braking lquid back in %
 };
 
 struct __attribute__ ((packed)) AQ_air_flow{

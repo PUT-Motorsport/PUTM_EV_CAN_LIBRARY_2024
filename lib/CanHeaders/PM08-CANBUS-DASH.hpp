@@ -11,7 +11,7 @@ enum struct Dash_states: uint8_t {
 	Driverless,
 };
 
-struct __attribute__ ((packed)) Dash_main{
+struct __attribute__ ((packed)) Dash_Main{
 	Dash_states device_state; 
 };
 
@@ -23,7 +23,7 @@ struct __attribute__ ((packed)) Dash_TCS_frame{
 	uint8_t apps_curve; // "0 - Linear
 	uint8_t regen_power; // 0-100%
 	uint8_t sensivity; // 0-100% [100% - no wheel slip]
-	uint8_t CRC; 
+	uint8_t CRC_byte;
 };
 
 struct __attribute__ ((packed)) Dash_Smart_Fuses_FAN_speed{

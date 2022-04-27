@@ -55,14 +55,15 @@ class Device : public Device_base
 {
 public:
   explicit constexpr Device(uint32_t ide)
-      : Device_base(ide, sizeof(T)), data{0} {};
+      : Device_base(ide, sizeof(T)){};
 
-  T data;
+  T data{};
 
   void set_data(const Can_rx_message &m) override
   {
     std::memcpy(&data, m.data, sizeof(T));
   }
 };
+
 
 #endif
