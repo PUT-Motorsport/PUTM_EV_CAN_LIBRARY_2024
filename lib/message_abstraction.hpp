@@ -10,7 +10,7 @@ static const std::size_t max_dlc_size = 8;
 struct Can_rx_message
 {
   Can_rx_message(CAN_HandleTypeDef &hcan, uint32_t RxFifo)
-      : header{0}, data{0}
+      : header{}, data{0}
   {
     this->status =
         HAL_CAN_GetRxMessage(&hcan, RxFifo, &this->header, this->data);
@@ -35,9 +35,11 @@ struct Can_tx_message
 
   uint8_t buff[max_dlc_size];
   CAN_TxHeaderTypeDef header;
-  HAL_StatusTypeDef send(CAN_HandleTypeDef &hcan, uint32_t *pTxMailbox)
+
+  HAL_StatusTypeDef send(CAN_HandleTypeDef &hcan)
   {
-    return HAL_CAN_AddTxMessage(&hcan, &this->header, this->buff, pTxMailbox);
+	static constexpr uint32_t TxMailbox{0};
+    return HAL_CAN_AddTxMessage(&hcan, &this->header, this->buff, const_cast<uint32_t*>(&TxMailbox));
   }
 };
 

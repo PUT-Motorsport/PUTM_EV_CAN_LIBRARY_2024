@@ -1,3 +1,7 @@
+#ifndef CAN_INTERFACE_HPP
+#define CAN_INTERFACE_HPP
+
+
 #include <array>
 #include <cstdint>
 #include <stdio.h>
@@ -55,7 +59,7 @@ namespace new_can
   public:
     Can_interface() = default;
     
-    bool parse_message(Can_rx_message &m)
+    bool parse_message(const Can_rx_message &m)
     {
       for (auto &dev : device_array)
       {
@@ -92,3 +96,15 @@ namespace new_can
     const Telemetry_Main& get_telemetry_main() { return telemetry_main.data; }
   };
 } // namespace new_can
+
+new_can::Can_interface can_interface;
+
+void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan){
+	Can_rx_message rx{*hcan, 0};
+	if (rx.status == HAL_StatusTypeDef::HAL_OK){
+		can_interface.parse_message(rx);
+	}
+}
+
+
+#endif
