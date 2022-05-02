@@ -163,7 +163,7 @@ void OutputDocument::writeIDs()
         auto frameName = frame.frameName;
         auto upperCaseName = makeUppercase(frameName);
         file << std::hex;
-        file << "const uint16_t " << upperCaseName << "_CAN_ID = " << frame.id << ";" << std::endl;
+        file << "const uint16_t " << upperCaseName << "_CAN_ID = 0x" << frame.id << ";" << std::endl;
         file << std::dec;
         file << "const uint8_t " << upperCaseName << "_CAN_DLC = sizeof(" << frameName << ");" << std::endl;
         file << "const uint8_t " << upperCaseName << "_FREQUENCY = " << frame.frequency << ";" << std::endl;

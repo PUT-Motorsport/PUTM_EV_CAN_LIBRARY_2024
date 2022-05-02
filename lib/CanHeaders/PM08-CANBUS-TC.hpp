@@ -1,4 +1,4 @@
-//Generated on Fri Apr 22 12:03:24 2022
+//Generated on Sat Apr 30 12:45:23 2022
 #ifndef TS
 #define TS
 
@@ -38,10 +38,10 @@ struct __attribute__ ((packed)) TS_rear_suspension{
 };
 
 
-const uint16_t TS_MAIN_CAN_ID = 0;
+const uint16_t TS_MAIN_CAN_ID = 0x1e;
 const uint8_t TS_MAIN_CAN_DLC = sizeof(TS_main);
 const uint8_t TS_MAIN_FREQUENCY = 50;
-const uint16_t TS_REAR_SUSPENSION_CAN_ID = 0;
+const uint16_t TS_REAR_SUSPENSION_CAN_ID = 0x23;
 const uint8_t TS_REAR_SUSPENSION_CAN_DLC = sizeof(TS_rear_suspension);
 const uint8_t TS_REAR_SUSPENSION_FREQUENCY = 50;
 

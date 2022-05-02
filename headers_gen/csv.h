@@ -128,11 +128,11 @@ bool parseCsv(std::string fileName)
             //get frame id
             std::string str = splitLine.at(3);
 
-            if (str.find("0") not_eq std::string::npos) {   //if id number is present
-                str = str.substr(str.find("0"));
+            if (str.find("0x") not_eq std::string::npos) {   //if id number is present
+                str = str.substr(str.find("0x") + 2);
                 int id;
                 try {
-                    id = stoi(str);
+                    id = stoi(str, nullptr, 16);
                 }
                   catch (std::invalid_argument const &) {
                     id = 0;

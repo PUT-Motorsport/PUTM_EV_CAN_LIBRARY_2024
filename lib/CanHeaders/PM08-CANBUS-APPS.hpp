@@ -1,4 +1,4 @@
-//Generated on Fri Apr 22 12:03:26 2022
+//Generated on Sat Apr 30 12:45:20 2022
 #ifndef APPS
 #define APPS
 
@@ -23,7 +23,7 @@ struct __attribute__ ((packed)) Apps_main{
 };
 
 
-const uint16_t APPS_MAIN_CAN_ID = 0;
+const uint16_t APPS_MAIN_CAN_ID = 0x5;
 const uint8_t APPS_MAIN_CAN_DLC = sizeof(Apps_main);
 const uint8_t APPS_MAIN_FREQUENCY = 100;
 
