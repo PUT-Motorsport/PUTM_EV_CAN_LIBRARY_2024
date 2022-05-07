@@ -5,6 +5,7 @@
 #include <array>
 #include <cstdint>
 #include <stdio.h>
+#include <variant>
 
 #include "stm32l4xx_hal.h"
 #include "message_abstraction.hpp"
@@ -56,6 +57,7 @@ namespace new_can
                                           &sf_data_2, &sf_data_2, &sf_data_3, &sf_data_4, &sf_data_5, &steering_wheel_main,
                                           &steering_wheel_event, &ts_main, &ts_rear_suspension , &telemetry_main };
 
+
   public:
     Can_interface() = default;
     
@@ -72,28 +74,52 @@ namespace new_can
       return false;
     }
 
-    const Apps_main& get_apps_main() { return apps.data; }
-    const AQ_main& get_aq_main() { return aq_main.data; }
-    const AQ_air_flow& get_aq_air_flow() { return aq_air_flow.data; }
-    const BMS_HV_main& get_bms_hv_main() { return bms_hv_main.data; }
-    const BMS_LV_main& get_bms_lv_main() { return bms_lv_main.data; }
-    const BMS_LV_temperature& get_bms_lv_temperature() { return bms_lv_temperature.data; }
-    const Dash_Main& get_dash_main() { return dash_main.data; }
-    const Dash_TCS_frame & get_dash_TCS() { return dash_TCS.data; }
-    const Lap_timer_Main& get_laptimer_main() { return laptimer_main.data; };
-    const Lap_timer_StateChange& get_laptimer_statechange() { return laptimer_statechange.data; }
-    const SF_main& get_sf_main() { return sf_main.data; }
-    const SF_data_frame_0& get_sf_dataframe_0() { return sf_data_0.data; }
-    const SF_data_frame_1& get_sf_dataframe_1() { return sf_data_1.data; }
-    const SF_data_frame_2& get_sf_dataframe_2() { return sf_data_2.data; }
-    const SF_data_frame_3& get_sf_dataframe_3() { return sf_data_3.data; }
-    const SF_data_frame_4& get_sf_dataframe_4() { return sf_data_4.data; }
-    const SF_data_frame_5& get_sf_dataframe_5() { return sf_data_5.data; }
-    const Steering_Wheel_main& get_steering_wheel_main() { return steering_wheel_main.data; }
-    const Steering_Wheel_event& get_steering_wheel_event() { return steering_wheel_event.data; }
-    const TS_main& get_tc_main() { return ts_main.data; }
-    const TS_rear_suspension& get_tc_rear() { return ts_rear_suspension.data; }
-    const Telemetry_Main& get_telemetry_main() { return telemetry_main.data; }
+    Apps_main get_apps_main() { return apps.data; }
+    AQ_main get_aq_main() { return aq_main.data; }
+    AQ_air_flow get_aq_air_flow() { return aq_air_flow.data; }
+    BMS_HV_main get_bms_hv_main() { return bms_hv_main.data; }
+    BMS_LV_main get_bms_lv_main() { return bms_lv_main.data; }
+    BMS_LV_temperature get_bms_lv_temperature() { return bms_lv_temperature.data; }
+    Dash_Main get_dash_main() { return dash_main.data; }
+    Dash_TCS_frame get_dash_TCS() { return dash_TCS.data; }
+    Lap_timer_Main get_laptimer_main() { return laptimer_main.data; };
+    Lap_timer_StateChange get_laptimer_statechange() { return laptimer_statechange.data; }
+    SF_main get_sf_main() { return sf_main.data; }
+    SF_data_frame_0 get_sf_dataframe_0() { return sf_data_0.data; }
+    SF_data_frame_1 get_sf_dataframe_1() { return sf_data_1.data; }
+    SF_data_frame_2 get_sf_dataframe_2() { return sf_data_2.data; }
+    SF_data_frame_3 get_sf_dataframe_3() { return sf_data_3.data; }
+    SF_data_frame_4 get_sf_dataframe_4() { return sf_data_4.data; }
+    SF_data_frame_5 get_sf_dataframe_5() { return sf_data_5.data; }
+    Steering_Wheel_main get_steering_wheel_main() { return steering_wheel_main.data; }
+    Steering_Wheel_event get_steering_wheel_event() { return steering_wheel_event.data; }
+    TS_main get_tc_main() { return ts_main.data; }
+    TS_rear_suspension get_tc_rear() { return ts_rear_suspension.data; }
+    Telemetry_Main get_telemetry_main() { return telemetry_main.data; }
+
+    [[nodiscard]] bool get_apps_new_data(){ return apps.get_new_data(); }
+    [[nodiscard]] bool get_aq_new_data(){ return aq_main.get_new_data(); }
+    [[nodiscard]] bool get_aq_air_flow_new_data(){ return aq_air_flow.get_new_data(); }
+    [[nodiscard]] bool get_bms_hv_new_data(){ return bms_hv_main.get_new_data(); }
+    [[nodiscard]] bool get_bms_lv_new_data(){ return bms_lv_main.get_new_data(); }
+    [[nodiscard]] bool get_bms_lv_temperature_new_data(){ return bms_lv_temperature.get_new_data(); }    
+    [[nodiscard]] bool get_dash_new_data(){ return dash_main.get_new_data(); }
+    [[nodiscard]] bool get_dash_TCS_new_data(){ return dash_TCS.get_new_data(); }
+    [[nodiscard]] bool get_laptimer_new_data(){ return laptimer_main.get_new_data(); }
+    [[nodiscard]] bool get_laptimer_statechange_new_data(){ return laptimer_statechange.get_new_data(); }
+    [[nodiscard]] bool get_sf_new_data(){ return sf_main.get_new_data(); }
+    [[nodiscard]] bool get_sf_dataframe_0_new_data(){ return sf_data_0.get_new_data(); }
+    [[nodiscard]] bool get_sf_dataframe_1_new_data(){ return sf_data_1.get_new_data(); }
+    [[nodiscard]] bool get_sf_dataframe_2_new_data(){ return sf_data_2.get_new_data(); }
+    [[nodiscard]] bool get_sf_dataframe_3_new_data(){ return sf_data_3.get_new_data(); }
+    [[nodiscard]] bool get_sf_dataframe_4_new_data(){ return sf_data_4.get_new_data(); }
+    [[nodiscard]] bool get_sf_dataframe_5_new_data(){ return sf_data_5.get_new_data(); }
+    [[nodiscard]] bool get_steering_wheel_new_data(){ return steering_wheel_main.get_new_data(); }
+    [[nodiscard]] bool get_steering_wheel_event_new_data(){ return steering_wheel_event.get_new_data(); }
+    [[nodiscard]] bool get_ts_new_data(){ return ts_main.get_new_data(); }
+    [[nodiscard]] bool get_ts_rear_suspension_new_data(){ return ts_rear_suspension.get_new_data(); }
+    [[nodiscard]] bool get_telemetry_new_data(){ return telemetry_main.get_new_data(); }
+
   };
 } // namespace new_can
 

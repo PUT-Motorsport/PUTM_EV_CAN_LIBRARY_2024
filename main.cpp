@@ -1,7 +1,7 @@
 #include <cstdint>
 #include <iostream>
 
-#include "can_interface.hpp"
+#include "lib/can_interface.hpp"
 
 using namespace new_can;
 

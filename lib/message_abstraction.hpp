@@ -48,8 +48,16 @@ class Device_base
 public:
   const uint32_t IDE;
   const uint32_t DLC;
+  bool new_data = false;
   constexpr Device_base(uint32_t ide, uint32_t dlc) : IDE{ide}, DLC{dlc} {}
   virtual void set_data(const Can_rx_message &m) = 0;
+
+  [[nodiscard]] bool get_new_data(){
+    auto temp = new_data;
+    new_data = false;
+    return temp;
+  }
+
 };
 
 template <typename T>
@@ -63,6 +71,7 @@ public:
 
   void set_data(const Can_rx_message &m) override
   {
+    new_data = true;
     std::memcpy(&data, m.data, sizeof(T));
   }
 };
