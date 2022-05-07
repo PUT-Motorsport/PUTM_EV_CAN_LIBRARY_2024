@@ -1,4 +1,4 @@
-//Generated on Fri Apr 22 12:03:22 2022
+//Generated on Sat Apr 30 12:45:20 2022
 #ifndef SF
 #define SF
 
@@ -28,88 +28,76 @@ struct __attribute__ ((packed)) SF_main{
 	SF_states device_state; // -----------------------------------------------------------------
 };
 
-struct __attribute__ ((packed)) SF_data_frame_0{
+struct __attribute__ ((packed)) SF_FrontBox{
 	FuseData fuse_0_inverter; // state + mA read
 	FuseData fuse_0_boxf_mb; // state + mA read
 	FuseData fuse_0_apps; // state + mA read
-	FuseData fuse_0_box_dv; // state + mA read
-};
-
-struct __attribute__ ((packed)) SF_data_frame_1{
 	FuseData fuse_0_tsal_logic; // state + mA read
-	FuseData fuse_0_tsal_hv; // state + mA read
-	FuseData fuse_1_ws_fl; // state + mA read
-	FuseData fuse_1_ws_rr; // state + mA read
 };
 
-struct __attribute__ ((packed)) SF_data_frame_2{
-	FuseData fuse_1_ws_rl; // state + mA read
+struct __attribute__ ((packed)) SF_CoolingAndVSafety{
 	FuseData fuse_1_fan_l; // state + mA read
 	FuseData fuse_1_fan_r; // state + mA read
+	FuseData fuse_3_pump; // state + mA read
+	FuseData fuse_2_v_safety; // state + mA read
+};
+
+struct __attribute__ ((packed)) SF_DV{
+	FuseData fuse_0_box_dv; // state + mA read
+	FuseData fuse_0_tsal_hv; // state + mA read
+	FuseData fuse_2_wheel; // state + mA read
 	FuseData fuse_1_dashboard; // state + mA read
 };
 
-struct __attribute__ ((packed)) SF_data_frame_3{
-	FuseData fuse_2_v_safety; // state + mA read
-	FuseData fuse_2_wheel; // state + mA read
+struct __attribute__ ((packed)) SF_WS{
+	FuseData fuse_1_ws_rl; // state + mA read
+	FuseData fuse_1_ws_fl; // state + mA read
+	FuseData fuse_1_ws_rr; // state + mA read
 	FuseData fuse_2_ws_fr; // state + mA read
+};
+
+struct __attribute__ ((packed)) SF_NUCS{
+	FuseData fuse_2_jetson; // state + mA read
 	FuseData fuse_2_intel_nuc; // state + mA read
 };
 
-struct __attribute__ ((packed)) SF_data_frame_4{
-	FuseData fuse_2_jetson; // state + mA read
-	FuseData fuse_3_spare_1; // state + mA read
-	FuseData fuse_3_spare_2; // state + mA read
-	FuseData fuse_3_spare_3; // state + mA read
-};
 
-struct __attribute__ ((packed)) SF_data_frame_5{
-	FuseData fuse_3_pump; // state + mA read
-};
-
-
-const uint16_t SF_MAIN_CAN_ID = 0;
+const uint16_t SF_MAIN_CAN_ID = 0x41;
 const uint8_t SF_MAIN_CAN_DLC = sizeof(SF_main);
 const uint8_t SF_MAIN_FREQUENCY = 100;
-const uint16_t SF_DATA_FRAME_0_CAN_ID = 0;
-const uint8_t SF_DATA_FRAME_0_CAN_DLC = sizeof(SF_data_frame_0);
-const uint8_t SF_DATA_FRAME_0_FREQUENCY = 10;
-const uint16_t SF_DATA_FRAME_1_CAN_ID = 0;
-const uint8_t SF_DATA_FRAME_1_CAN_DLC = sizeof(SF_data_frame_1);
-const uint8_t SF_DATA_FRAME_1_FREQUENCY = 10;
-const uint16_t SF_DATA_FRAME_2_CAN_ID = 0;
-const uint8_t SF_DATA_FRAME_2_CAN_DLC = sizeof(SF_data_frame_2);
-const uint8_t SF_DATA_FRAME_2_FREQUENCY = 10;
-const uint16_t SF_DATA_FRAME_3_CAN_ID = 0;
-const uint8_t SF_DATA_FRAME_3_CAN_DLC = sizeof(SF_data_frame_3);
-const uint8_t SF_DATA_FRAME_3_FREQUENCY = 10;
-const uint16_t SF_DATA_FRAME_4_CAN_ID = 0;
-const uint8_t SF_DATA_FRAME_4_CAN_DLC = sizeof(SF_data_frame_4);
-const uint8_t SF_DATA_FRAME_4_FREQUENCY = 10;
-const uint16_t SF_DATA_FRAME_5_CAN_ID = 0;
-const uint8_t SF_DATA_FRAME_5_CAN_DLC = sizeof(SF_data_frame_5);
-const uint8_t SF_DATA_FRAME_5_FREQUENCY = 10;
+const uint16_t SF_FRONTBOX_CAN_ID = 0x46;
+const uint8_t SF_FRONTBOX_CAN_DLC = sizeof(SF_FrontBox);
+const uint8_t SF_FRONTBOX_FREQUENCY = 10;
+const uint16_t SF_COOLINGANDVSAFETY_CAN_ID = 0x4b;
+const uint8_t SF_COOLINGANDVSAFETY_CAN_DLC = sizeof(SF_CoolingAndVSafety);
+const uint8_t SF_COOLINGANDVSAFETY_FREQUENCY = 10;
+const uint16_t SF_DV_CAN_ID = 0x50;
+const uint8_t SF_DV_CAN_DLC = sizeof(SF_DV);
+const uint8_t SF_DV_FREQUENCY = 10;
+const uint16_t SF_WS_CAN_ID = 0x55;
+const uint8_t SF_WS_CAN_DLC = sizeof(SF_WS);
+const uint8_t SF_WS_FREQUENCY = 10;
+const uint16_t SF_NUCS_CAN_ID = 0x5a;
+const uint8_t SF_NUCS_CAN_DLC = sizeof(SF_NUCS);
+const uint8_t SF_NUCS_FREQUENCY = 10;
 
 const CAN_TxHeaderTypeDef can_tx_header_SF_MAIN{
 SF_MAIN_CAN_ID, 0xFFF, CAN_ID_STD, CAN_RTR_DATA, SF_MAIN_CAN_DLC, DISABLE};
 
-const CAN_TxHeaderTypeDef can_tx_header_SF_DATA_FRAME_0{
-SF_DATA_FRAME_0_CAN_ID, 0xFFF, CAN_ID_STD, CAN_RTR_DATA, SF_DATA_FRAME_0_CAN_DLC, DISABLE};
+const CAN_TxHeaderTypeDef can_tx_header_SF_FRONTBOX{
+SF_FRONTBOX_CAN_ID, 0xFFF, CAN_ID_STD, CAN_RTR_DATA, SF_FRONTBOX_CAN_DLC, DISABLE};
 
-const CAN_TxHeaderTypeDef can_tx_header_SF_DATA_FRAME_1{
-SF_DATA_FRAME_1_CAN_ID, 0xFFF, CAN_ID_STD, CAN_RTR_DATA, SF_DATA_FRAME_1_CAN_DLC, DISABLE};
+const CAN_TxHeaderTypeDef can_tx_header_SF_COOLINGANDVSAFETY{
+SF_COOLINGANDVSAFETY_CAN_ID, 0xFFF, CAN_ID_STD, CAN_RTR_DATA, SF_COOLINGANDVSAFETY_CAN_DLC, DISABLE};
 
-const CAN_TxHeaderTypeDef can_tx_header_SF_DATA_FRAME_2{
-SF_DATA_FRAME_2_CAN_ID, 0xFFF, CAN_ID_STD, CAN_RTR_DATA, SF_DATA_FRAME_2_CAN_DLC, DISABLE};
+const CAN_TxHeaderTypeDef can_tx_header_SF_DV{
+SF_DV_CAN_ID, 0xFFF, CAN_ID_STD, CAN_RTR_DATA, SF_DV_CAN_DLC, DISABLE};
 
-const CAN_TxHeaderTypeDef can_tx_header_SF_DATA_FRAME_3{
-SF_DATA_FRAME_3_CAN_ID, 0xFFF, CAN_ID_STD, CAN_RTR_DATA, SF_DATA_FRAME_3_CAN_DLC, DISABLE};
+const CAN_TxHeaderTypeDef can_tx_header_SF_WS{
+SF_WS_CAN_ID, 0xFFF, CAN_ID_STD, CAN_RTR_DATA, SF_WS_CAN_DLC, DISABLE};
 
-const CAN_TxHeaderTypeDef can_tx_header_SF_DATA_FRAME_4{
-SF_DATA_FRAME_4_CAN_ID, 0xFFF, CAN_ID_STD, CAN_RTR_DATA, SF_DATA_FRAME_4_CAN_DLC, DISABLE};
-
-const CAN_TxHeaderTypeDef can_tx_header_SF_DATA_FRAME_5{
-SF_DATA_FRAME_5_CAN_ID, 0xFFF, CAN_ID_STD, CAN_RTR_DATA, SF_DATA_FRAME_5_CAN_DLC, DISABLE};
+const CAN_TxHeaderTypeDef can_tx_header_SF_NUCS{
+SF_NUCS_CAN_ID, 0xFFF, CAN_ID_STD, CAN_RTR_DATA, SF_NUCS_CAN_DLC, DISABLE};
 
 #endif
 

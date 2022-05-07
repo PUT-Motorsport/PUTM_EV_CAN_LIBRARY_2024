@@ -48,8 +48,8 @@ class Device_base
 public:
   const uint32_t IDE;
   const uint32_t DLC;
-  bool new_data = false;
-  constexpr Device_base(uint32_t ide, uint32_t dlc) : IDE{ide}, DLC{dlc} {}
+  bool new_data;
+  constexpr Device_base(uint32_t ide, uint32_t dlc) : IDE{ide}, DLC{dlc}, new_data{false} {}
   virtual void set_data(const Can_rx_message &m) = 0;
 
   [[nodiscard]] bool get_new_data(){

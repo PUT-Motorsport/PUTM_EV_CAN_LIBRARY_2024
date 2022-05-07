@@ -1,4 +1,4 @@
-//Generated on Fri Apr 22 12:03:26 2022
+//Generated on Sat Apr 30 12:45:17 2022
 #ifndef STEERING_WHEEL
 #define STEERING_WHEEL
 
@@ -17,7 +17,7 @@ enum struct buttonStates: uint8_t {
 	button1_4,	//button1 + button4
 	button2_3,	//button2 + button3
 	button2_4,	//button2 + button4
-	button3_4	//button3 + button4
+	button3_4,	//button3 + button4
 };
 
 enum struct scrollStates: uint8_t {
@@ -46,10 +46,10 @@ struct __attribute__ ((packed)) Steering_Wheel_event{
 };
 
 
-const uint16_t STEERING_WHEEL_MAIN_CAN_ID = 0;
+const uint16_t STEERING_WHEEL_MAIN_CAN_ID = 0x28;
 const uint8_t STEERING_WHEEL_MAIN_CAN_DLC = sizeof(Steering_Wheel_main);
 const uint8_t STEERING_WHEEL_MAIN_FREQUENCY = 100;
-const uint16_t STEERING_WHEEL_EVENT_CAN_ID = 0;
+const uint16_t STEERING_WHEEL_EVENT_CAN_ID = 0x2d;
 const uint8_t STEERING_WHEEL_EVENT_CAN_DLC = sizeof(Steering_Wheel_event);
 const uint8_t STEERING_WHEEL_EVENT_FREQUENCY = 0;
 
