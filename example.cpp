@@ -2,6 +2,8 @@
 #include <iostream>
 
 #include "lib/can_interface.hpp"
+
+// for testing
 #include "hal_can.hpp"
 
 // global created by CubeMX
@@ -11,7 +13,8 @@ CAN_HandleTypeDef hcan1;
 // Create global can interface.
 PUTM_CAN::Can_interface can;
 
-void recive_example()
+
+void receive_example()
 {
   // All is handeled in HAL_CAN_RxFifo0MsgPendingCallback in can_interface.hpp
   [[maybe_unused]]auto apps = can.get_apps_main().pedal_position;

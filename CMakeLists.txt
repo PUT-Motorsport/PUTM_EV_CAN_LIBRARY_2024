@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.0.0)
 project(PUTM_EV_CAN_LIBRARY VERSION 0.1.0)
 
+find_package(Catch2 3 REQUIRED)
+
 include(CTest)
 enable_testing()
 
@@ -17,6 +19,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS)
 include_directories("./lib/")
 
 add_executable(PUTM_EV_CAN_LIBRARY main.cpp)
+target_link_libraries(PUTM_EV_CAN_LIBRARY PRIVATE Catch2::Catch2WithMain)
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})

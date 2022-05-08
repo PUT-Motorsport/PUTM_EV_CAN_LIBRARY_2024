@@ -32,16 +32,10 @@ struct Can_rx_message
 template <typename T>
 class Can_tx_message
 {
-  
-  CAN_TxHeaderTypeDef header;
-
-  #ifdef UNIT_TESTS
-    public:
-  #endif
-
-  uint8_t buff[max_dlc_size];
-  
 public:
+
+  CAN_TxHeaderTypeDef header;
+  uint8_t buff[max_dlc_size];
 
   constexpr Can_tx_message(const T &data, const CAN_TxHeaderTypeDef &message_header)
       : header{message_header}
