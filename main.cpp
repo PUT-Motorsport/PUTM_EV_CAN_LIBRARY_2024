@@ -8,6 +8,7 @@
 // global created by CubeMX
 CAN_HandleTypeDef hcan1;
 
+
 template <typename T>
 PUTM_CAN::Can_rx_message send_simulation(const PUTM_CAN::Can_tx_message<T> &tx) {
   PUTM_CAN::Can_rx_message rx(hcan1, 1);
