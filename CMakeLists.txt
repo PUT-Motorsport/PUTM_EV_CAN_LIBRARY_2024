@@ -18,6 +18,9 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS)
 
 include_directories("./lib/")
 
+add_compile_options(-fsanitize=address)
+add_link_options(-fsanitize=address)
+
 add_executable(PUTM_EV_CAN_LIBRARY main.cpp)
 target_link_libraries(PUTM_EV_CAN_LIBRARY PRIVATE Catch2::Catch2WithMain)
 
