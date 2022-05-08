@@ -1,9 +1,17 @@
 #ifndef MESSAGE_ABSTRACTION_H
 #define MESSAGE_ABSTRACTION_H
 
-#include "stm32l4xx_hal.h"
+#ifdef UNIT_TESTS
+  #include "../hal_can.hpp"
+#else
+  #include "stm32l4xx_hal.h"
+#endif
+
 #include <cstdint>
 #include <cstring>
+
+namespace PUTM_CAN
+{
 
 static const std::size_t max_dlc_size = 8;
 
@@ -22,59 +30,79 @@ struct Can_rx_message
 };
 
 template <typename T>
-struct Can_tx_message
+class Can_tx_message
 {
-  Can_tx_message(const T &data, const CAN_TxHeaderTypeDef &message_header)
+  
+  CAN_TxHeaderTypeDef header;
+
+  #ifdef UNIT_TESTS
+    public:
+  #endif
+
+  uint8_t buff[max_dlc_size];
+  
+public:
+
+  constexpr Can_tx_message(const T &data, const CAN_TxHeaderTypeDef &message_header)
       : header{message_header}
   {
     static_assert(std::is_trivially_constructible<T>(),
                   "Object must by C like struct");
     static_assert(std::is_class<T>(), "Object must by C like struct");
+    static_assert(std::is_standard_layout<T>(), "Object must by C like struct");
+    static_assert(std::is_trivially_copyable<T>(), "Object must by C like struct");
+    static_assert(sizeof(T) <= max_dlc_size, "Object size must be less than 8bytes");
     std::memcpy(this->buff, &data, sizeof(T));
   }
 
-  uint8_t buff[max_dlc_size];
-  CAN_TxHeaderTypeDef header;
-
   HAL_StatusTypeDef send(CAN_HandleTypeDef &hcan)
   {
-	static constexpr uint32_t TxMailbox{0};
-    return HAL_CAN_AddTxMessage(&hcan, &this->header, this->buff, const_cast<uint32_t*>(&TxMailbox));
+	  static uint32_t TxMailbox(0);
+    return HAL_CAN_AddTxMessage(&hcan, &this->header, this->buff, &TxMailbox);
   }
 };
 
-class Device_base
+
+class __attribute__ ((packed)) Device_base
 {
+  const uint32_t IDE : 12; // using 11 bits identifier
+  const uint8_t DLC : 4;   // max size for data is 8 `bytes`
+
+protected:
+  bool new_data : 1;
+
 public:
-  const uint32_t IDE;
-  const uint32_t DLC;
-  bool new_data;
-  constexpr Device_base(uint32_t ide, uint32_t dlc) : IDE{ide}, DLC{dlc}, new_data{false} {}
+
+  constexpr Device_base(uint32_t ide, uint8_t dlc) : IDE{ide}, DLC{dlc}, new_data{false} {}
+  [[nodiscard]] constexpr uint32_t get_ID() { return IDE; }
+  [[nodiscard]] constexpr uint8_t get_DLC() { return DLC; }
   virtual void set_data(const Can_rx_message &m) = 0;
-
-  [[nodiscard]] bool get_new_data(){
-    auto temp = new_data;
+  
+  [[nodiscard]] constexpr bool get_new_data(){
+    bool temporary = new_data;
     new_data = false;
-    return temp;
+    return temporary;
   }
-
 };
 
-template <typename T>
-class Device : public Device_base
+
+
+template <typename Device_data_type>
+class __attribute__ ((packed)) Device : public Device_base
 {
 public:
   explicit constexpr Device(uint32_t ide)
-      : Device_base(ide, sizeof(T)){};
+      : Device_base(ide, sizeof(Device_data_type)){};
 
-  T data{};
+  Device_data_type data{};
 
   void set_data(const Can_rx_message &m) override
   {
     new_data = true;
-    std::memcpy(&data, m.data, sizeof(T));
+    std::memcpy(&data, m.data, sizeof(Device_data_type));
   }
 };
 
+}
 
 #endif
