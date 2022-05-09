@@ -39,6 +39,8 @@ class Can_interface {
   Device<Dash_TCS> dash_TCS{DASH_TCS_CAN_ID};
   Device<Dash_Smart_Fuses_FAN_speed> dash_fan_speed{
       DASH_SMART_FUSES_FAN_SPEED_CAN_ID};
+  Device<Dash_steering_wheel_request> dash_steering_request{DASH_STEERING_WHEEL_REQUEST_CAN_ID};
+  Device<Dash_lap_finished> dash_lap_finished{DASH_LAP_FINISHED_CAN_ID};
   Device<Lap_timer_Main> laptimer_main{LAP_TIMER_MAIN_CAN_ID};
   Device<Lap_timer_Pass> laptimer_pass{LAP_TIMER_PASS_CAN_ID};
   Device<SF_main> sf_main{SF_MAIN_CAN_ID};
@@ -55,7 +57,7 @@ class Can_interface {
   Device<TS_rear_suspension> ts_rear_suspension{TS_REAR_SUSPENSION_CAN_ID};
   Device<Telemetry_Main> telemetry_main{TELEMETRY_MAIN_CAN_ID};
 
-  std::array<Device_base *, 21> device_array = {&apps,
+  std::array<Device_base *, 23> device_array = {&apps,
                                                 &aq_main,
                                                 &bms_hv_main,
                                                 &bms_lv_main,
@@ -63,6 +65,8 @@ class Can_interface {
                                                 &dash_main,
                                                 &dash_TCS,
                                                 &dash_fan_speed,
+                                                &dash_steering_request,
+                                                &dash_lap_finished,
                                                 &laptimer_main,
                                                 &laptimer_pass,
                                                 &sf_main,
@@ -102,6 +106,12 @@ public:
   Dash_Smart_Fuses_FAN_speed get_dash_fan_speed() {
     return dash_fan_speed.data;
   }
+  Dash_steering_wheel_request get_dash_steering_wheel_request() {
+    return dash_steering_request.data;
+  }
+  Dash_lap_finished get_dash_lap_finished() {
+    return dash_lap_finished.data;
+  }
   Lap_timer_Main get_laptimer_main() { return laptimer_main.data; };
   Lap_timer_Pass get_laptimer_pass() { return laptimer_pass.data; }
   SF_main get_sf_main() { return sf_main.data; }
@@ -130,6 +140,12 @@ public:
   bool get_dash_main_new_data() { return dash_main.get_new_data(); }
   bool get_dash_TCS_new_data() { return dash_TCS.get_new_data(); }
   bool get_dash_fan_speed_new_data() { return dash_fan_speed.get_new_data(); }
+  bool get_dash_steering_wheel_request_new_data() {
+    return dash_steering_request.get_new_data();
+  }
+  bool get_dash_lap_finished_new_data() {
+    return dash_lap_finished.get_new_data();
+  }
   bool get_laptimer_main_new_data() { return laptimer_main.get_new_data(); }
   bool get_laptimer_pass_new_data() { return laptimer_pass.get_new_data(); }
   bool get_sf_main_new_data() { return sf_main.get_new_data(); }
