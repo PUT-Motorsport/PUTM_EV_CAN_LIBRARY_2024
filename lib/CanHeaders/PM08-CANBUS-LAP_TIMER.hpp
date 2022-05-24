@@ -3,7 +3,6 @@
 #define LAP_TIMER
 
 #include <cstdint>
-#include "message_abstraction.hpp"
 
 enum struct Lap_timer_states: uint8_t {
 	Power_up,

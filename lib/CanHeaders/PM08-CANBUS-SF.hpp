@@ -3,7 +3,6 @@
 #define SF
 
 #include <cstdint>
-#include "message_abstraction.hpp"
 
 typedef struct { 
 	uint16_t ok : 1; 

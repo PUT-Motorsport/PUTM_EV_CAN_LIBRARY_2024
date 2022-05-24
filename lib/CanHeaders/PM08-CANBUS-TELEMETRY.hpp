@@ -1,9 +1,8 @@
-//Generated on Sat Apr 30 12:45:19 2022
+//Generated on Tue May 24 17:28:32 2022
 #ifndef TELEMETRY
 #define TELEMETRY
 
 #include <cstdint>
-#include "message_abstraction.hpp"
 
 enum struct Telemetry_states: uint8_t {
 	Power_up,
@@ -12,6 +11,9 @@ enum struct Telemetry_states: uint8_t {
 };
 
 struct __attribute__ ((packed)) Telemetry_Main{
+	uint8_t  Hour; // Timestamp
+	uint8_t  Minutes; // Timestamp
+	uint8_t  Seconds; // Timestamp
 	Telemetry_states device_state; // 
 };
 

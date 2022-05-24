@@ -3,7 +3,6 @@
 #define APPS
 
 #include <cstdint>
-#include "message_abstraction.hpp"
 
 enum struct Apps_states: uint8_t {
 	Normal_operation,

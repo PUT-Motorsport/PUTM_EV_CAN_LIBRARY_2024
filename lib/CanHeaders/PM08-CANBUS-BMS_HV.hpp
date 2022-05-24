@@ -3,7 +3,6 @@
 #define BMS_HV
 
 #include <cstdint>
-#include "message_abstraction.hpp"
 
 enum struct BMS_HV_states: uint8_t {
 	AIR_opened,	// normal

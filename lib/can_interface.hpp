@@ -53,11 +53,15 @@ class Can_interface {
   Device<Steering_Wheel_main> steering_wheel_main{STEERING_WHEEL_MAIN_CAN_ID};
   Device<Steering_Wheel_event> steering_wheel_event{
       STEERING_WHEEL_EVENT_CAN_ID};
-  Device<TS_main> ts_main{TS_MAIN_CAN_ID};
-  Device<TS_rear_suspension> ts_rear_suspension{TS_REAR_SUSPENSION_CAN_ID};
+  Device<TC_main> tc_main{TC_MAIN_CAN_ID};
+  Device<TC_rear_suspension> tc_rear_suspension{TC_REAR_SUSPENSION_CAN_ID};
+  Device<TC_wheel_velocities> tc_wheel_velocities{TC_WHEEL_VELOCITIES_CAN_ID};
+  Device<TC_temperatures> tc_temperatures{TC_TEMPERATURES_CAN_ID}; 
+  Device<TC_imu_acc> tc_imu_acc{TC_IMU_ACC_CAN_ID};
+  Device<TC_imu_gyro> tc_imu_gyro{TC_IMU_GYRO_CAN_ID};
   Device<Telemetry_Main> telemetry_main{TELEMETRY_MAIN_CAN_ID};
 
-  std::array<Device_base *, 23> device_array = {&apps,
+  std::array<Device_base *, 27> device_array = {&apps,
                                                 &aq_main,
                                                 &bms_hv_main,
                                                 &bms_lv_main,
@@ -77,8 +81,12 @@ class Can_interface {
                                                 &sf_nucs,
                                                 &steering_wheel_main,
                                                 &steering_wheel_event,
-                                                &ts_main,
-                                                &ts_rear_suspension,
+                                                &tc_main,
+                                                &tc_rear_suspension,
+                                                &tc_wheel_velocities,
+                                                &tc_temperatures,
+                                                &tc_imu_acc,
+                                                &tc_imu_gyro,
                                                 &telemetry_main};
 
 public:
@@ -126,8 +134,12 @@ public:
   Steering_Wheel_event get_steering_wheel_event() {
     return steering_wheel_event.data;
   }
-  TS_main get_tc_main() { return ts_main.data; }
-  TS_rear_suspension get_tc_rear() { return ts_rear_suspension.data; }
+  TC_main get_tc_main() { return tc_main.data; }
+  TC_rear_suspension get_tc_rear() { return tc_rear_suspension.data; }
+  TC_temperatures get_tc_temperatures() { return tc_temperatures.data; }
+  TC_wheel_velocities get_tc_wheel_velocities() { return tc_wheel_velocities.data; }
+  TC_imu_acc get_tc_imu_acc() { return tc_imu_acc.data; }
+  TC_imu_gyro get_tc_imu_gyro() { return tc_imu_gyro.data; }
   Telemetry_Main get_telemetry_main() { return telemetry_main.data; }
 
   bool get_apps_main_new_data() { return apps.get_new_data(); }
@@ -160,10 +172,15 @@ public:
   bool get_steering_wheel_event_new_data() {
     return steering_wheel_event.get_new_data();
   }
-  bool get_ts_main_new_data() { return ts_main.get_new_data(); }
-  bool get_ts_rear_suspension_new_data() {
-    return ts_rear_suspension.get_new_data();
+  bool get_tc_main_new_data() { return tc_main.get_new_data(); }
+  bool get_tc_rear_suspension_new_data() {
+    return tc_rear_suspension.get_new_data();
   }
+  bool get_tc_temperatures_new_data() {return tc_temperatures.get_new_data(); }
+  bool get_tc_wheel_velocities_new_data() {return tc_wheel_velocities.get_new_data();}
+  bool get_tc_imu_gyro_new_data() {return tc_imu_gyro.get_new_data();}
+  bool get_tc_imu_acc_new_data() {return tc_imu_acc.get_new_data();}
+  
   bool get_telemetry_main_new_data() { return telemetry_main.get_new_data(); }
 };
 
@@ -171,7 +188,7 @@ Can_interface can;
 
 } // namespace PUTM_CAN
 
-void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan) {
+inline void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan) {
   PUTM_CAN::Can_rx_message rx{*hcan, 0};
   if (rx.status == HAL_StatusTypeDef::HAL_OK) {
     if (not PUTM_CAN::can.parse_message(rx)) {

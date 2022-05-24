@@ -53,8 +53,6 @@ TEST_CASE("Testing TS") {
   PUTM_CAN::Can_interface can;
 
   REQUIRE(can.get_tc_main().vehicle_speed == 0);
-  REQUIRE(can.get_tc_main().water_temp == 0);
-  REQUIRE(can.get_tc_main().water_pressure == 0);
   REQUIRE(can.get_tc_main().motor_current == 0);
   REQUIRE(can.get_tc_main().tractive_system_on == false);
   REQUIRE(can.get_tc_main().rtds_active == false);
@@ -65,10 +63,7 @@ TEST_CASE("Testing TS") {
   REQUIRE(can.get_tc_main().traction_control_intensivity == 0);
   REQUIRE(can.get_tc_main().device_state == TS_states::NORMAL_OPERATION);
 
-  const TS_main tc_test{.vehicle_speed = 15000,
-                        .water_temp = 24,
-                        .water_pressure = 60,
-                        .motor_current = 120,
+  const TC_main tc_test{.vehicle_speed = 15000,
                         .tractive_system_on = true,
                         .rtds_active = true,
                         .brake_light_active = true,
@@ -86,8 +81,6 @@ TEST_CASE("Testing TS") {
 
   auto tc = can.get_tc_main();
   REQUIRE(tc.vehicle_speed == tc_test.vehicle_speed);
-  REQUIRE(tc.water_temp == tc_test.water_temp);
-  REQUIRE(tc.water_pressure == tc_test.water_pressure);
   REQUIRE(tc.motor_current == tc_test.motor_current);
   REQUIRE(tc.tractive_system_on == tc_test.tractive_system_on);
   REQUIRE(tc.rtds_active == tc_test.rtds_active);

@@ -3,8 +3,6 @@
 #define STEERING_WHEEL
 
 #include <cstdint>
-#include "message_abstraction.hpp"
-
 
 enum struct buttonStates: uint8_t {
 	not_pressed,
