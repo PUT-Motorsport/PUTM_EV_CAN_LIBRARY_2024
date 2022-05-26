@@ -4,6 +4,8 @@
 
 #include <cstdint>
 
+namespace PUTM_CAN {
+
 enum struct AQ_states: uint8_t {
 	Power_up,
 	Normal_operation,
@@ -48,6 +50,8 @@ AQ_ACCELERATION_CAN_ID, 0xFFF, CAN_ID_STD, CAN_RTR_DATA, AQ_ACCELERATION_CAN_DLC
 
 const CAN_TxHeaderTypeDef can_tx_header_AQ_GYROSCOPE{
 AQ_GYROSCOPE_CAN_ID, 0xFFF, CAN_ID_STD, CAN_RTR_DATA, AQ_GYROSCOPE_CAN_DLC, DISABLE};
+
+} //namespace can
 
 #endif
 

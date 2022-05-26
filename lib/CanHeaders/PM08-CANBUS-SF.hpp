@@ -4,6 +4,8 @@
 
 #include <cstdint>
 
+namespace PUTM_CAN {
+
 typedef struct { 
 	uint16_t ok : 1; 
 	uint16_t overheat : 1; 
@@ -97,6 +99,8 @@ SF_WS_CAN_ID, 0xFFF, CAN_ID_STD, CAN_RTR_DATA, SF_WS_CAN_DLC, DISABLE};
 
 const CAN_TxHeaderTypeDef can_tx_header_SF_NUCS{
 SF_NUCS_CAN_ID, 0xFFF, CAN_ID_STD, CAN_RTR_DATA, SF_NUCS_CAN_DLC, DISABLE};
+
+} // namespace can
 
 #endif
 

@@ -11,7 +11,14 @@ The library constitutes of:
 
 All files are automatically included once the `can_interface.hpp` is included.
 
-**The classes related to sending and receiving frames are namespaced under `PUTM_CAN`. The structs that constitute the frames' payloads are *not* namespaced.**
+**All classes, structs, enumeration types and constants are namespaced.**
+
+# Inclusion requirements
+
+(1) Can interrupt RX0 and RX1 must be enabled
+(2) In properties->c/c++>build->includes add relative path to the library\
+(3) Do `git submodule add -b <branch> <url> <relative_path_4m_root>` to add the library as a submodule
+(4)
 
 # Sending frames
 

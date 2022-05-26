@@ -27,14 +27,14 @@ TEST_CASE("Testing apps") {
   REQUIRE(can.get_apps_main().pedal_position == 0);
   REQUIRE(can.get_apps_main().counter == 0);
   REQUIRE(can.get_apps_main().position_diff == 0);
-  REQUIRE(can.get_apps_main().device_state == Apps_states::Normal_operation);
+  REQUIRE(can.get_apps_main().device_state == PUTM_CAN::Apps_states::Normal_operation);
 
-  const Apps_main apps_test{.pedal_position = 1200,
+  const PUTM_CAN::Apps_main apps_test{.pedal_position = 1200,
                             .counter = 12,
                             .position_diff = 2,
-                            .device_state = Apps_states::Normal_operation};
+                            .device_state = PUTM_CAN::Apps_states::Normal_operation};
 
-  auto tx = PUTM_CAN::Can_tx_message(apps_test, can_tx_header_APPS_MAIN);
+  auto tx = PUTM_CAN::Can_tx_message(apps_test, PUTM_CAN::can_tx_header_APPS_MAIN);
   auto rx = send_simulation(tx);
   bool parsed = can.parse_message(rx);
 
@@ -61,9 +61,9 @@ TEST_CASE("Testing TS") {
   REQUIRE(can.get_tc_main().regen_enable == false);
   REQUIRE(can.get_tc_main().regen_active == false);
   REQUIRE(can.get_tc_main().traction_control_intensivity == 0);
-  REQUIRE(can.get_tc_main().device_state == TS_states::NORMAL_OPERATION);
+  REQUIRE(can.get_tc_main().device_state == PUTM_CAN::TS_states::NORMAL_OPERATION);
 
-  const TC_main tc_test{.vehicle_speed = 15000,
+  const PUTM_CAN::TC_main tc_test{.vehicle_speed = 15000,
                         .tractive_system_on = true,
                         .rtds_active = true,
                         .brake_light_active = true,
@@ -71,9 +71,9 @@ TEST_CASE("Testing TS") {
                         .regen_enable = true,
                         .regen_active = true,
                         .traction_control_intensivity = 7,
-                        .device_state = TS_states::APPS_TIMEOUT};
+                        .device_state = PUTM_CAN::TS_states::APPS_TIMEOUT};
 
-  auto tx = PUTM_CAN::Can_tx_message(tc_test, can_tx_header_TS_MAIN);
+  auto tx = PUTM_CAN::Can_tx_message(tc_test, PUTM_CAN::can_tx_header_TS_MAIN);
   auto rx = send_simulation(tx);
   bool parsed = can.parse_message(rx);
 

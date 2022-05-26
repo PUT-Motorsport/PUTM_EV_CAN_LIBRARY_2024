@@ -4,6 +4,8 @@
 
 #include <cstdint>
 
+namespace PUTM_CAN {
+
 enum struct Telemetry_states: uint8_t {
 	Power_up,
 	Gathering_Data,
@@ -24,6 +26,8 @@ const uint8_t TELEMETRY_MAIN_FREQUENCY = 1;
 
 const CAN_TxHeaderTypeDef can_tx_header_TELEMETRY_MAIN{
 TELEMETRY_MAIN_CAN_ID, 0xFFF, CAN_ID_STD, CAN_RTR_DATA, TELEMETRY_MAIN_CAN_DLC, DISABLE};
+
+} // namespace can
 
 #endif
 

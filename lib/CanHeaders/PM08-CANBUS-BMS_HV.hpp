@@ -4,6 +4,8 @@
 
 #include <cstdint>
 
+namespace PUTM_CAN {
+
 enum struct BMS_HV_states: uint8_t {
 	AIR_opened,	// normal
 	AIR_closed,	// normal
@@ -19,10 +21,11 @@ enum struct BMS_HV_states: uint8_t {
 
 struct __attribute__ ((packed)) BMS_HV_main{
 	int16_t voltage_sum; 
-	int8_t soc; // state of charge
-	int8_t temp_max; 
-	int8_t temp_avg; // in Celsius
-	int8_t current; 
+	int16_t current; 
+	uint8_t soc; // state of charge
+	uint8_t temp_max; 
+	uint8_t temp_avg; // in Celsius
+
 	BMS_HV_states device_state; // 
 };
 
@@ -33,6 +36,8 @@ const uint8_t BMS_HV_MAIN_FREQUENCY = 100;
 
 const CAN_TxHeaderTypeDef can_tx_header_BMS_HV_MAIN{
 BMS_HV_MAIN_CAN_ID, 0xFFF, CAN_ID_STD, CAN_RTR_DATA, BMS_HV_MAIN_CAN_DLC, DISABLE};
+
+} // namespace can
 
 #endif
 

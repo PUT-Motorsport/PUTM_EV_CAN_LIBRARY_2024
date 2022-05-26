@@ -4,6 +4,8 @@
 
 #include <cstdint>
 
+namespace PUTM_CAN {
+
 enum struct BMS_LV_states: uint8_t {
 	Normal,
 	Charging,	// warning
@@ -48,6 +50,8 @@ BMS_LV_MAIN_CAN_ID, 0xFFF, CAN_ID_STD, CAN_RTR_DATA, BMS_LV_MAIN_CAN_DLC, DISABL
 
 const CAN_TxHeaderTypeDef can_tx_header_BMS_LV_TEMPERATURE{
 BMS_LV_TEMPERATURE_CAN_ID, 0xFFF, CAN_ID_STD, CAN_RTR_DATA, BMS_LV_TEMPERATURE_CAN_DLC, DISABLE};
+
+}
 
 #endif
 

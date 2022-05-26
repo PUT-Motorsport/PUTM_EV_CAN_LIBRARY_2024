@@ -4,6 +4,8 @@
 
 #include <cstdint>
 
+namespace PUTM_CAN {
+
 enum struct TS_states: uint8_t {
 	NORMAL_OPERATION,
 	Power_up,
@@ -98,6 +100,8 @@ TC_IMU_GYRO_CAN_ID, 0xFFF, CAN_ID_STD, CAN_RTR_DATA, TC_IMU_GYRO_CAN_DLC, DISABL
 
 const CAN_TxHeaderTypeDef can_tx_header_TS_IMU_ACC{
 TC_IMU_ACC_CAN_ID, 0xFFF, CAN_ID_STD, CAN_RTR_DATA, TC_IMU_ACC_CAN_DLC, DISABLE};
+
+} //namespace can
 
 #endif
 

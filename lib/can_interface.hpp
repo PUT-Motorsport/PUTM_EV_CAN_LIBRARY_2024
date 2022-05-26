@@ -9,7 +9,7 @@
 #ifdef UNIT_TESTS
 #include "../hal_can.hpp"
 #else
-#include "stm32l4xx_hal.h"
+#include "main.h"
 #endif
 
 #include "message_abstraction.hpp"
@@ -25,6 +25,8 @@
 #include "CanHeaders/PM08-CANBUS-STEERING_WHEEL.hpp"
 #include "CanHeaders/PM08-CANBUS-TC.hpp"
 #include "CanHeaders/PM08-CANBUS-TELEMETRY.hpp"
+#include "CanHeaders/PM08-CANBUS-WHEELTEMP.hpp"
+#include "CanHeaders/PM08-CANBUS-YAWPROBE.hpp"
 
 namespace PUTM_CAN {
 
@@ -60,8 +62,11 @@ class Can_interface {
   Device<TC_imu_acc> tc_imu_acc{TC_IMU_ACC_CAN_ID};
   Device<TC_imu_gyro> tc_imu_gyro{TC_IMU_GYRO_CAN_ID};
   Device<Telemetry_Main> telemetry_main{TELEMETRY_MAIN_CAN_ID};
+  Device<WheelTemp_main> wheel_temp_main{WHEELTEMP_MAIN_CAN_ID};
+  Device<YawProbe_air_flow> yawprobe_air_flow{YAWPROBE_AIR_FLOW_CAN_ID};
 
-  std::array<Device_base *, 27> device_array = {&apps,
+
+  std::array<Device_base *, 29> device_array = {&apps,
                                                 &aq_main,
                                                 &bms_hv_main,
                                                 &bms_lv_main,
@@ -87,7 +92,9 @@ class Can_interface {
                                                 &tc_temperatures,
                                                 &tc_imu_acc,
                                                 &tc_imu_gyro,
-                                                &telemetry_main};
+                                                &telemetry_main,
+                                                &yawprobe_air_flow,
+                                                &wheel_temp_main};
 
 public:
   Can_interface() = default;
