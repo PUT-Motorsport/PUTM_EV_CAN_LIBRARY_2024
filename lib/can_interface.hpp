@@ -195,7 +195,7 @@ Can_interface can;
 
 } // namespace PUTM_CAN
 
-inline void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan) {
+void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan) {
   PUTM_CAN::Can_rx_message rx{*hcan, 0};
   if (rx.status == HAL_StatusTypeDef::HAL_OK) {
     if (not PUTM_CAN::can.parse_message(rx)) {
