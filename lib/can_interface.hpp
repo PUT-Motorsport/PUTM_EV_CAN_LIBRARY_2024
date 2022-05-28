@@ -34,6 +34,8 @@ class Can_interface {
 
   Device<Apps_main> apps{APPS_MAIN_CAN_ID};
   Device<AQ_main> aq_main{AQ_MAIN_CAN_ID};
+  Device<AQ_acceleration> aq_acceleration{AQ_ACCELERATION_CAN_ID};
+  Device<AQ_gyroscope> aq_gyroscope{AQ_GYROSCOPE_CAN_ID};
   Device<BMS_HV_main> bms_hv_main{BMS_HV_MAIN_CAN_ID};
   Device<BMS_LV_main> bms_lv_main{BMS_LV_MAIN_CAN_ID};
   Device<BMS_LV_temperature> bms_lv_temperature{BMS_LV_TEMPERATURE_CAN_ID};
@@ -66,8 +68,10 @@ class Can_interface {
   Device<YawProbe_air_flow> yawprobe_air_flow{YAWPROBE_AIR_FLOW_CAN_ID};
 
 
-  std::array<Device_base *, 29> device_array = {&apps,
+  std::array<Device_base *, 31> device_array = {&apps,
                                                 &aq_main,
+                                                &aq_gyroscope,
+                                                &aq_acceleration,
                                                 &bms_hv_main,
                                                 &bms_lv_main,
                                                 &bms_lv_temperature,
@@ -111,6 +115,8 @@ public:
 
   Apps_main get_apps_main() { return apps.data; }
   AQ_main get_aq_main() { return aq_main.data; }
+  AQ_acceleration get_aq_acceleration() { return aq_acceleration.data; }
+  AQ_gyroscope get_aq_gyroscope() { return aq_gyroscope.data; }
   BMS_HV_main get_bms_hv_main() { return bms_hv_main.data; }
   BMS_LV_main get_bms_lv_main() { return bms_lv_main.data; }
   BMS_LV_temperature get_bms_lv_temperature() {
@@ -151,6 +157,8 @@ public:
 
   bool get_apps_main_new_data() { return apps.get_new_data(); }
   bool get_aq_main_new_data() { return aq_main.get_new_data(); }
+  bool get_aq_acceleration_new_data() { return aq_acceleration.get_new_data();}
+  bool get_aq_gryoscope_new_data() { return aq_gyroscope.get_new_data(); }
   bool get_bms_hv_main_new_data() { return bms_hv_main.get_new_data(); }
   bool get_bms_lv_main_new_data() { return bms_lv_main.get_new_data(); }
   bool get_bms_lv_temperature_new_data() {
