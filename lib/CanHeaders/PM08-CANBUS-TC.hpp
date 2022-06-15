@@ -1,4 +1,4 @@
-//Generated on Tue May 24 22:00:08 2022
+//Generated on Wed Jun 15 10:27:28 2022
 #ifndef TS
 #define TS
 
@@ -36,10 +36,10 @@ struct __attribute__ ((packed)) TC_rear_suspension{
 };
 
 struct __attribute__ ((packed)) TC_wheel_velocities{
-	int16_t left_front; 
-	int16_t right_front; 
-	int16_t left_rear; 
-	int16_t right_rear; 
+	uint16_t left_front; 
+	uint16_t right_front; 
+	uint16_t left_rear; 
+	uint16_t right_rear; 
 };
 
 struct __attribute__ ((packed)) TC_temperatures{
