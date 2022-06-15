@@ -36,6 +36,7 @@ class Can_interface {
   Device<AQ_main> aq_main{AQ_MAIN_CAN_ID};
   Device<AQ_acceleration> aq_acceleration{AQ_ACCELERATION_CAN_ID};
   Device<AQ_gyroscope> aq_gyroscope{AQ_GYROSCOPE_CAN_ID};
+  Device<AQ_ts_button> aq_ts_button{AQ_TS_BUTTON_CAN_ID};
   Device<BMS_HV_main> bms_hv_main{BMS_HV_MAIN_CAN_ID};
   Device<BMS_LV_main> bms_lv_main{BMS_LV_MAIN_CAN_ID};
   Device<BMS_LV_temperature> bms_lv_temperature{BMS_LV_TEMPERATURE_CAN_ID};
@@ -47,6 +48,7 @@ class Can_interface {
   Device<Dash_lap_finished> dash_lap_finished{DASH_LAP_FINISHED_CAN_ID};
   Device<Lap_timer_Main> laptimer_main{LAP_TIMER_MAIN_CAN_ID};
   Device<Lap_timer_Pass> laptimer_pass{LAP_TIMER_PASS_CAN_ID};
+  Device<SF_safety> sf_safety{SF_SAFETY_CAN_ID};
   Device<SF_main> sf_main{SF_MAIN_CAN_ID};
   Device<SF_FrontBox> sf_frontbox{SF_FRONTBOX_CAN_ID};
   Device<SF_CoolingAndVSafety> sf_coolingandvsafety{
@@ -68,10 +70,11 @@ class Can_interface {
   Device<YawProbe_air_flow> yawprobe_air_flow{YAWPROBE_AIR_FLOW_CAN_ID};
 
 
-  std::array<Device_base *, 31> device_array = {&apps,
+  std::array<Device_base *, 33> device_array = {&apps,
                                                 &aq_main,
                                                 &aq_gyroscope,
                                                 &aq_acceleration,
+                                                &aq_ts_button,
                                                 &bms_hv_main,
                                                 &bms_lv_main,
                                                 &bms_lv_temperature,
@@ -82,6 +85,7 @@ class Can_interface {
                                                 &dash_lap_finished,
                                                 &laptimer_main,
                                                 &laptimer_pass,
+                                                &sf_safety,
                                                 &sf_main,
                                                 &sf_frontbox,
                                                 &sf_coolingandvsafety,
@@ -117,6 +121,7 @@ public:
   AQ_main get_aq_main() { return aq_main.data; }
   AQ_acceleration get_aq_acceleration() { return aq_acceleration.data; }
   AQ_gyroscope get_aq_gryoscope() { return aq_gyroscope.data; }
+  AQ_ts_button get_aq_ts_button() { return aq_ts_button.data; }
   BMS_HV_main get_bms_hv_main() { return bms_hv_main.data; }
   BMS_LV_main get_bms_lv_main() { return bms_lv_main.data; }
   BMS_LV_temperature get_bms_lv_temperature() {
@@ -133,8 +138,9 @@ public:
   Dash_lap_finished get_dash_lap_finished() {
     return dash_lap_finished.data;
   }
-  Lap_timer_Main get_laptimer_main() { return laptimer_main.data; };
+  Lap_timer_Main get_laptimer_main() { return laptimer_main.data; }
   Lap_timer_Pass get_laptimer_pass() { return laptimer_pass.data; }
+  SF_safety get_sf_safety() {return sf_safety.data;}
   SF_main get_sf_main() { return sf_main.data; }
   SF_FrontBox get_sf_frontbox() { return sf_frontbox.data; }
   SF_CoolingAndVSafety get_sf_cooling() { return sf_coolingandvsafety.data; }
@@ -159,6 +165,7 @@ public:
   bool get_aq_main_new_data() { return aq_main.get_new_data(); }
   bool get_aq_acceleration_new_data() { return aq_acceleration.get_new_data();}
   bool get_aq_gryoscope_new_data() { return aq_gyroscope.get_new_data(); }
+  bool get_aq_ts_button_new_data() { return aq_ts_button.get_new_data(); }
   bool get_bms_hv_main_new_data() { return bms_hv_main.get_new_data(); }
   bool get_bms_lv_main_new_data() { return bms_lv_main.get_new_data(); }
   bool get_bms_lv_temperature_new_data() {
@@ -176,6 +183,7 @@ public:
   bool get_laptimer_main_new_data() { return laptimer_main.get_new_data(); }
   bool get_laptimer_pass_new_data() { return laptimer_pass.get_new_data(); }
   bool get_sf_main_new_data() { return sf_main.get_new_data(); }
+  bool get_sf_safety_new_data() { return sf_safety.get_new_data(); }
   bool get_sf_frontbox_new_data() { return sf_frontbox.get_new_data(); }
   bool get_sf_cooling_new_data() { return sf_coolingandvsafety.get_new_data(); }
   bool get_sf_dv_new_data() { return sf_dv.get_new_data(); }
