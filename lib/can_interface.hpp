@@ -109,7 +109,7 @@ public:
 
   bool parse_message(const Can_rx_message &m) {
     for (auto &device : device_array) {
-      if (device->get_ID() == m.header.StdId) {
+      if (device->get_ID() == m.header.Identifier) {
         device->set_data(m);
         return true;
       }
@@ -211,12 +211,12 @@ Can_interface can;
 
 } // namespace PUTM_CAN
 
-void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan) {
-  PUTM_CAN::Can_rx_message rx{*hcan, 0};
+void HAL_CAN_RxFifo0MsgPendingCallback(FDCAN_HandleTypeDef *hcan) {
+  PUTM_CAN::Can_rx_message rx{*hcan};
   if (rx.status == HAL_StatusTypeDef::HAL_OK) {
     if (not PUTM_CAN::can.parse_message(rx)) {
       // Unknown message
-      Error_Handler();
+      //Error_Handler();
     }
   }
 }
