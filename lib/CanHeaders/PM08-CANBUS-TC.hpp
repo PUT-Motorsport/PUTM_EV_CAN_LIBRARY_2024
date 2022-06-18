@@ -83,23 +83,38 @@ const uint16_t TC_IMU_ACC_CAN_ID = 0x27;
 const uint8_t TC_IMU_ACC_CAN_DLC = sizeof(TC_imu_acc);
 const uint8_t TC_IMU_ACC_FREQUENCY = 50;
 
-const CAN_TxHeaderTypeDef can_tx_header_TS_MAIN{
-TC_MAIN_CAN_ID, 0xFFF, CAN_ID_STD, CAN_RTR_DATA, TC_MAIN_CAN_DLC, DISABLE};
+// const CAN_TxHeaderTypeDef can_tx_header_TS_MAIN{
+// TC_MAIN_CAN_ID, 0xFFF, CAN_ID_STD, CAN_RTR_DATA, TC_MAIN_CAN_DLC, DISABLE};
 
-const CAN_TxHeaderTypeDef can_tx_header_TS_REAR_SUSPENSION{
-TC_REAR_SUSPENSION_CAN_ID, 0xFFF, CAN_ID_STD, CAN_RTR_DATA, TC_REAR_SUSPENSION_CAN_DLC, DISABLE};
+constexpr static FDCAN_TxHeaderTypeDef can_tx_header_TS_MAIN = [] {
+		FDCAN_TxHeaderTypeDef temp_header{};
+		temp_header.Identifier = TC_MAIN_CAN_ID;
+		temp_header.IdType = FDCAN_STANDARD_ID;
+		temp_header.TxFrameType = FDCAN_DATA_FRAME;
+		temp_header.DataLength = FDCAN_DLC_BYTES_8;
+		temp_header.ErrorStateIndicator = FDCAN_ESI_PASSIVE;
+		temp_header.BitRateSwitch = FDCAN_BRS_OFF;
+		temp_header.FDFormat = FDCAN_CLASSIC_CAN;
+		temp_header.TxEventFifoControl = FDCAN_NO_TX_EVENTS;
+		temp_header.MessageMarker = 0;
+		return temp_header;
+}();
 
-const CAN_TxHeaderTypeDef can_tx_header_TS_WHEEL_VELOCITIES{
-TC_WHEEL_VELOCITIES_CAN_ID, 0xFFF, CAN_ID_STD, CAN_RTR_DATA, TC_WHEEL_VELOCITIES_CAN_DLC, DISABLE};
 
-const CAN_TxHeaderTypeDef can_tx_header_TS_TEMPERATURES{
-TC_TEMPERATURES_CAN_ID, 0xFFF, CAN_ID_STD, CAN_RTR_DATA, TC_TEMPERATURES_CAN_DLC, DISABLE};
+// const CAN_TxHeaderTypeDef can_tx_header_TS_REAR_SUSPENSION{
+// TC_REAR_SUSPENSION_CAN_ID, 0xFFF, CAN_ID_STD, CAN_RTR_DATA, TC_REAR_SUSPENSION_CAN_DLC, DISABLE};
 
-const CAN_TxHeaderTypeDef can_tx_header_TS_IMU_GYRO{
-TC_IMU_GYRO_CAN_ID, 0xFFF, CAN_ID_STD, CAN_RTR_DATA, TC_IMU_GYRO_CAN_DLC, DISABLE};
+// const CAN_TxHeaderTypeDef can_tx_header_TS_WHEEL_VELOCITIES{
+// TC_WHEEL_VELOCITIES_CAN_ID, 0xFFF, CAN_ID_STD, CAN_RTR_DATA, TC_WHEEL_VELOCITIES_CAN_DLC, DISABLE};
 
-const CAN_TxHeaderTypeDef can_tx_header_TS_IMU_ACC{
-TC_IMU_ACC_CAN_ID, 0xFFF, CAN_ID_STD, CAN_RTR_DATA, TC_IMU_ACC_CAN_DLC, DISABLE};
+// const CAN_TxHeaderTypeDef can_tx_header_TS_TEMPERATURES{
+// TC_TEMPERATURES_CAN_ID, 0xFFF, CAN_ID_STD, CAN_RTR_DATA, TC_TEMPERATURES_CAN_DLC, DISABLE};
+
+// const CAN_TxHeaderTypeDef can_tx_header_TS_IMU_GYRO{
+// TC_IMU_GYRO_CAN_ID, 0xFFF, CAN_ID_STD, CAN_RTR_DATA, TC_IMU_GYRO_CAN_DLC, DISABLE};
+
+// const CAN_TxHeaderTypeDef can_tx_header_TS_IMU_ACC{
+// TC_IMU_ACC_CAN_ID, 0xFFF, CAN_ID_STD, CAN_RTR_DATA, TC_IMU_ACC_CAN_DLC, DISABLE};
 
 } //namespace can
 
