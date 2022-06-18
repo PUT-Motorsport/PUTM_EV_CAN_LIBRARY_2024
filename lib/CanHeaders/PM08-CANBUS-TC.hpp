@@ -47,8 +47,8 @@ struct __attribute__ ((packed)) TC_temperatures{
 	uint8_t engine; 
 	uint8_t water_temp_in; // Water temperature at the radiator input [deg C]
 	uint8_t water_pressure_in; // Water pressure at the radiator input [kPa]
-	uint8_t water_temp_out; // Water temperature at the radiator input [deg C]
-	uint8_t water_pressure_out; // Water pressure at the radiator input [kPa]
+	uint8_t water_temp_out; // Water temperature at the radiator output [deg C]
+	uint8_t water_pressure_out; // Water pressure at the radiator output [kPa]
 };
 
 struct __attribute__ ((packed)) TC_imu_gyro{
