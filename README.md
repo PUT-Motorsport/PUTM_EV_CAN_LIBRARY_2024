@@ -67,3 +67,65 @@ If you'd like to verify that the frame accessed is new, you can call functions s
 - all frames are zero-initialised
 - a frame is not new until it has been received
 - once a frame has been accessed, it is not new
+
+# Adding the library as a submodule
+
+To add the library as a submodule, open the terminal in the repo folder and do:
+
+`git submodule add git@github.com:PUT-Motorsport/PUTM_EV_CAN_LIBRARY.git path/to/library`
+
+Git tries to copy the files directly to the `path/to/library` directory, so it's critical to end the path with a new folder name, preferably "PUTM_EV_CAN_LIBRARY".
+
+Example:
+```
+git submodule add git@github.com:PUT-Motorsport/PUTM_EV_CAN_LIBRARY.git Project/Core/Inc/PUTM_EV_CAN_LIBRARY
+```
+
+The PUTM_EV_CAN_LIBRARY *does not* need to exist at that point.
+
+# Cloning a project with submodules
+
+To clone a project with submodules, do:
+```
+git clone --recursive <link-to-repo>
+```
+
+If a project wasn't cloned recursively:
+```
+git submodule init
+git submodule update
+```
+will initialize and copy the submodule.
+
+## Detached library HEAD
+
+### How to check if the library has a detached HEAD:
+
+The HEAD should be set correctly by default.
+
+Open the terminal in the library folder and invoke `git status`:
+
+1) With the library HEAD correctly pointing to main, the result should be:
+
+```
+On branch main
+Your branch is up to date with 'origin/main'.
+
+nothing to commit, working tree clean
+```
+
+2) With the detached HEAD, the output is:
+   
+```
+HEAD detached at 1cce897
+nothing to commit, working tree clean
+```
+**In the detached HEAD mode, `git pull` won't work.**
+
+### Fixing the HEAD to point at the latest commit
+
+If the library has been added and it points to a specific commit, do:
+
+```git
+git checkout main
+```
