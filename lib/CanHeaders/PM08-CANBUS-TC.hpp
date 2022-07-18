@@ -2,6 +2,7 @@
 #ifndef TS
 #define TS
 
+#include "main.h"
 #include <cstdint>
 
 namespace PUTM_CAN {
