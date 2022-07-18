@@ -46,6 +46,7 @@ class Can_interface {
       DASH_SMART_FUSES_FAN_SPEED_CAN_ID};
   Device<Dash_steering_wheel_request> dash_steering_request{DASH_STEERING_WHEEL_REQUEST_CAN_ID};
   Device<Dash_lap_finished> dash_lap_finished{DASH_LAP_FINISHED_CAN_ID};
+  Device<Dash_steering_wheel_angle> dash_steering{DASH_STEERING_WHEEL_ANGLE_CAN_ID};
   Device<Lap_timer_Main> laptimer_main{LAP_TIMER_MAIN_CAN_ID};
   Device<Lap_timer_Pass> laptimer_pass{LAP_TIMER_PASS_CAN_ID};
   Device<SF_main> sf_main{SF_MAIN_CAN_ID};
@@ -67,7 +68,7 @@ class Can_interface {
   Device<YawProbe_air_flow> yawprobe_air_flow{YAWPROBE_AIR_FLOW_CAN_ID};
 
 
-  std::array<Device_base *, 31> device_array = {&apps,
+  std::array<Device_base *, 32> device_array = {&apps,
                                                 &aq_main,
                                                 &aq_gyroscope,
                                                 &aq_acceleration,
@@ -80,6 +81,7 @@ class Can_interface {
                                                 &dash_fan_speed,
                                                 &dash_steering_request,
                                                 &dash_lap_finished,
+                                                &dash_steering,
                                                 &laptimer_main,
                                                 &laptimer_pass,
                                                 &sf_main,
@@ -133,6 +135,9 @@ public:
   Dash_lap_finished get_dash_lap_finished() {
     return dash_lap_finished.data;
   }
+  Dash_steering_wheel_angle get_dash_steering_wheel_angle() {
+    return dash_steering.data;
+  }
   Lap_timer_Main get_laptimer_main() { return laptimer_main.data; }
   Lap_timer_Pass get_laptimer_pass() { return laptimer_pass.data; }
   SF_safety get_sf_safety() {return sf_safety.data;}
@@ -172,6 +177,9 @@ public:
   }
   bool get_dash_lap_finished_new_data() {
     return dash_lap_finished.get_new_data();
+  }
+  bool get_dash_steering_wheel_angle_new_data() {
+    return dash_steering.get_new_data();
   }
   bool get_laptimer_main_new_data() { return laptimer_main.get_new_data(); }
   bool get_laptimer_pass_new_data() { return laptimer_pass.get_new_data(); }
