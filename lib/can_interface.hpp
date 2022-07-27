@@ -49,6 +49,8 @@ class Can_interface {
   Device<Dash_steering_wheel_angle> dash_steering{DASH_STEERING_WHEEL_ANGLE_CAN_ID};
   Device<Lap_timer_Main> laptimer_main{LAP_TIMER_MAIN_CAN_ID};
   Device<Lap_timer_Pass> laptimer_pass{LAP_TIMER_PASS_CAN_ID};
+  Device<Lap_timer_Acc_time> laptimer_acc{LAP_TIMER_ACC_TIME_CAN_ID};
+  Device<Lap_timer_Lap_time> laptimer_time{LAP_TIMER_LAP_TIME_CAN_ID};
   Device<SF_main> sf_main{SF_MAIN_CAN_ID};
   Device<SF_LegendaryDVAndSupply> sf_dv{SF_LEGENDARYDVANDSUPPLY_CAN_ID};
   Device<SF_Supply> sf_supply{SF_SUPPLY_CAN_ID};
@@ -68,7 +70,7 @@ class Can_interface {
   Device<YawProbe_air_flow> yawprobe_air_flow{YAWPROBE_AIR_FLOW_CAN_ID};
 
 
-  std::array<Device_base *, 32> device_array = {&apps,
+  std::array<Device_base *, 34> device_array = {&apps,
                                                 &aq_main,
                                                 &aq_gyroscope,
                                                 &aq_acceleration,
@@ -84,6 +86,8 @@ class Can_interface {
                                                 &dash_steering,
                                                 &laptimer_main,
                                                 &laptimer_pass,
+                                                &laptimer_acc,
+                                                &laptimer_time,
                                                 &sf_main,
                                                 &sf_dv,
                                                 &sf_supply,
@@ -140,6 +144,8 @@ public:
   }
   Lap_timer_Main get_laptimer_main() { return laptimer_main.data; }
   Lap_timer_Pass get_laptimer_pass() { return laptimer_pass.data; }
+  Lap_timer_Acc_time get_laptimer_acc_time() { return laptimer_acc.data; }
+  Lap_timer_Lap_time get_laptimer_laptime() { return laptimer_time.data; }
   SF_safety get_sf_safety() {return sf_safety.data;}
   SF_main get_sf_main() { return sf_main.data; }
   SF_Supply get_sf_supply() { return sf_supply.data; }
@@ -183,6 +189,8 @@ public:
   }
   bool get_laptimer_main_new_data() { return laptimer_main.get_new_data(); }
   bool get_laptimer_pass_new_data() { return laptimer_pass.get_new_data(); }
+  bool get_laptimer_acc_new_data() { return laptimer_acc.get_new_data(); }
+  bool get_laptimer_laptime_new_data() { return laptimer_time.get_new_data(); }
   bool get_sf_main_new_data() { return sf_main.get_new_data(); }
   bool get_sf_safety_new_data() { return sf_safety.get_new_data(); }
   bool get_sf_passive_new_data() {return sf_passive.get_new_data(); }
