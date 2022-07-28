@@ -6,15 +6,8 @@
 
 namespace PUTM_CAN {
 
-enum struct WheelTemp_states: uint8_t {
-	Power_up,
-	Normal_operation,
-	Sensor_impossibility,
-};
-
 struct __attribute__ ((packed)) WheelTemp_main{
-	uint8_t wheelTemp; 
-	WheelTemp_states device_state; // 
+	uint8_t wheelTemp[8]; 
 };
 
 
