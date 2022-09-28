@@ -23,6 +23,7 @@
 #include "CanHeaders/PM08-CANBUS-LAP_TIMER.hpp"
 #include "CanHeaders/PM08-CANBUS-SF.hpp"
 #include "CanHeaders/PM08-CANBUS-STEERING_WHEEL.hpp"
+#include "CanHeaders/PM08-CANBUS-SW-SENSOR.hpp"
 #include "CanHeaders/PM08-CANBUS-TC.hpp"
 #include "CanHeaders/PM08-CANBUS-TELEMETRY.hpp"
 #include "CanHeaders/PM08-CANBUS-WHEELTEMP.hpp"
