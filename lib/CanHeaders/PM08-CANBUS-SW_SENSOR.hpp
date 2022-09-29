@@ -1,6 +1,6 @@
 //Generated on Wed Jun 15 10:27:29 2022
-#ifndef TELEMETRY
-#define TELEMETRY
+#ifndef SWSENSOR
+#define SWSENSOR
 
 #include <cstdint>
 

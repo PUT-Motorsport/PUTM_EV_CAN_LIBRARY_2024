@@ -20,10 +20,11 @@
 #include "CanHeaders/PM08-CANBUS-BMS_HV.hpp"
 #include "CanHeaders/PM08-CANBUS-BMS_LV.hpp"
 #include "CanHeaders/PM08-CANBUS-DASH.hpp"
+#include "CanHeaders/PM08-CANBUS-DV.hpp"
 #include "CanHeaders/PM08-CANBUS-LAP_TIMER.hpp"
 #include "CanHeaders/PM08-CANBUS-SF.hpp"
 #include "CanHeaders/PM08-CANBUS-STEERING_WHEEL.hpp"
-#include "CanHeaders/PM08-CANBUS-SW-SENSOR.hpp"
+#include "CanHeaders/PM08-CANBUS-SW_SENSOR.hpp"
 #include "CanHeaders/PM08-CANBUS-TC.hpp"
 #include "CanHeaders/PM08-CANBUS-TELEMETRY.hpp"
 #include "CanHeaders/PM08-CANBUS-WHEELTEMP.hpp"
@@ -48,6 +49,7 @@ class Can_interface {
   Device<Dash_steering_wheel_request> dash_steering_request{DASH_STEERING_WHEEL_REQUEST_CAN_ID};
   Device<Dash_lap_finished> dash_lap_finished{DASH_LAP_FINISHED_CAN_ID};
   Device<Dash_steering_wheel_angle> dash_steering{DASH_STEERING_WHEEL_ANGLE_CAN_ID};
+  Device<DV_Ass> dv_ass{DV_ASS_CAN_ID};
   Device<Lap_timer_Main> laptimer_main{LAP_TIMER_MAIN_CAN_ID};
   Device<Lap_timer_Pass> laptimer_pass{LAP_TIMER_PASS_CAN_ID};
   Device<Lap_timer_Acc_time> laptimer_acc{LAP_TIMER_ACC_TIME_CAN_ID};
@@ -60,6 +62,7 @@ class Can_interface {
   Device<Steering_Wheel_main> steering_wheel_main{STEERING_WHEEL_MAIN_CAN_ID};
   Device<Steering_Wheel_event> steering_wheel_event{
       STEERING_WHEEL_EVENT_CAN_ID};
+  Device<SWPS_main> swps_main{SWPS_MAIN_CAN_ID};
   Device<TC_main> tc_main{TC_MAIN_CAN_ID};
   Device<TC_rear_suspension> tc_rear_suspension{TC_REAR_SUSPENSION_CAN_ID};
   Device<TC_wheel_velocities> tc_wheel_velocities{TC_WHEEL_VELOCITIES_CAN_ID};
@@ -71,7 +74,7 @@ class Can_interface {
   Device<YawProbe_air_flow> yawprobe_air_flow{YAWPROBE_AIR_FLOW_CAN_ID};
 
 
-  std::array<Device_base *, 34> device_array = {&apps,
+  std::array<Device_base *, 36> device_array = {&apps,
                                                 &aq_main,
                                                 &aq_gyroscope,
                                                 &aq_acceleration,
@@ -104,7 +107,9 @@ class Can_interface {
                                                 &tc_imu_gyro,
                                                 &telemetry_main,
                                                 &yawprobe_air_flow,
-                                                &wheel_temp_main};
+                                                &wheel_temp_main,
+                                                &swps_main,
+                                                &dv_ass};
 
 public:
   Can_interface() = default;
@@ -143,6 +148,7 @@ public:
   Dash_steering_wheel_angle get_dash_steering_wheel_angle() {
     return dash_steering.data;
   }
+  DV_Ass get_dv_ass() { return dv_ass.data; }
   Lap_timer_Main get_laptimer_main() { return laptimer_main.data; }
   Lap_timer_Pass get_laptimer_pass() { return laptimer_pass.data; }
   Lap_timer_Acc_time get_laptimer_acc_time() { return laptimer_acc.data; }
@@ -158,6 +164,7 @@ public:
   Steering_Wheel_event get_steering_wheel_event() {
     return steering_wheel_event.data;
   }
+  SWPS_main get_swps_main() { return swps_main.data; }
   TC_main get_tc_main() { return tc_main.data; }
   TC_rear_suspension get_tc_rear() { return tc_rear_suspension.data; }
   TC_temperatures get_tc_temperatures() { return tc_temperatures.data; }
@@ -188,6 +195,7 @@ public:
   bool get_dash_steering_wheel_angle_new_data() {
     return dash_steering.get_new_data();
   }
+  bool get_dv_ass_new_data() { return dv_ass.get_new_data(); }
   bool get_laptimer_main_new_data() { return laptimer_main.get_new_data(); }
   bool get_laptimer_pass_new_data() { return laptimer_pass.get_new_data(); }
   bool get_laptimer_acc_new_data() { return laptimer_acc.get_new_data(); }
@@ -203,6 +211,7 @@ public:
   bool get_steering_wheel_event_new_data() {
     return steering_wheel_event.get_new_data();
   }
+  bool get_swps_main_new_data() { return swps_main.get_new_data(); }
   bool get_tc_main_new_data() { return tc_main.get_new_data(); }
   bool get_tc_rear_suspension_new_data() {
     return tc_rear_suspension.get_new_data();
