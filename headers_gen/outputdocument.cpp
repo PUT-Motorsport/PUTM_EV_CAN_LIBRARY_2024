@@ -8,7 +8,11 @@ OutputDocument::OutputDocument(const std::string &genFileName, bool performCheck
     fileName.erase(fileName.find('.'));
     fileName.erase(0, fileName.find('/') + 1);
 
-    file.open("files/" + fileName + ".hpp");
+    file.open(fileName + ".hpp");
+
+    if (not file.is_open()) {
+        std::terminate();
+    }
 }
 
 bool OutputDocument::write()

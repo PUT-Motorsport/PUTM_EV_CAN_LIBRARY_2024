@@ -14,11 +14,12 @@ std::vector<std::string> findAllCsv(std::string const &path = "files")
 {
 
     std::vector<std::string> csvFiles;
-    for (const auto &file: std::filesystem::directory_iterator(path))
+    std::filesystem::path file_path{path};
+    for (const auto &file: std::filesystem::directory_iterator(file_path))
     {
-        std::string path = file.path();
+        std::string path = file.path().string();
         if (path.find(".csv") not_eq std::string::npos){
-            csvFiles.emplace_back(file.path());
+            csvFiles.emplace_back(file.path().string());
         }
     }
     return csvFiles;
@@ -59,8 +60,8 @@ bool parseCsv(std::string fileName)
     std::cout << "Perform additional name check? [Y/n]";
     bool check{false};
 
-    if (std::cin.get() not_eq 'n')
-        check = true;
+//    if (std::cin.get() not_eq 'n')
+//        check = true;
 
     OutputDocument * doc = new OutputDocument(fileName, check);
 
