@@ -94,3 +94,5 @@ compile_commands.json
 .cache/
 build/
 
+headers_gen_python/files
+headers_gen
