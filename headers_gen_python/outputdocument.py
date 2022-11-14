@@ -27,8 +27,8 @@ class OutputDocument:
         if self.__performIllegalCharsCheck :
             for ch in range(len(strCopy)) :
                 if (strCopy[ch] == ' ' or strCopy[ch] == '-') :
-                    strCopy[ch] = '_';
-        return strCopy;
+                    strCopy =  strCopy[0:ch] + '_' + strCopy[ch+1::]
+        return strCopy
     def setDeviceName(self,devName):
         self.__deviceName = self.removeIllegalChars(devName)
 
