@@ -14,14 +14,14 @@ def splitCsvLine(src):
     separator = ','
     position = src.find(separator)
     while position != -1:
-        temp = src.substr(0, position)
-        if temp.empty():
-            src.erase(0, 1)
+        temp = src[0:int(position)]
+        if len(temp) == 0:
+            src = src[1::]
             position = src.find(separator)
             continue
         else:
             result.append(temp)
-        src.erase(0, position + 1)
+        src = src[position+1::]
         position = src.find(separator)
     result.append(src)
 
@@ -41,3 +41,10 @@ def parseCsv(fileName):
         line = file.readline()
         if not line:
             break
+        splitLine, line = splitCsvLine(line)
+        if len(splitLine)== 0:
+            continue
+        if splitLine[0] == "Device:":
+            line = file.readline()
+            splitLine, line = splitCsvLine(line);
+            oDoc.setDeviceName(splitLine[0]);
