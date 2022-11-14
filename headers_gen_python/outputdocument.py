@@ -1,5 +1,4 @@
 
-
 class CanFrame:
     frameName = None
     dataType = []
@@ -16,20 +15,27 @@ class OutputDocument:
     __performIllegalCharsCheck = None
     __fileName = None
     __deviceName = None
-    def __init__(self,genFileName,performCheck):
+    __deviceStateComments = []
+    __deviceStates = []
+    def __init__(self ,genFileName ,performCheck):
         self.__performIllegalCharsCheck = performCheck
         self.__fileName = genFileName
-        self.__fileName = self.__fileName.replace('.csv','.hpp')
+        self.__fileName = self.__fileName.replace('.csv' ,'.hpp')
         __file = open(self.__fileName, 'w')
 
-    def removeIllegalChars(self,target):
+    def removeIllegalChars(self ,target):
         strCopy =target
-        if self.__performIllegalCharsCheck :
-            for ch in range(len(strCopy)) :
-                if (strCopy[ch] == ' ' or strCopy[ch] == '-') :
-                    strCopy =  strCopy[0:ch] + '_' + strCopy[ch+1::]
+        if self.__performIllegalCharsCheck:
+            for ch in range(len(strCopy)):
+                if strCopy[ch] == ' ' or strCopy[ch] == '-':
+                    strCopy = strCopy[0:ch] + '_' + strCopy[ch + 1::]
         return strCopy
-    def setDeviceName(self,devName):
+
+    def setDeviceName(self, devName):
         self.__deviceName = self.removeIllegalChars(devName)
 
+    def addDeviceState(self, newDeviceState):
+        self.__deviceStates.append(newDeviceState)
 
+    def addDeviceStateComment(self,devStateComment):
+        self.__deviceStateComments.append(devStateComment)

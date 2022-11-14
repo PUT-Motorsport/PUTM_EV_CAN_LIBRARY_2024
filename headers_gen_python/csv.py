@@ -1,5 +1,8 @@
 import glob, os
+
 od = __import__("outputdocument")
+
+
 def findAllCsv():
     os.chdir("files")
     csvs = []
@@ -21,13 +24,15 @@ def splitCsvLine(src):
             continue
         else:
             result.append(temp)
-        src = src[position+1::]
+        src = src[position + 1::]
         position = src.find(separator)
     result.append(src)
 
     return result, src
+
+
 def parseCsv(fileName):
-    fileName = "files/" +fileName
+    fileName = "files/" + fileName
     file = open(fileName)
     splitLine = []
     line = []
@@ -35,16 +40,24 @@ def parseCsv(fileName):
     check = 0
     if input() != 'n':
         check = 1
-    oDoc = od.OutputDocument(fileName,check)
+    oDoc = od.OutputDocument(fileName, check)
 
     while True:
         line = file.readline()
         if not line:
             break
         splitLine, line = splitCsvLine(line)
-        if len(splitLine)== 0:
+        if len(splitLine) == 0:
             continue
         if splitLine[0] == "Device:":
             line = file.readline()
-            splitLine, line = splitCsvLine(line);
-            oDoc.setDeviceName(splitLine[0]);
+            splitLine, line = splitCsvLine(line)
+            oDoc.setDeviceName(splitLine[0])
+        elif splitLine[0] == "Device states:":
+            line = file.readline()
+            splitLine, line = splitCsvLine(line)
+            while splitLine[0] != "" and splitLine[0] != "\r":
+                oDoc.addDeviceState(splitLine[0])
+                oDoc.addDeviceStateComment(splitLine[1])
+                line = file.readline()
+                splitLine, line = splitCsvLine(line)
