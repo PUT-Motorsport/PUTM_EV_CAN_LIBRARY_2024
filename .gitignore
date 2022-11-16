@@ -96,3 +96,6 @@ build/
 
 headers_gen_python/files
 headers_gen
+headers_gen_python/__pycache__
+headers_gen_python/.idea
+headers_gen_python/files/.
