@@ -1,4 +1,4 @@
-
+from enum import Enum
 class CanFrame:
     frameName = None
     dataType = []
@@ -6,7 +6,10 @@ class CanFrame:
     comments = []
     frequency = None
     id = None
-
+class CustomEnum:
+    name =None
+    states = []
+    comments = []
 class CustomEnum:
     name = None
     states = []
@@ -18,6 +21,7 @@ class OutputDocument:
     __deviceStateComments = []
     __deviceStates = []
     __verbatim = []
+    __customEnumVec = []
     def __init__(self ,genFileName ,performCheck):
         self.__performIllegalCharsCheck = performCheck
         self.__fileName = genFileName
@@ -43,3 +47,16 @@ class OutputDocument:
 
     def addVerbatim(self, text):
         self.__verbatim.append(text)
+
+    def addNewEnum(self,name):
+        newEnum = CustomEnum()
+        newEnum.name = name
+        self.__customEnumVec.append(newEnum)
+
+    def addEnumElement(self,name, comment):
+        if len(self.__customEnumVec) == 0:
+            raise Exception("Custom Enum vector is empty")
+
+        lastEnum = self.__customEnumVec.back()
+        lastEnum.states.append(name)
+        lastEnum.comments.append(comment)

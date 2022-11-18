@@ -68,4 +68,12 @@ def parseCsv(fileName):
                 oDoc.addVerbatim(splitLine[0])
                 line = file.readline()
                 splitLine, line = splitCsvLine(line)
+        elif splitLine[0] == "Enum" or splitLine[0] == "enum":
+            oDoc.addNewEnum(splitLine[1])
+            line = file.readline()
+            splitLine, line = splitCsvLine(line)
+            while splitLine[0] != "" and splitLine[0] != "\r":
+                oDoc.addEnumElement(splitLine[0],splitLine[1])
+                line = file.readline()
+                splitLine, line = splitCsvLine(line)
 
