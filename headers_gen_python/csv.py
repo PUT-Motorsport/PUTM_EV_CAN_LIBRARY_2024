@@ -61,3 +61,11 @@ def parseCsv(fileName):
                 oDoc.addDeviceStateComment(splitLine[1])
                 line = file.readline()
                 splitLine, line = splitCsvLine(line)
+        elif splitLine[0] == "Device states:":
+            line = file.readline()
+            splitLine, line = splitCsvLine(line)
+            while splitLine[0] != "" and splitLine[0] != "\r":
+                oDoc.addVerbatim(splitLine[0])
+                line = file.readline()
+                splitLine, line = splitCsvLine(line)
+

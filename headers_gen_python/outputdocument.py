@@ -17,6 +17,7 @@ class OutputDocument:
     __deviceName = None
     __deviceStateComments = []
     __deviceStates = []
+    __verbatim = []
     def __init__(self ,genFileName ,performCheck):
         self.__performIllegalCharsCheck = performCheck
         self.__fileName = genFileName
@@ -39,3 +40,6 @@ class OutputDocument:
 
     def addDeviceStateComment(self,devStateComment):
         self.__deviceStateComments.append(devStateComment)
+
+    def addVerbatim(self, text):
+        self.__verbatim.append(text)
