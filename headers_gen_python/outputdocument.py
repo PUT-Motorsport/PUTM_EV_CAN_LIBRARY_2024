@@ -1,4 +1,5 @@
 from enum import Enum
+import datetime
 class CanFrame:
     frameName = None
     dataType = []
@@ -23,6 +24,7 @@ class OutputDocument:
     __verbatim = []
     __customEnumVec = []
     __canFrames = []
+    __file = None
     def __init__(self ,genFileName ,performCheck):
         self.__performIllegalCharsCheck = performCheck
         self.__fileName = genFileName
@@ -77,3 +79,53 @@ class OutputDocument:
         self.__canFrames[len(self.__canFrames) - 1].dataTypes.append(dataType)
         self.__canFrames[len(self.__canFrames) - 1].dataNames.append(dataName)
         self.__canFrames[len(self.__canFrames) - 1].comments.append(comment)
+
+    def makeUppercase(self,target):
+        for  ch in target:
+            ch = ch.upper()
+        return target;
+    def writeHeaderGuards(self):
+        startTime = datetime.datetime.now()
+
+        uppercaseName = self.makeUppercase(self.__deviceName)
+
+        self.__file.write("//Generated on ")
+        self.__file.write(startTime)
+        self.__file.write("#ifndef ")
+        self.__file.write(uppercaseName)
+        self.__file.write("\n")
+        self.__file.write("#define ")
+        self.__file.write(uppercaseName)
+        self.__file.write("\n")
+        self.__file.write("\n")
+
+        self.__file.write("#include <cstdint>")
+        self.__file.write("\n")
+        self.__file.write("#include \"hal_can.hpp\"")
+        self.__file.write("\n")
+        self.__file.write("#include \"message_abstraction.hpp\"")
+        self.__file.write("\n")
+        self.__file.write("\n")
+
+    def write(self):
+        # if (not (file.is_open()))
+        #     return false;
+
+        self.writeHeaderGuards();
+
+        self.writeVerbatim();
+
+        writeEnums();
+
+        writeDeviceStates();
+        file << std::endl;
+        for (auto const & frame: canFrames)
+            writeCanFrames(frame);
+
+        writeIDs();
+
+        writeHalDefinitons();
+
+        file << "#endif" << std::endl << std::endl;
+
+        return true;

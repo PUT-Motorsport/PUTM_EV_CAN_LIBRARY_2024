@@ -111,3 +111,7 @@ def parseCsv(fileName):
                 line = file.readline()
                 splitLine, line = splitCsvLine(line)
 
+    oDoc.write()
+    delete doc
+
+    return True
