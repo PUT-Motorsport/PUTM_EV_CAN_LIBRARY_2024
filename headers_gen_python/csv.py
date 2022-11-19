@@ -1,4 +1,5 @@
 import glob, os
+import re
 
 od = __import__("outputdocument")
 
@@ -74,6 +75,39 @@ def parseCsv(fileName):
             splitLine, line = splitCsvLine(line)
             while splitLine[0] != "" and splitLine[0] != "\r":
                 oDoc.addEnumElement(splitLine[0],splitLine[1])
+                line = file.readline()
+                splitLine, line = splitCsvLine(line)
+        elif splitLine[0].find("frame") != -1 :
+            oDoc.newCanFrame(splitLine[1]);
+            if splitLine[0].find("Asynchronous") != -1 :
+                oDoc.setFrequency(0)
+            else :
+                freq = splitLine[2]
+                rgx = "\\d+"
+                match = re.search(rgx,freq)
+                if match :
+                    oDoc.setFrequency(int(match[0]))
+
+            str = splitLine[3]
+
+            if (str.find("0x") != -1) :
+                str = str[str.find("0x") + 2::]
+                id = None
+                try:
+                    id = int(str,  16)
+                except:
+                    print("invalid argument")
+                finally:
+                    id = 0
+
+                oDoc.addID(id)
+            else :
+                oDoc.addID(0)
+            line = file.readline()
+            line = file.readline()
+            splitLine, line = splitCsvLine(line)
+            while (splitLine[0] != "" and splitLine[0] != "\r") :
+                oDoc.addElementToCanFrame(splitLine.at(0), splitLine.at(1), splitLine.at(2));
                 line = file.readline()
                 splitLine, line = splitCsvLine(line)
 

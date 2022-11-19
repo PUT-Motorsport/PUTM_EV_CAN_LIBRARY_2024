@@ -22,6 +22,7 @@ class OutputDocument:
     __deviceStates = []
     __verbatim = []
     __customEnumVec = []
+    __canFrames = []
     def __init__(self ,genFileName ,performCheck):
         self.__performIllegalCharsCheck = performCheck
         self.__fileName = genFileName
@@ -60,3 +61,19 @@ class OutputDocument:
         lastEnum = self.__customEnumVec.back()
         lastEnum.states.append(name)
         lastEnum.comments.append(comment)
+
+    def newCanFrame(self,newFrameName):
+        newFrame =CanFrame()
+        newFrame.frameName = self.__deviceName + '_' + newFrameName
+
+        self.__canFrames.append(newFrame)
+    def setFrequency(self,freq):
+        self.__canFrames[len(self.__canFrames) - 1].frequency = freq
+
+    def addID(self,newId):
+        self.__canFrames[len(self.__canFrames) - 1].id = newId
+
+    def addElementToCanFrame(self,dataType,dataName,comment):
+        self.__canFrames[len(self.__canFrames) - 1].dataTypes.append(dataType)
+        self.__canFrames[len(self.__canFrames) - 1].dataNames.append(dataName)
+        self.__canFrames[len(self.__canFrames) - 1].comments.append(comment)
