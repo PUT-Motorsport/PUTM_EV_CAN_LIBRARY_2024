@@ -107,6 +107,36 @@ class OutputDocument:
         self.__file.write("\n")
         self.__file.write("\n")
 
+    def writeVerbatim(self):
+        if (len(self.__verbatim) == 0):
+            return
+        for  line in self.__verbatim:
+            self.__file.write(line)
+            self.__file.write("\n")
+            self.__file.write("\n")
+
+    def writeEnums(self):
+        if (len(self.__customEnumVec) == 0):
+            return
+
+        self.__file.write("\n")
+
+        for item in self.__customEnumVec:
+            self.__file.write("enum struct " + item.name + ": uint8_t {")
+            self.__file.write("\n")
+            for iter in len(item.states):
+                self.__file.write("\t")
+                self.__file.write(item.states.at(iter))
+                self.__file.write(',')
+                if (item.comments[iter] != "\r"):
+                    self.__file.write("\t//")
+                    self.__file.write(item.comments.at(iter))
+                self.__file.write("\t")
+            self.__file.write("};")
+            self.__file.write("\t")
+            self.__file.write("\t")
+
+        self.__file.write("\t")
     def write(self):
         # if (not (file.is_open()))
         #     return false;
@@ -115,7 +145,7 @@ class OutputDocument:
 
         self.writeVerbatim();
 
-        writeEnums();
+        self.__writeEnums();
 
         writeDeviceStates();
         file << std::endl;
