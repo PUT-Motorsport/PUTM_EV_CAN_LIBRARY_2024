@@ -116,6 +116,7 @@ class Can_interface {
 public:
   Can_interface() = default;
 
+#ifndef PUTM_USE_CAN_FD
   bool parse_message(const Can_rx_message &m) {
     for (auto &device : device_array) {
       if (device->get_ID() == m.header.StdId) {
@@ -125,6 +126,17 @@ public:
     }
     return false;
   }
+#else
+  bool parse_message(const Can_rx_message &m) {
+    for (auto &device : device_array) {
+      if (device->get_ID() == m.header.Identifier) {
+        device->set_data(m);
+        return true;
+      }
+    }
+    return false;
+  }
+#endif
 
   Apps_main get_apps_main() { return apps.data; }
   AQ_main get_aq_main() { return aq_main.data; }
@@ -232,6 +244,7 @@ Can_interface can;
 
 } // namespace PUTM_CAN
 
+#ifndef PUTM_USE_CAN_FD
 void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan) {
   PUTM_CAN::Can_rx_message rx{*hcan, 0};
   if (rx.status == HAL_StatusTypeDef::HAL_OK) {
@@ -241,5 +254,19 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan) {
     }
   }
 }
+
+#else
+
+void HAL_CAN_RxFifo0MsgPendingCallback(FDCAN_HandleTypeDef *hcan) {
+  PUTM_CAN::Can_rx_message rx{*hcan};
+  if (rx.status == HAL_StatusTypeDef::HAL_OK) {
+    if (not PUTM_CAN::can.parse_message(rx)) {
+      // Unknown message
+      //Error_Handler();
+    }
+  }
+}
+
+#endif
 
 #endif

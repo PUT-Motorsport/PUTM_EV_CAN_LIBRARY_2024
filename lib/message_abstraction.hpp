@@ -14,6 +14,8 @@ namespace PUTM_CAN {
 
 static const std::size_t max_dlc_size = 8;
 
+#ifndef PUTM_USE_CAN_FD
+
 struct Can_rx_message {
   Can_rx_message(CAN_HandleTypeDef &hcan, uint32_t RxFifo) : header{}, data{0} {
     this->status =
@@ -50,12 +52,52 @@ public:
   }
 };
 
+#else
+
+struct Can_rx_message {
+  Can_rx_message(FDCAN_HandleTypeDef &hcan) : header{}, data{0} {
+    this->status =
+        HAL_FDCAN_GetRxMessage(&hcan, FDCAN_RX_FIFO0, &this->header, this->data);
+  }
+
+  FDCAN_RxHeaderTypeDef header;
+  uint8_t data[max_dlc_size];
+  HAL_StatusTypeDef status;
+};
+
+template <typename T> class Can_tx_message {
+public:
+  FDCAN_TxHeaderTypeDef header;
+  uint8_t buff[max_dlc_size];
+
+  constexpr Can_tx_message(const T &data,
+                           const FDCAN_TxHeaderTypeDef &message_header)
+      : header{message_header} {
+    static_assert(std::is_trivially_constructible<T>(),
+                  "Object must by C like struct");
+    static_assert(std::is_class<T>(), "Object must by C like struct");
+    static_assert(std::is_standard_layout<T>(), "Object must by C like struct");
+    static_assert(std::is_trivially_copyable<T>(),
+                  "Object must by C like struct");
+    static_assert(sizeof(T) <= max_dlc_size,
+                  "Object size must be less than 8bytes");
+    std::memcpy(this->buff, &data, sizeof(T));
+  }
+
+  HAL_StatusTypeDef send(FDCAN_HandleTypeDef &hcan) {
+    static uint32_t TxMailbox(0);
+    return HAL_FDCAN_AddMessageToTxFifoQ(&hcan, &this->header, this->buff);
+  }
+};
+
+#endif
+
 class __attribute__((packed)) Device_base {
   const uint32_t IDE : 12; // using 11 bits identifier
   const uint8_t DLC : 4;   // max size for data is 8 `bytes`
 
 protected:
-  bool new_data : 1;
+  bool new_data;
 
 public:
   constexpr Device_base(uint32_t ide, uint8_t dlc)
