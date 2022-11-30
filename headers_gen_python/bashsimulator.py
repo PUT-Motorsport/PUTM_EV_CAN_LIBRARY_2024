@@ -28,11 +28,11 @@ def writeSim(documents):
             line = ""
             f_num = f_num+1
             if f.id < 10:
-                line ="frame" + str(f_num) + '="00' + str(f.id) + "#"
-            elif f.id < 100:
-                line ='frame' + str(f_num) + '="0' + str(f.id) + "#"
+                line ="frame" + str(f_num) + '="00' + str(hex(f.id)[2:]) + "#"
+            elif f.id < 256:
+                line ='frame' + str(f_num) + '="0' + str(hex(f.id)[2:]) + "#"
             else:
-                line ='frame' + str(f_num) + '="' + str(f.id) + "#"
+                line ='frame' + str(f_num) + '="' + str(hex(f.id)[2:]) + "#"
             for t in f.dataType:
                 line = line + "0"
                 if t.find("int") != -1:
