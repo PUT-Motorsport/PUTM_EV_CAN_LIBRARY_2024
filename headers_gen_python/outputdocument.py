@@ -70,7 +70,7 @@ class OutputDocument:
         if len(self.__customEnumVec) == 0:
             raise Exception("Custom Enum vector is empty")
 
-        lastEnum = self.__customEnumVec.back()
+        lastEnum = self.__customEnumVec[len(self.__customEnumVec)-1]
         lastEnum.states.append(name)
         lastEnum.comments.append(comment)
 

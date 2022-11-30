@@ -35,7 +35,7 @@ def writeSim(documents):
                 line ='frame' + str(f_num) + '="' + str(f.id) + "#"
             for t in f.dataType:
                 line = line + "0"
-                if t != "state":
+                if t.find("int") != -1:
                     for i in range((int(float(re.search(r'\d+', t).group())/8))-1):
                         line = line + "00"
                     line = line +'$(($RANDOM%10))'
