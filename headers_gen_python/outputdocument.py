@@ -38,7 +38,8 @@ class OutputDocument:
         self.__verbatim = []
         self.__customEnumVec = []
         self.__canFrames = []
-
+    def returnFrames(self):
+        return self.__canFrames
 
     def removeIllegalChars(self ,target):
         strCopy =target

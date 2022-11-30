@@ -100,8 +100,8 @@ def parseCsv(fileName):
                     id = int(str, 16)
                 except:
                     print("invalid argument")
-                finally:
                     id = 0
+
 
                 oDoc.addID(id)
             else:
@@ -119,4 +119,4 @@ def parseCsv(fileName):
 
     oDoc.write()
 
-    return True
+    return oDoc
