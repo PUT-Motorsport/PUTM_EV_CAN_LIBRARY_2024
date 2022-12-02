@@ -25,33 +25,34 @@ def writeSim(documents):
     for d in documents:
         frames= d.returnFrames()
         for f in frames:
-            line = ""
-            f_num = f_num+1
-            if f.id < 10:
-                line ="frame" + str(f_num) + '="00' + str(hex(f.id)[2:]) + "#"
-            elif f.id < 256:
-                line ='frame' + str(f_num) + '="0' + str(hex(f.id)[2:]) + "#"
-            else:
-                line ='frame' + str(f_num) + '="' + str(hex(f.id)[2:]) + "#"
-            for t in f.dataType:
-                line = line + "0"
-                if t.find("int") != -1:
-                    for i in range((int(float(re.search(r'\d+', t).group())/8))-1):
-                        line = line + "00"
-                    line = line +'$(($RANDOM%10))'
+            if f.id !=0:
+                line = ""
+                f_num = f_num+1
+                if f.id < 10:
+                    line ="frame" + str(f_num) + '="00' + str(hex(f.id)[2:]) + "#"
+                elif f.id < 256:
+                    line ='frame' + str(f_num) + '="0' + str(hex(f.id)[2:]) + "#"
                 else:
-                    line = line+ '1'
-            line = line + '"'
-            file.write(line)
-            file.write("\n\t")
-            file.write("echo ${frame")
-            file.write(str(f_num))
-            file.write("}")
-            file.write("\n\t")
-            file.write("cansend slcan0 ${frame")
-            file.write(str(f_num))
-            file.write("}")
-            file.write("\n\t")
-            file.write("\n\t")
+                    line ='frame' + str(f_num) + '="' + str(hex(f.id)[2:]) + "#"
+                for t in f.dataType:
+                    line = line + "0"
+                    if t.find("int") != -1:
+                        for i in range((int(float(re.search(r'\d+', t).group())/8))-1):
+                            line = line + "00"
+                        line = line +'$(($RANDOM%10))'
+                    else:
+                        line = line+ '1'
+                line = line + '"'
+                file.write(line)
+                file.write("\n\t")
+                file.write("echo ${frame")
+                file.write(str(f_num))
+                file.write("}")
+                file.write("\n\t")
+                file.write("cansend slcan0 ${frame")
+                file.write(str(f_num))
+                file.write("}")
+                file.write("\n\t")
+                file.write("\n\t")
     file.write("\n")
     file.write("done")
