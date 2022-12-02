@@ -94,20 +94,23 @@ def parseCsv(fileName):
                     oDoc.setFrequency(int(match[0]))
             str = splitLine[3]
             if (str.find("0x") != -1):
-                str = str[str.find("0x") + 2::]
                 id = None
+                str = str[str.find("0x") + 2::]
                 try:
                     id = int(str, 16)
                 except:
                     print("invalid argument")
                     id = 0
-
-
                 oDoc.addID(id)
             else:
-                oDoc.addID(0)
+                id = None
+                try:
+                    id = int(str,16)
+                except:
+                    print("invalid argument")
+                    id = 0
+                oDoc.addID(id)
             line = file.readline()
-
             line = file.readline()
 
             splitLine, line = splitCsvLine(line)
