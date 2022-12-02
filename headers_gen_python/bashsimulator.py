@@ -46,7 +46,7 @@ def writeSim(documents):
                     if t.find("int") != -1:
                         for i in range((int(float(re.search(r'\d+', t).group())/8))-1):
                             line = line + "00"
-                        line = line +'$(($RANDOM%10))'
+                        line = line +'$(($RANDOM%10+1))'
                     else:
                         line = line+ '1'
                 line = line + '"'
