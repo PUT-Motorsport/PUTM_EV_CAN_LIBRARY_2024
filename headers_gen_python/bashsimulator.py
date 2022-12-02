@@ -23,9 +23,16 @@ def writeSim(documents):
     file.write("\n\t")
     f_num = 0
     for d in documents:
+        file.write("#")
+        file.write(d.returnDeviceName())
+        file.write(":")
+        file.write("\n\t")
         frames= d.returnFrames()
         for f in frames:
             if f.id !=0:
+                file.write("#")
+                file.write(f.frameName)
+                file.write("\n\t")
                 line = ""
                 f_num = f_num+1
                 if f.id < 10:

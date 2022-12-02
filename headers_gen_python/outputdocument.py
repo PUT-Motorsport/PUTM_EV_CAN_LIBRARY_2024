@@ -41,6 +41,9 @@ class OutputDocument:
     def returnFrames(self):
         return self.__canFrames
 
+    def returnDeviceName(self):
+        return self.__deviceName
+
     def removeIllegalChars(self ,target):
         strCopy =target
         if self.__performIllegalCharsCheck:

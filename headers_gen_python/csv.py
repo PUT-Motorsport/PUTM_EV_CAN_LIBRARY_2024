@@ -20,6 +20,7 @@ def splitCsvLine(src):
     while position != -1:
         temp = src[0:int(position)]
         if len(temp) == 0:
+            result.append(temp)
             src = src[1::]
             position = src.find(separator)
             continue
@@ -28,7 +29,7 @@ def splitCsvLine(src):
             result.append(temp)
         src = src[position + 1::]
         position = src.find(separator)
-    if(len(src)!=0):
+    if(position!=0):
         result.append(src)
     if (len(result)) < 3:
         result.append("\n")
