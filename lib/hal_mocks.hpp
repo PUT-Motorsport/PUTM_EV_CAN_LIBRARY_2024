@@ -2,7 +2,7 @@
 
 #include <cstdint>
 
-#if 1
+#if 0
 struct CAN_HandleTypeDef;
 struct FDCAN_HandleTypeDef;
 struct FDCAN_FilterTypeDef;

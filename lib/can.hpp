@@ -1,6 +1,5 @@
 #pragma once
 
-#include "hal_mocks.hpp"
 #include <cstdint>
 
 #include "CanHeaders/can_headers.hpp"
@@ -54,9 +53,11 @@ constexpr CAN_FilterTypeDef null_filter{
 
 } // namespace filter
 
-class CAN {
+#ifndef PUTM_CAN_FD
+
+class Can {
 public:
-  constexpr CAN(CAN_HandleTypeDef *handle,
+  constexpr Can(CAN_HandleTypeDef *handle,
                 CAN_FilterTypeDef const *filter) noexcept
       : handle(handle), mailbox(0) {
     if (HAL_CAN_ConfigFilter(handle, filter) not_eq HAL_OK) {
@@ -74,21 +75,23 @@ public:
   template <typename frame_t> bool send(frame_t const &frame) noexcept {
     static_assert(frame_id<frame_t> not_eq invalid_can_id, "Wrong type passed");
     CAN_TxHeaderTypeDef tx_header{
-        .IDE = frame_id<frame_t>,
-        .DLC = sizeof(frame_t),
+        .StdId = frame_id<frame_t>,
         .ExtId = 0,
-        .RTR = 0,
+		.IDE = CAN_ID_STD,
+        .RTR = CAN_RTR_DATA,
+        .DLC = sizeof(frame_t),
     };
 
-    return HAL_OK == HAL_CAN_AddTxMessage(handle, &tx_header, &frame, &mailbox);
+    return HAL_OK == HAL_CAN_AddTxMessage(handle, &tx_header, reinterpret_cast<uint8_t const *>(&frame), &mailbox);
   }
 
   bool send_raw(can_id_t id, uint8_t const *data, std::size_t size) noexcept {
     CAN_TxHeaderTypeDef tx_header{
-        .IDE = id,
+        .StdId= id,
         .ExtId = 0,
-        .RTR = 0,
-        .DLC = 0,
+		.IDE = CAN_ID_STD,
+        .RTR = CAN_RTR_DATA,
+       .DLC = size,
     };
     return HAL_OK == HAL_CAN_AddTxMessage(handle, &tx_header, data, &mailbox);
   }
@@ -98,9 +101,13 @@ private:
   uint32_t mailbox;
 };
 
+#else
+
 class FDCAN {
   constexpr FDCAN(FDCAN_HandleTypeDef *handle,
                   FDCAN_FilterTypeDef const *filter);
 };
+
+#endif
 
 } // namespace PUTM_CAN

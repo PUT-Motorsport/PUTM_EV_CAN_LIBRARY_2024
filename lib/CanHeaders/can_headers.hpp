@@ -1,5 +1,7 @@
 #pragma once
 
+#include "main.h"
+
 #include "PM08-CANBUS-APPS.hpp"
 #include "PM08-CANBUS-AQ_CARD.hpp"
 #include "PM08-CANBUS-BMS_HV.hpp"
@@ -26,7 +28,7 @@ constexpr can_id_t invalid_can_id{std::numeric_limits<can_id_t>::max()};
 template<typename frame_t>
 constexpr can_id_t frame_id{invalid_can_id};
 
-#define DECL_ID(type, id) template<> constexpr can_id_t frame_id<type>{id};
+#define DECL_ID(type, id) template<> constexpr can_id_t frame_id<type>{id}
 
 DECL_ID(Apps_main, APPS_MAIN_CAN_ID);
 DECL_ID(AQ_main, AQ_MAIN_CAN_ID);

@@ -4,6 +4,8 @@
 
 #include <cstdint>
 
+#include "main.h"
+
 namespace PUTM_CAN {
 
 enum struct Apps_states: uint8_t {
