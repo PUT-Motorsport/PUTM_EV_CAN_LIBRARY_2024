@@ -8,6 +8,8 @@
 namespace PUTM_CAN {
 
 namespace filter {
+
+#ifndef PUTM_CAN_FD
 constexpr CAN_FilterTypeDef id(can_id_t id1, can_id_t id2) noexcept {
 
   // always uses the FIFO0
@@ -53,8 +55,6 @@ constexpr CAN_FilterTypeDef null_filter{
 
 } // namespace filter
 
-#ifndef PUTM_CAN_FD
-
 class Can {
 public:
   constexpr Can(CAN_HandleTypeDef *handle,
@@ -77,21 +77,23 @@ public:
     CAN_TxHeaderTypeDef tx_header{
         .StdId = frame_id<frame_t>,
         .ExtId = 0,
-		.IDE = CAN_ID_STD,
+        .IDE = CAN_ID_STD,
         .RTR = CAN_RTR_DATA,
         .DLC = sizeof(frame_t),
     };
 
-    return HAL_OK == HAL_CAN_AddTxMessage(handle, &tx_header, reinterpret_cast<uint8_t const *>(&frame), &mailbox);
+    return HAL_OK == HAL_CAN_AddTxMessage(
+                         handle, &tx_header,
+                         reinterpret_cast<uint8_t const *>(&frame), &mailbox);
   }
 
   bool send_raw(can_id_t id, uint8_t const *data, std::size_t size) noexcept {
     CAN_TxHeaderTypeDef tx_header{
-        .StdId= id,
+        .StdId = id,
         .ExtId = 0,
-		.IDE = CAN_ID_STD,
+        .IDE = CAN_ID_STD,
         .RTR = CAN_RTR_DATA,
-       .DLC = size,
+        .DLC = size,
     };
     return HAL_OK == HAL_CAN_AddTxMessage(handle, &tx_header, data, &mailbox);
   }
@@ -103,11 +105,82 @@ private:
 
 #else
 
-class FDCAN {
-  constexpr FDCAN(FDCAN_HandleTypeDef *handle,
-                  FDCAN_FilterTypeDef const *filter);
+namespace filter {
+
+FDCAN_FilterTypeDef id(can_id_t low, can_id_t high) noexcept {
+  return FDCAN_FilterTypeDef {
+    .FilterIndex = 0, .FilterType = FDCAN_FILTER_MASK,
+    .FilterConfig = FDCAN_FILTER_RXFIFO0, .FilterID1 = low << 21,
+    .FilterID2 = high << 21, .FilterIDMask1 = 0x7FF << 21, .FilterIDMask2 = 0,
+    .FilterIDMask3 = 0, .FilterIDMask4 = 0,
+  }
+}
+
+constexpr FDCAN_FilterTypeDef null_filter{
+    .FilterIndex = 0,
+    .FilterType = FDCAN_FILTER_MASK,
+    .FilterConfig = FDCAN_FILTER_RXFIFO0,
+    .FilterID1 = 0,
+    .FilterID2 = 0,
+    .FilterIDMask1 = 0,
+    .FilterIDMask2 = 0,
+    .FilterIDMask3 = 0,
+    .FilterIDMask4 = 0,
 };
 
+}
+
+enum struct CAN_FD_Format : uint8_t {
+  CLASSIC_CAN,
+  FD_CAN,
+}
+
+class FDCAN {
+  constexpr FDCAN(FDCAN_HandleTypeDef *handle,
+                  FDCAN_FilterTypeDef const *filter, uint32_t FDCAN_format) :
+    can_format((FDCAN_format == CAN_FD_Format::FDCAN) ? FDCAN_FD_CAN ? FDCAN_CLASSIC_CAN)
+  {
+   HAL_FDCAN_ActivateNotification(handle, FDCAN_IT_RX_FIFO0_NEW_MESSAGE,	0);
+   HAL_FDCAN_ConfigFilter(handle, filter);
+   HAL_FDCAN_Start(handle);
+  }
+
+  template <typename frame_t> bool send(frame_t const &frame) noexcept {
+    static_assert(frame_id<frame_t> not_eq invalid_can_id, "Wrong type passed");
+    FDCAN_TxHeaderTypeDef tx_header{
+        .Identifier = frame_id<frame_t>,
+        .IdType = FDCAN_STANDARD_ID,
+        .TxFrameType = FDCAN_DATA_FRAME,
+        .DataLength = size,
+        .ErrorStateIndicator = FDCAN_ESI_ACTIVE,
+        .BitRateSwitch = FDCAN_BRS_OFF, // todo: may change
+        .FDFormat = FDCAN_CLASSIC_CAN,
+        .TxEventFifoControl = FDCAN_NO_TX_EVENTS,
+        .MessageMarker = 0
+    };
+    return HAL_OK = HAL_FDCAN_AddMessageToTxFifoQ(handle, &tx_header, data);
+  }
+
+  bool send_raw(can_id_t id, uint8_t const *data, std::size_t size) noexcept {
+    FDCAN_TxHeaderTypeDef tx_header{
+        .Identifier = id,
+        .IdType = FDCAN_STANDARD_ID,
+        .TxFrameType = FDCAN_DATA_FRAME,
+        .DataLength = size,
+        .ErrorStateIndicator = FDCAN_ESI_ACTIVE,
+        .BitRateSwitch = FDCAN_BRS_OFF, // todo: may change
+        .FDFormat = FDCAN_CLASSIC_CAN,
+        .TxEventFifoControl = FDCAN_NO_TX_EVENTS,
+        .MessageMarker = 0
+    };
+    return HAL_OK = HAL_FDCAN_AddMessageToTxFifoQ(handle, &tx_header, data);
+  }
+
+  private:
+  uint32_t can_format;
+  FDCAN_FilterTypeDef * handle;
+}
+   
 #endif
 
 } // namespace PUTM_CAN

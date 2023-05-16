@@ -44,6 +44,7 @@ namespace {
 struct ParsedMessage {
   const PUTM_CAN::can_id_t id;
   uint8_t data[PUTM_CAN::MAX_MESSAGE_SIZE];
+  bool new_data;
 };
 
 #define MSG(x) ParsedMessage{PUTM_CAN::frame_id<x>, 0}
@@ -131,6 +132,7 @@ static void parse(PUTM_CAN::can_id_t received_id, std::size_t received_length, u
     for (auto& msg: messages) {
         if (msg.id == received_id) {
             std::memcpy(&msg.data, data, received_length);
+            msg.new_data = true;
             return; // binary search???
         };
     }
@@ -142,7 +144,15 @@ namespace PUTM_CAN {
 frame_t get() noexcept {
     static_assert(PUTM_CAN::frame_id<frame_t> not_eq invalid_frame_id, "get() called on a wrong type");
     static_assert(__messages.at(frame_index<frame_t>).id == PUTM_CAN::frame_id<frame_t>, "Wrong frame initialization");
+    messages.at(frame_index<frame_t>).new_data = false;
     return *reinterpret_cast<frame_t*>(messages.at(frame_index<frame_t>).data);
 }
+
+frame_t new_data() noexcept {
+    static_assert(PUTM_CAN::frame_id<frame_t> not_eq invalid_frame_id, "get() called on a wrong type");
+    static_assert(__messages.at(frame_index<frame_t>).id == PUTM_CAN::frame_id<frame_t>, "Wrong frame initialization");
+    return *reinterpret_cast<frame_t*>(messages.at(frame_index<frame_t>).new_data);
+}
+
 }
 

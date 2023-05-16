@@ -17,14 +17,19 @@ struct __attribute__ ((packed)) AQ_main{
 	uint16_t brake_pressure_back : 12; // pressure of braking lquid back in %
 	uint16_t suspension_left : 12; // Left potentiometer value
 	uint16_t suspension_right : 12; // Right potentiometer value
-	bool ebs: 1; 
-	bool inertia : 1; 
-	bool driver_kill : 1; 
-	bool bspd : 1; 
-	bool right_kill : 1; 
-	bool left_kill : 1; 
-	bool overtravel : 1; 
-	bool braking : 1; // Braking pressure highter than braking threshold
+	union {
+		struct {
+		bool ebs: 1; 
+		bool inertia : 1; 
+		bool driver_kill : 1; 
+		bool bspd : 1; 
+		bool right_kill : 1; 
+		bool left_kill : 1; 
+		bool overtravel : 1; 
+		bool braking : 1; // Braking pressure highter than braking threshold
+		};
+		uint8_t safety_byte;
+	}
 	AQ_states device_state; // -----------------------------------------------------------------
 };
 
