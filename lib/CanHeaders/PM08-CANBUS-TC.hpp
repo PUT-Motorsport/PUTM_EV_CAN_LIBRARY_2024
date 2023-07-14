@@ -53,15 +53,15 @@ struct __attribute__ ((packed)) TC_temperatures{
 };
 
 struct __attribute__ ((packed)) TC_imu_gyro{
-	int16_t gyro_x; 
-	int16_t gyro_y; 
-	int16_t gyro_z; 
+	uint16_t gyro_x;
+	uint16_t gyro_y;
+	uint16_t gyro_z;
 };
 
 struct __attribute__ ((packed)) TC_imu_acc{
-	int16_t acc_x; 
-	int16_t acc_y; 
-	int16_t acc_z; // 
+	uint16_t acc_x;
+	uint16_t acc_y;
+	uint16_t acc_z; //
 };
 
 
@@ -155,8 +155,36 @@ constexpr static FDCAN_TxHeaderTypeDef can_tx_header_TS_TEMPERATURES = [] {
 // const CAN_TxHeaderTypeDef can_tx_header_TS_IMU_GYRO{
 // TC_IMU_GYRO_CAN_ID, 0xFFF, CAN_ID_STD, CAN_RTR_DATA, TC_IMU_GYRO_CAN_DLC, DISABLE};
 
+constexpr static FDCAN_TxHeaderTypeDef can_tx_header_TS_IMU_GYRO = [] {
+		FDCAN_TxHeaderTypeDef temp_header{};
+		temp_header.Identifier = TC_IMU_GYRO_CAN_ID;
+		temp_header.IdType = FDCAN_STANDARD_ID;
+		temp_header.TxFrameType = FDCAN_DATA_FRAME;
+		temp_header.DataLength = FDCAN_DLC_BYTES_6;
+		temp_header.ErrorStateIndicator = FDCAN_ESI_PASSIVE;
+		temp_header.BitRateSwitch = FDCAN_BRS_OFF;
+		temp_header.FDFormat = FDCAN_CLASSIC_CAN;
+		temp_header.TxEventFifoControl = FDCAN_NO_TX_EVENTS;
+		temp_header.MessageMarker = 0;
+		return temp_header;
+}();
+
 // const CAN_TxHeaderTypeDef can_tx_header_TS_IMU_ACC{
 // TC_IMU_ACC_CAN_ID, 0xFFF, CAN_ID_STD, CAN_RTR_DATA, TC_IMU_ACC_CAN_DLC, DISABLE};
+
+constexpr static FDCAN_TxHeaderTypeDef can_tx_header_TS_IMU_ACC = [] {
+		FDCAN_TxHeaderTypeDef temp_header{};
+		temp_header.Identifier = TC_IMU_ACC_CAN_ID;
+		temp_header.IdType = FDCAN_STANDARD_ID;
+		temp_header.TxFrameType = FDCAN_DATA_FRAME;
+		temp_header.DataLength = FDCAN_DLC_BYTES_6;
+		temp_header.ErrorStateIndicator = FDCAN_ESI_PASSIVE;
+		temp_header.BitRateSwitch = FDCAN_BRS_OFF;
+		temp_header.FDFormat = FDCAN_CLASSIC_CAN;
+		temp_header.TxEventFifoControl = FDCAN_NO_TX_EVENTS;
+		temp_header.MessageMarker = 0;
+		return temp_header;
+}();
 
 } //namespace can
 
