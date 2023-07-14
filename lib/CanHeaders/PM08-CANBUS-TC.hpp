@@ -3,6 +3,7 @@
 #define TS
 
 #include <cstdint>
+#include "main.h"
 
 namespace PUTM_CAN {
 
@@ -150,6 +151,20 @@ constexpr static FDCAN_TxHeaderTypeDef can_tx_header_TS_WHEEL_VELOCITIES = [] {
 constexpr static FDCAN_TxHeaderTypeDef can_tx_header_TS_TEMPERATURES = [] {
 		FDCAN_TxHeaderTypeDef temp_header{};
 		temp_header.Identifier = TC_TEMPERATURES_CAN_ID;
+		temp_header.IdType = FDCAN_STANDARD_ID;
+		temp_header.TxFrameType = FDCAN_DATA_FRAME;
+		temp_header.DataLength = FDCAN_DLC_BYTES_6;
+		temp_header.ErrorStateIndicator = FDCAN_ESI_PASSIVE;
+		temp_header.BitRateSwitch = FDCAN_BRS_OFF;
+		temp_header.FDFormat = FDCAN_CLASSIC_CAN;
+		temp_header.TxEventFifoControl = FDCAN_NO_TX_EVENTS;
+		temp_header.MessageMarker = 0;
+		return temp_header;
+}();
+
+constexpr static FDCAN_TxHeaderTypeDef can_tx_header_TS_IMU_ACC = [] {
+		FDCAN_TxHeaderTypeDef temp_header{};
+		temp_header.Identifier = TC_IMU_ACC_CAN_ID;
 		temp_header.IdType = FDCAN_STANDARD_ID;
 		temp_header.TxFrameType = FDCAN_DATA_FRAME;
 		temp_header.DataLength = FDCAN_DLC_BYTES_6;

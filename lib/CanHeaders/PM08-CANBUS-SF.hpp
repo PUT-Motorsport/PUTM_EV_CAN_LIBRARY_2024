@@ -131,6 +131,8 @@ const uint16_t SF_SAFETY_CAN_ID = 0x3d;
 const uint8_t SF_SAFETY_CAN_DLC = sizeof(SF_safety);
 const uint8_t SF_SAFETY_FREQUENCY = 1;
 
+#ifndef PUTM_USE_CAN_FD
+
 const CAN_TxHeaderTypeDef can_tx_header_SF_MAIN{
 SF_MAIN_CAN_ID, 0xFFF, CAN_ID_STD, CAN_RTR_DATA, SF_MAIN_CAN_DLC, DISABLE};
 
@@ -145,6 +147,8 @@ SF_SUPPLY_CAN_ID, 0xFFF, CAN_ID_STD, CAN_RTR_DATA, SF_SUPPLY_CAN_DLC, DISABLE};
 
 const CAN_TxHeaderTypeDef can_tx_header_SF_SAFETY{
 SF_SAFETY_CAN_ID, 0xFFF, CAN_ID_STD, CAN_RTR_DATA, SF_SAFETY_CAN_DLC, DISABLE};
+
+#endif
 
 } //namespace can
 

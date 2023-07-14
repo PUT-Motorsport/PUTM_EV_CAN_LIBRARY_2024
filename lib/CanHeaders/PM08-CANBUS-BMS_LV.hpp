@@ -45,11 +45,15 @@ const uint16_t BMS_LV_TEMPERATURE_CAN_ID = 0x14;
 const uint8_t BMS_LV_TEMPERATURE_CAN_DLC = sizeof(BMS_LV_temperature);
 const uint8_t BMS_LV_TEMPERATURE_FREQUENCY = 1;
 
+#ifndef PUTM_USE_CAN_FD
+
 const CAN_TxHeaderTypeDef can_tx_header_BMS_LV_MAIN{
 BMS_LV_MAIN_CAN_ID, 0xFFF, CAN_ID_STD, CAN_RTR_DATA, BMS_LV_MAIN_CAN_DLC, DISABLE};
 
 const CAN_TxHeaderTypeDef can_tx_header_BMS_LV_TEMPERATURE{
 BMS_LV_TEMPERATURE_CAN_ID, 0xFFF, CAN_ID_STD, CAN_RTR_DATA, BMS_LV_TEMPERATURE_CAN_DLC, DISABLE};
+
+#endif
 
 } // namespace can
 

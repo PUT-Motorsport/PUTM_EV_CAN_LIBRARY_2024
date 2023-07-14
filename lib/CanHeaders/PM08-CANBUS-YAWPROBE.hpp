@@ -22,8 +22,13 @@ const uint16_t YAWPROBE_AIR_FLOW_CAN_ID = 0x6e;
 const uint8_t YAWPROBE_AIR_FLOW_CAN_DLC = sizeof(YawProbe_air_flow);
 const uint8_t YAWPROBE_AIR_FLOW_FREQUENCY = 1;
 
+#ifndef PUTM_USE_CAN_FD
+
 const CAN_TxHeaderTypeDef can_tx_header_YAWPROBE_AIR_FLOW{
 YAWPROBE_AIR_FLOW_CAN_ID, 0xFFF, CAN_ID_STD, CAN_RTR_DATA, YAWPROBE_AIR_FLOW_CAN_DLC, DISABLE};
+
+#endif
+
 
 } //namespace can
 

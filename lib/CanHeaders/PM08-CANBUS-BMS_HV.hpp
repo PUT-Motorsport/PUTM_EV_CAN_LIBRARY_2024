@@ -33,8 +33,13 @@ const uint16_t BMS_HV_MAIN_CAN_ID = 0xa;
 const uint8_t BMS_HV_MAIN_CAN_DLC = sizeof(BMS_HV_main);
 const uint8_t BMS_HV_MAIN_FREQUENCY = 100;
 
+#ifndef PUTM_USE_CAN_FD
+
+
 const CAN_TxHeaderTypeDef can_tx_header_BMS_HV_MAIN{
 BMS_HV_MAIN_CAN_ID, 0xFFF, CAN_ID_STD, CAN_RTR_DATA, BMS_HV_MAIN_CAN_DLC, DISABLE};
+
+#endif
 
 } // namespace can
 

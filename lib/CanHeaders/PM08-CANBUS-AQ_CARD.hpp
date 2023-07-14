@@ -57,6 +57,8 @@ const uint16_t AQ_TS_BUTTON_CAN_ID = 0x60;
 const uint8_t AQ_TS_BUTTON_CAN_DLC = sizeof(AQ_ts_button);
 const uint8_t AQ_TS_BUTTON_FREQUENCY = 0;
 
+#ifndef PUTM_USE_CAN_FD
+
 const CAN_TxHeaderTypeDef can_tx_header_AQ_MAIN{
 AQ_MAIN_CAN_ID, 0xFFF, CAN_ID_STD, CAN_RTR_DATA, AQ_MAIN_CAN_DLC, DISABLE};
 
@@ -68,6 +70,9 @@ AQ_GYROSCOPE_CAN_ID, 0xFFF, CAN_ID_STD, CAN_RTR_DATA, AQ_GYROSCOPE_CAN_DLC, DISA
 
 const CAN_TxHeaderTypeDef can_tx_header_AQ_TS_BUTTON{
 AQ_TS_BUTTON_CAN_ID, 0xFFF, CAN_ID_STD, CAN_RTR_DATA, AQ_TS_BUTTON_CAN_DLC, DISABLE};
+
+#endif
+
 
 } //namespace can
 

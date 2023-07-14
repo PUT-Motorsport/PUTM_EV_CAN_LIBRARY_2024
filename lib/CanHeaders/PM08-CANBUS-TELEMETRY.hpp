@@ -24,8 +24,12 @@ const uint16_t TELEMETRY_MAIN_CAN_ID = 0x73;
 const uint8_t TELEMETRY_MAIN_CAN_DLC = sizeof(Telemetry_Main);
 const uint8_t TELEMETRY_MAIN_FREQUENCY = 1;
 
+#ifndef PUTM_USE_CAN_FD
+
 const CAN_TxHeaderTypeDef can_tx_header_TELEMETRY_MAIN{
 TELEMETRY_MAIN_CAN_ID, 0xFFF, CAN_ID_STD, CAN_RTR_DATA, TELEMETRY_MAIN_CAN_DLC, DISABLE};
+
+#endif
 
 } // namespace can
 
