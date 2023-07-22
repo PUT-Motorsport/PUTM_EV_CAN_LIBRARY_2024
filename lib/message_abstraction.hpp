@@ -104,8 +104,8 @@ class __attribute__((packed)) Device_base {
  public:
   constexpr Device_base(uint32_t ide, uint8_t dlc)
       : IDE{ide}, DLC{dlc}, new_data{false} {}
-  [[nodiscard]] constexpr uint32_t get_ID() { return IDE; }
-  [[nodiscard]] constexpr uint8_t get_DLC() { return DLC; }
+  [[nodiscard]] constexpr uint32_t get_ID() const { return IDE; }
+  [[nodiscard]] constexpr uint8_t get_DLC() const { return DLC; }
   virtual void set_data(const Can_rx_message &m) = 0;
 
   [[nodiscard]] constexpr bool get_new_data() {

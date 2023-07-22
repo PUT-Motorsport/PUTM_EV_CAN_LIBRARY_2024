@@ -32,6 +32,20 @@ const uint16_t BMS_HV_MAIN_CAN_ID = 0xa;
 const uint8_t BMS_HV_MAIN_CAN_DLC = sizeof(BMS_HV_main);
 const uint8_t BMS_HV_MAIN_FREQUENCY = 100;
 
+struct __attribute__((packed)) BMS_HV_cell_voltages {
+  uint8_t cell_start;
+  uint16_t v_cell_start : 12;
+  uint16_t v_cell_start_plus_1 : 12;
+  uint16_t v_cell_start_plus_2 : 12;
+  uint16_t v_cell_start_plus_3 : 12;
+  uint8_t cell_end;
+};
+
+static_assert(sizeof(BMS_HV_cell_voltages) == 8);
+const uint16_t BMS_HV_VOLTAGES_CAN_ID = 0xb;
+const uint8_t BMS_HV_VOLTAGES_CAN_DLC = sizeof(BMS_HV_cell_voltages);
+const uint8_t BMS_HV_VOLTAGES_FREQUENCY = 100;
+
 #ifndef PUTM_USE_CAN_FD
 
 const CAN_TxHeaderTypeDef can_tx_header_BMS_HV_MAIN{

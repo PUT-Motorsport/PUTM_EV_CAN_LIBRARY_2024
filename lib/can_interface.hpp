@@ -40,6 +40,7 @@ class Can_interface {
   Device<AQ_gyroscope> aq_gyroscope{AQ_GYROSCOPE_CAN_ID};
   Device<AQ_ts_button> aq_ts_button{AQ_TS_BUTTON_CAN_ID};
   Device<BMS_HV_main> bms_hv_main{BMS_HV_MAIN_CAN_ID};
+  Device<BMS_HV_cell_voltages> bms_hv_cell_voltages{BMS_HV_VOLTAGES_CAN_ID};
   Device<BMS_LV_main> bms_lv_main{BMS_LV_MAIN_CAN_ID};
   Device<BMS_LV_temperature> bms_lv_temperature{BMS_LV_TEMPERATURE_CAN_ID};
   Device<Dash_Main> dash_main{DASH_MAIN_CAN_ID};
@@ -78,12 +79,13 @@ class Can_interface {
   Device<WheelTemp_main> wheel_temp_main{WHEELTEMP_MAIN_CAN_ID};
   Device<YawProbe_air_flow> yawprobe_air_flow{YAWPROBE_AIR_FLOW_CAN_ID};
 
-  std::array<Device_base *, 38> device_array = {&apps,
+  std::array<Device_base *, 39> device_array = {&apps,
                                                 &aq_main,
                                                 &aq_gyroscope,
                                                 &aq_acceleration,
                                                 &aq_ts_button,
                                                 &bms_hv_main,
+                                                &bms_hv_cell_voltages,
                                                 &bms_lv_main,
                                                 &bms_lv_temperature,
                                                 &dash_main,
