@@ -27,8 +27,9 @@ struct Can_rx_message {
   HAL_StatusTypeDef status;
 };
 
-template <typename T> class Can_tx_message {
-public:
+template <typename T>
+class Can_tx_message {
+ public:
   CAN_TxHeaderTypeDef header;
   uint8_t buff[max_dlc_size];
 
@@ -56,8 +57,8 @@ public:
 
 struct Can_rx_message {
   Can_rx_message(FDCAN_HandleTypeDef &hcan) : header{}, data{0} {
-    this->status =
-        HAL_FDCAN_GetRxMessage(&hcan, FDCAN_RX_FIFO0, &this->header, this->data);
+    this->status = HAL_FDCAN_GetRxMessage(&hcan, FDCAN_RX_FIFO0, &this->header,
+                                          this->data);
   }
 
   FDCAN_RxHeaderTypeDef header;
@@ -65,8 +66,9 @@ struct Can_rx_message {
   HAL_StatusTypeDef status;
 };
 
-template <typename T> class Can_tx_message {
-public:
+template <typename T>
+class Can_tx_message {
+ public:
   FDCAN_TxHeaderTypeDef header;
   uint8_t buff[max_dlc_size];
 
@@ -93,13 +95,13 @@ public:
 #endif
 
 class __attribute__((packed)) Device_base {
-  const uint32_t IDE : 12; // using 11 bits identifier
-  const uint8_t DLC : 4;   // max size for data is 8 `bytes`
+  const uint32_t IDE : 12;   // using 11 bits identifier
+  const uint8_t DLC : 4;     // max size for data is 8 `bytes`
 
-protected:
+ protected:
   bool new_data;
 
-public:
+ public:
   constexpr Device_base(uint32_t ide, uint8_t dlc)
       : IDE{ide}, DLC{dlc}, new_data{false} {}
   [[nodiscard]] constexpr uint32_t get_ID() { return IDE; }
@@ -115,11 +117,11 @@ public:
 
 template <typename Device_data_type>
 class __attribute__((packed)) Device : public Device_base {
-public:
+ public:
   explicit constexpr Device(uint32_t ide)
-      : Device_base(ide, sizeof(Device_data_type)){
-        static_assert(sizeof(Device_data_type) <= 8);
-      };
+      : Device_base(ide, sizeof(Device_data_type)) {
+    static_assert(sizeof(Device_data_type) <= 8);
+  };
 
   Device_data_type data{};
 
@@ -129,6 +131,6 @@ public:
   }
 };
 
-} // namespace PUTM_CAN
+}   // namespace PUTM_CAN
 
 #endif
