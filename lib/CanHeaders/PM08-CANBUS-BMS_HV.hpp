@@ -52,6 +52,40 @@ const CAN_TxHeaderTypeDef can_tx_header_BMS_HV_MAIN{
     BMS_HV_MAIN_CAN_ID,  0xFFF,  CAN_ID_STD, CAN_RTR_DATA,
     BMS_HV_MAIN_CAN_DLC, DISABLE};
 
+const CAN_TxHeaderTypeDef can_tx_header_BMS_HV_VOLTAGES{
+    BMS_HV_VOLTAGES_CAN_ID,  0xFFF,  CAN_ID_STD, CAN_RTR_DATA,
+    BMS_HV_VOLTAGES_CAN_DLC, DISABLE};
+
+#else
+
+constexpr static FDCAN_TxHeaderTypeDef can_tx_header_BMS_HV_MAIN = [] {
+  FDCAN_TxHeaderTypeDef temp_header{};
+  temp_header.Identifier = BMS_HV_MAIN_CAN_ID;
+  temp_header.IdType = FDCAN_STANDARD_ID;
+  temp_header.TxFrameType = FDCAN_DATA_FRAME;
+  temp_header.DataLength = FDCAN_DLC_BYTES_8;
+  temp_header.ErrorStateIndicator = FDCAN_ESI_PASSIVE;
+  temp_header.BitRateSwitch = FDCAN_BRS_OFF;
+  temp_header.FDFormat = FDCAN_CLASSIC_CAN;
+  temp_header.TxEventFifoControl = FDCAN_NO_TX_EVENTS;
+  temp_header.MessageMarker = 0;
+  return temp_header;
+}();
+
+constexpr static FDCAN_TxHeaderTypeDef can_tx_header_BMS_HV_cell_voltages = [] {
+  FDCAN_TxHeaderTypeDef temp_header{};
+  temp_header.Identifier = BMS_HV_VOLTAGES_CAN_ID;
+  temp_header.IdType = FDCAN_STANDARD_ID;
+  temp_header.TxFrameType = FDCAN_DATA_FRAME;
+  temp_header.DataLength = FDCAN_DLC_BYTES_8;
+  temp_header.ErrorStateIndicator = FDCAN_ESI_PASSIVE;
+  temp_header.BitRateSwitch = FDCAN_BRS_OFF;
+  temp_header.FDFormat = FDCAN_CLASSIC_CAN;
+  temp_header.TxEventFifoControl = FDCAN_NO_TX_EVENTS;
+  temp_header.MessageMarker = 0;
+  return temp_header;
+}();
+
 #endif
 
 }   // namespace PUTM_CAN
