@@ -17,6 +17,7 @@
 
 // CanHeaders
 #include "CanHeaders/PM08-CANBUS-APPS.hpp"
+#include "CanHeaders/PM08-CANBUS-ASB.hpp"
 #include "CanHeaders/PM08-CANBUS-AQ_CARD.hpp"
 #include "CanHeaders/PM08-CANBUS-BMS_HV.hpp"
 #include "CanHeaders/PM08-CANBUS-BMS_LV.hpp"
@@ -78,8 +79,9 @@ class Can_interface {
   Device<Telemetry_Main> telemetry_main{TELEMETRY_MAIN_CAN_ID};
   Device<WheelTemp_main> wheel_temp_main{WHEELTEMP_MAIN_CAN_ID};
   Device<YawProbe_air_flow> yawprobe_air_flow{YAWPROBE_AIR_FLOW_CAN_ID};
+  Device<ASB_main> asb_main{ASB_MAIN_CAN_ID};
 
-  std::array<Device_base *, 39> device_array = {&apps,
+  std::array<Device_base *, 40> device_array = {&apps,
                                                 &aq_main,
                                                 &aq_gyroscope,
                                                 &aq_acceleration,
@@ -117,7 +119,8 @@ class Can_interface {
                                                 &wheel_temp_main,
                                                 &swps_main,
                                                 &dv_ass,
-                                                &dv_tc};
+                                                &dv_tc,
+                                                &asb_main};
 
  public:
   Can_interface() = default;
