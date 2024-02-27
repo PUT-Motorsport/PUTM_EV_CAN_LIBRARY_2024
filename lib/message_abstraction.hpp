@@ -17,12 +17,12 @@ static const std::size_t max_dlc_size = 8;
 #ifndef PUTM_USE_CAN_FD
 
 struct Can_rx_message {
-  Can_rx_message(CAN_HandleTypeDef &hcan, uint32_t RxFifo) : header{}, data{0} {
+  Can_rx_message(FDCAN_HandleTypeDef &hcan, uint32_t RxFifo) : header{}, data{0} {
     this->status =
-        HAL_CAN_GetRxMessage(&hcan, RxFifo, &this->header, this->data);
+    		HAL_FDCAN_GetRxMessage(&hcan, RxFifo, &this->header, this->data);
   }
 
-  CAN_RxHeaderTypeDef header;
+  FDCAN_RxHeaderTypeDef header;
   uint8_t data[max_dlc_size];
   HAL_StatusTypeDef status;
 };
@@ -30,11 +30,11 @@ struct Can_rx_message {
 template <typename T>
 class Can_tx_message {
  public:
-  CAN_TxHeaderTypeDef header;
+	FDCAN_TxHeaderTypeDef header;
   uint8_t buff[max_dlc_size];
 
   constexpr Can_tx_message(const T &data,
-                           const CAN_TxHeaderTypeDef &message_header)
+                           const FDCAN_TxHeaderTypeDef &message_header)
       : header{message_header} {
     static_assert(std::is_trivially_constructible<T>(),
                   "Object must by C like struct");
@@ -47,10 +47,10 @@ class Can_tx_message {
     std::memcpy(this->buff, &data, sizeof(T));
   }
 
-  HAL_StatusTypeDef send(CAN_HandleTypeDef &hcan) {
-    static uint32_t TxMailbox(0);
-    return HAL_CAN_AddTxMessage(&hcan, &this->header, this->buff, &TxMailbox);
-  }
+  HAL_StatusTypeDef send(FDCAN_HandleTypeDef &hcan) {
+        static uint32_t TxMailbox(0);
+        return HAL_FDCAN_AddMessageToTxFifoQ(&hcan, &this->header, this->buff);
+      }
 };
 
 #else

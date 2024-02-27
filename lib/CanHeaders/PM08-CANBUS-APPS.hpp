@@ -31,8 +31,8 @@ const uint8_t APPS_MAIN_FREQUENCY = 100;
 
 #ifndef PUTM_USE_CAN_FD
 
-const CAN_TxHeaderTypeDef can_tx_header_APPS_MAIN{
-    APPS_MAIN_CAN_ID,  0xFFF,  CAN_ID_STD, CAN_RTR_DATA,
+const FDCAN_TxHeaderTypeDef can_tx_header_APPS_MAIN{
+    APPS_MAIN_CAN_ID,  0xFFF,
     APPS_MAIN_CAN_DLC, DISABLE};
 
 #endif
