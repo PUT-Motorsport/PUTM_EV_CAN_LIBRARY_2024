@@ -48,7 +48,6 @@ class Can_tx_message {
   }
 
   HAL_StatusTypeDef send(FDCAN_HandleTypeDef &hcan) {
-        static uint32_t TxMailbox(0);
         return HAL_FDCAN_AddMessageToTxFifoQ(&hcan, &this->header, this->buff);
       }
 };
