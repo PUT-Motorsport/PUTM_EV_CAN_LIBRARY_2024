@@ -1,14 +1,12 @@
 // Generated on Wed Jun 15 10:27:21 2022
-#ifndef APPS
-#define APPS
-
-#include <cstdint>
+#pragma once
+#include "can_ids.hpp"
 
 namespace PUTM_CAN {
 
-enum struct Apps_states : uint8_t {
+enum struct FboxStates : uint8_t {
+  Undefined,
   Normal_operation,
-  Power_up,
   Sensor_Implausiblity,
   Left_sensor_out_of_range_lower_bound,
   Left_sensor_out_of_range_upper_bound,
@@ -16,25 +14,31 @@ enum struct Apps_states : uint8_t {
   Right_sensor_out_of_range_upper_bound,
 };
 
-struct __attribute__((packed)) Apps_main {
-  uint16_t pedal_position;   // pedal position form 0 – 1000 where 0 means pedal not pressed
-  uint8_t counter;        // counts from 0-255 to ensure all frames are recived
-  int8_t position_diff;   // pedal position derivative in [count / second]
-  Apps_states
-      device_state;   // -----------------------------------------------------------------
+struct __attribute__((packed)) DriverInput {
+  uint16_t pedalPosition;   // pedal position form 0 – 1000 where 0 means pedal not pressed
+  uint16_t brakePressureFront;
+  uint16_t brakePressureRear;
+  uint16_t steeringWheelPosition;
 };
 
-const uint16_t APPS_MAIN_CAN_ID = 0x5;
-const uint8_t APPS_MAIN_CAN_DLC = sizeof(Apps_main);
-const uint8_t APPS_MAIN_FREQUENCY = 100;
+struct __attribute__((packed)) FrontData {
+  uint8_t sc_state;   // pedal position form 0 – 1000 where 0 means pedal not pressed
+  uint16_t frontLeftSuspension;
+  uint16_t frontRightSuspension;
+  uint8_t frontLeftHubTemperature;
+  uint8_t frontRightHubTemperature;
+};
+
+const uint8_t DRIVER_INPUT_CAN_DLC = sizeof(DriverInput);
+const uint8_t DRIVER_INPUT_FREQUENCY = 100;
 
 #ifndef PUTM_USE_CAN_FD
 
-const FDCAN_TxHeaderTypeDef can_tx_header_APPS_MAIN{
-    APPS_MAIN_CAN_ID,
+const FDCAN_TxHeaderTypeDef can_tx_header_DRIVER_INPUT{
+	DRIVER_INPUT_CAN_ID,
 	FDCAN_STANDARD_ID,
 	FDCAN_DATA_FRAME,
-    APPS_MAIN_CAN_DLC,
+	DRIVER_INPUT_CAN_DLC,
 	FDCAN_ESI_PASSIVE,
 	FDCAN_BRS_OFF,
 	FDCAN_CLASSIC_CAN,
@@ -45,4 +49,3 @@ const FDCAN_TxHeaderTypeDef can_tx_header_APPS_MAIN{
 #endif
 
 }   // namespace PUTM_CAN
-#endif

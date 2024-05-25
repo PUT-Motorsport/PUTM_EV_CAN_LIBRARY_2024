@@ -1,1 +1,5 @@
+#pragma once
+#include <cstdint>
 
+const uint16_t DRIVER_INPUT_CAN_ID = 0x5;
+const uint16_t DASH_MAIN_CAN_ID = 0x69;

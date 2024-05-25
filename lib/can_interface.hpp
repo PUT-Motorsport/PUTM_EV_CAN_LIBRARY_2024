@@ -22,11 +22,11 @@
 namespace PUTM_CAN {
 
 class Can_interface {
-  Device<Apps_main> apps{APPS_MAIN_CAN_ID};
-  Device<DashMain> dash{APPS_MAIN_CAN_ID};
+  Device<DriverInput> driverInput{DRIVER_INPUT_CAN_ID};
+  Device<DashMain> dash{DRIVER_INPUT_CAN_ID};
 
   std::array<Device_base *, 40> device_array = {
-		  &apps,
+		  &driverInput,
 		  &dash,
   };
 
@@ -43,10 +43,10 @@ class Can_interface {
     return false;
   }
 
-  Apps_main get_apps_main() { return apps.data; }
+  DriverInput get_apps_main() { return driverInput.data; }
   DashMain get_dash_main() { return dash.data; }
 
-  bool get_apps_main_new_data() { return apps.get_new_data(); }
+  bool get_driver_input_main_new_data() { return driverInput.get_new_data(); }
   bool get_dash_main_new_data() { return dash.get_new_data(); }
 
 };
