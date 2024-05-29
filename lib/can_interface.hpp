@@ -16,7 +16,7 @@
 #include "message_abstraction.hpp"
 
 // CanHeaders
-#include "CanHeaders/PM08-CANBUS-APPS.hpp"
+#include <PUTM_EV_CAN_LIBRARY_2024/lib/CanHeaders/PM09-CANBUS-FRONTBOX.hpp>
 #include "CanHeaders/PM08-CANBUS-DASH.hpp"
 
 namespace PUTM_CAN {
