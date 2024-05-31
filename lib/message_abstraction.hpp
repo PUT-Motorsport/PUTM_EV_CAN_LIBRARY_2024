@@ -17,39 +17,39 @@ static const std::size_t max_dlc_size = 8;
 #ifndef PUTM_USE_CAN_FD
 
 struct Can_rx_message {
-  Can_rx_message(FDCAN_HandleTypeDef &hcan, uint32_t RxFifo) : header{}, data{0} {
-    this->status =
-    		HAL_FDCAN_GetRxMessage(&hcan, RxFifo, &this->header, this->data);
-  }
+    Can_rx_message(FDCAN_HandleTypeDef &hcan, uint32_t RxFifo) : header { }, data { 0 } {
+        this->status =
+                HAL_FDCAN_GetRxMessage(&hcan, RxFifo, &this->header, this->data);
+    }
 
-  FDCAN_RxHeaderTypeDef header;
-  uint8_t data[max_dlc_size];
-  HAL_StatusTypeDef status;
+    FDCAN_RxHeaderTypeDef header;
+    uint8_t data[max_dlc_size];
+    HAL_StatusTypeDef status;
 };
 
-template <typename T>
+template<typename T>
 class Can_tx_message {
- public:
-	FDCAN_TxHeaderTypeDef header;
-  uint8_t buff[max_dlc_size];
+public:
+    FDCAN_TxHeaderTypeDef header;
+    uint8_t buff[max_dlc_size];
 
-  constexpr Can_tx_message(const T &data,
-                           const FDCAN_TxHeaderTypeDef &message_header)
-      : header{message_header} {
-    static_assert(std::is_trivially_constructible<T>(),
-                  "Object must by C like struct");
-    static_assert(std::is_class<T>(), "Object must by C like struct");
-    static_assert(std::is_standard_layout<T>(), "Object must by C like struct");
-    static_assert(std::is_trivially_copyable<T>(),
-                  "Object must by C like struct");
-    static_assert(sizeof(T) <= max_dlc_size,
-                  "Object size must be less than 8bytes");
-    std::memcpy(this->buff, &data, sizeof(T));
-  }
+    constexpr Can_tx_message(const T &data,
+            const FDCAN_TxHeaderTypeDef &message_header)
+    : header { message_header } {
+        static_assert(std::is_trivially_constructible<T>(),
+                "Object must by C like struct");
+        static_assert(std::is_class<T>(), "Object must by C like struct");
+        static_assert(std::is_standard_layout<T>(), "Object must by C like struct");
+        static_assert(std::is_trivially_copyable<T>(),
+                "Object must by C like struct");
+        static_assert(sizeof(T) <= max_dlc_size,
+                "Object size must be less than 8bytes");
+        std::memcpy(this->buff, &data, sizeof(T));
+    }
 
-  HAL_StatusTypeDef send(FDCAN_HandleTypeDef &hcan) {
+    HAL_StatusTypeDef send(FDCAN_HandleTypeDef &hcan) {
         return HAL_FDCAN_AddMessageToTxFifoQ(&hcan, &this->header, this->buff);
-      }
+    }
 };
 
 #else
@@ -94,42 +94,48 @@ class Can_tx_message {
 #endif
 
 class __attribute__((packed)) Device_base {
-  const uint32_t IDE : 12;   // using 11 bits identifier
-  const uint8_t DLC : 4;     // max size for data is 8 `bytes`
+    const uint32_t IDE :12; // using 11 bits identifier
+    const uint8_t DLC :4; // max size for data is 8 `bytes`
 
- protected:
-  bool new_data;
+protected:
+    bool new_data;
 
- public:
-  constexpr Device_base(uint32_t ide, uint8_t dlc)
-      : IDE{ide}, DLC{dlc}, new_data{false} {}
-  [[nodiscard]] constexpr uint32_t get_ID() const { return IDE; }
-  [[nodiscard]] constexpr uint8_t get_DLC() const { return DLC; }
-  virtual void set_data(const Can_rx_message &m) = 0;
+public:
+    constexpr Device_base(uint32_t ide, uint8_t dlc)
+    : IDE { ide }, DLC { dlc }, new_data { false } {
+    }
+    [[nodiscard]] constexpr uint32_t get_ID() const {
+        return IDE;
+    }
+    [[nodiscard]] constexpr uint8_t get_DLC() const {
+        return DLC;
+    }
+    virtual void set_data(const Can_rx_message &m) = 0;
 
-  [[nodiscard]] constexpr bool get_new_data() {
-    bool temporary = new_data;
-    new_data = false;
-    return temporary;
-  }
+    [[nodiscard]] constexpr bool get_new_data() {
+        bool temporary = new_data;
+        new_data = false;
+        return temporary;
+    }
 };
 
-template <typename Device_data_type>
-class __attribute__((packed)) Device : public Device_base {
- public:
-  explicit constexpr Device(uint32_t ide)
-      : Device_base(ide, sizeof(Device_data_type)) {
-    static_assert(sizeof(Device_data_type) <= 8);
-  };
+template<typename Device_data_type>
+class __attribute__((packed)) Device: public Device_base {
+public:
+    explicit constexpr Device(uint32_t ide)
+    : Device_base(ide, sizeof(Device_data_type)) {
+        static_assert(sizeof(Device_data_type) <= 8);
+    }
+    ;
 
-  Device_data_type data{};
+    Device_data_type data { };
 
-  void set_data(const Can_rx_message &m) override {
-    new_data = true;
-    std::memcpy(&data, m.data, sizeof(Device_data_type));
-  }
+    void set_data(const Can_rx_message &m) override {
+        new_data = true;
+        std::memcpy(&data, m.data, sizeof(Device_data_type));
+    }
 };
 
-}   // namespace PUTM_CAN
+} // namespace PUTM_CAN
 
 #endif
