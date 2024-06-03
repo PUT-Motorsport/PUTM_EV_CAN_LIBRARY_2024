@@ -45,7 +45,7 @@ public:
         return false;
     }
 
-    DriverInput get_apps_main() {
+    DriverInput get_driver_input_main() {
         return driverInput.data;
     }
 
