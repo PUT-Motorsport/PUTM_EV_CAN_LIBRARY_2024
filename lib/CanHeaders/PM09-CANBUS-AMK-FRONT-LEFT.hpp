@@ -1,6 +1,5 @@
 #pragma once
-
-#include <cstdint>
+#include "can_ids.hpp"
 
 namespace PUTM_CAN {
 
@@ -62,5 +61,17 @@ constexpr uint16_t FRONT_LEFT_AMK_ACTUAL_VALUES_2_CAN_ID = 0x284 + 1;  // + n
 constexpr uint8_t FRONT_LEFT_AMK_ACTUAL_VALUES_2_CAN_DLC = sizeof(AmkFrontLeftActualValues2);
 constexpr uint16_t FRONT_LEFT_AMK_SETPOINTS_1_CAN_ID = 0x183 + 1;  // + n
 constexpr uint8_t FRONT_LEFT_AMK_SETPOINTS_1_CAN_DLC = sizeof(AmkFrontLeftSetpoints1);
+
+const FDCAN_TxHeaderTypeDef can_tx_header_AMK_FRONT_LEFT_SETPOINTS{
+        FRONT_LEFT_AMK_SETPOINTS_1_CAN_ID,
+        FDCAN_STANDARD_ID,
+        FDCAN_DATA_FRAME,
+        DRIVER_INPUT_CAN_DLC,
+        FDCAN_ESI_PASSIVE,
+        FDCAN_BRS_OFF,
+        FDCAN_CLASSIC_CAN,
+        FDCAN_NO_TX_EVENTS,
+        0
+};
 
 }  // namespace PUTM_CAN

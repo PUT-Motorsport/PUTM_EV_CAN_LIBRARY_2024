@@ -63,4 +63,16 @@ constexpr uint8_t FRONT_RIGHT_AMK_ACTUAL_VALUES_2_CAN_DLC = sizeof(AmkFrontRight
 constexpr uint16_t FRONT_RIGHT_AMK_SETPOINTS_1_CAN_ID = 0x183 + 2;  // + n
 constexpr uint8_t FRONT_RIGHT_AMK_SETPOINTS_1_CAN_DLC = sizeof(AmkFrontRightSetpoints1);
 
+const FDCAN_TxHeaderTypeDef can_tx_header_AMK_FRONT_RIGHT_SETPOINTS{
+        FRONT_RIGHT_AMK_SETPOINTS_1_CAN_ID,
+        FDCAN_STANDARD_ID,
+        FDCAN_DATA_FRAME,
+        DRIVER_INPUT_CAN_DLC,
+        FDCAN_ESI_PASSIVE,
+        FDCAN_BRS_OFF,
+        FDCAN_CLASSIC_CAN,
+        FDCAN_NO_TX_EVENTS,
+        0
+};
+
 }  // namespace PUTM_CAN
