@@ -6,7 +6,7 @@
 namespace PUTM_CAN {
 
 struct __attribute__((packed)) DashboardMain {
-    uint16_t counter;
+    bool rtd_button;
 };
 
 const uint8_t DASHBOARD_MAIN_CAN_DLC = sizeof(DashboardMain);
