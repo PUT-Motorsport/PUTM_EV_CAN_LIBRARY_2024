@@ -24,7 +24,7 @@ namespace PUTM_CAN {
 class Can_interface {
     Device<DriverInput> driverInput { DRIVER_INPUT_CAN_ID };
     Device<RearboxMain> rearbox { DRIVER_INPUT_CAN_ID };
-    Device<DashboardMain> dashboard { DRIVER_INPUT_CAN_ID };
+    Device<Dashboard> dashboard { DRIVER_INPUT_CAN_ID };
 
     std::array<Device_base*, 40> device_array = {
             &driverInput,
@@ -53,7 +53,7 @@ public:
         return rearbox.data;
     }
 
-    DashboardMain get_dashboard_main() {
+    Dashboard get_dashboard() {
         return dashboard.data;
     }
 
@@ -61,7 +61,7 @@ public:
         return driverInput.get_new_data();
     }
 
-    bool get_dashboard_main_new_data() {
+    bool get_dashboard_new_data() {
         return dashboard.get_new_data();
     }
 
