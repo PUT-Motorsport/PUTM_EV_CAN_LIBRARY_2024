@@ -26,7 +26,7 @@ class Can_interface {
 
     Device<DriverInput> driverInput { DRIVER_INPUT_CAN_ID };
     Device<RearboxMain> rearbox { REARBOX_MAIN_CAN_ID };
-    Device<DashboardMain> dashboard { DASHBOARD_MAIN_CAN_ID };
+    Device<Dashboard> dashboard { DASHBOARD_MAIN_CAN_ID };
     Device<AmkFrontLeftActualValues1> amkFrontLeftActualValue1 { FRONT_LEFT_AMK_ACTUAL_VALUES_1_CAN_ID };
 
     std::array<Device_base*, 40> device_array = {

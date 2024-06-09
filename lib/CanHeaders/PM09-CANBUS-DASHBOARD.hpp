@@ -17,7 +17,7 @@ const uint8_t DASHBOARD_MAIN_FREQUENCY = 100;
 #ifndef PUTM_USE_CAN_FD
 
 const FDCAN_TxHeaderTypeDef can_tx_header_DASHBOARD {
-        DASHBOARD_CAN_ID,
+		DASHBOARD_MAIN_CAN_DLC,
         FDCAN_STANDARD_ID,
         FDCAN_DATA_FRAME,
         DASHBOARD_MAIN_CAN_DLC,
