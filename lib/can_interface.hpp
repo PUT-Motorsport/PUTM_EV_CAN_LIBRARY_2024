@@ -57,7 +57,7 @@ public:
         return rearbox.data;
     }
 
-    DashboardMain get_dashboard_main() {
+    Dashboard get_dashboard() {
         return dashboard.data;
     }
 
@@ -69,7 +69,7 @@ public:
         return driverInput.get_new_data();
     }
 
-    bool get_dashboard_main_new_data() {
+    bool get_dashboard_new_data() {
         return dashboard.get_new_data();
     }
 

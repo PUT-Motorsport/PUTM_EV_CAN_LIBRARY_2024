@@ -5,19 +5,19 @@
 
 namespace PUTM_CAN {
 
-struct __attribute__((packed)) DashboardMain {
-    bool rtd_button :1;
-    bool ts_activate_button :1;
-    bool rfu_button :1;
+struct __attribute__((packed)) Dashboard {
+    bool ready_to_drive_button :1;
+    bool ts_activation_button :1;
+    bool user_button :1;
 };
 
-const uint8_t DASHBOARD_MAIN_CAN_DLC = sizeof(DashboardMain);
+const uint8_t DASHBOARD_MAIN_CAN_DLC = sizeof(Dashboard);
 const uint8_t DASHBOARD_MAIN_FREQUENCY = 100;
 
 #ifndef PUTM_USE_CAN_FD
 
-const FDCAN_TxHeaderTypeDef can_tx_header_DASHBOARD_MAIN {
-        DASHBOARD_MAIN_CAN_ID,
+const FDCAN_TxHeaderTypeDef can_tx_header_DASHBOARD {
+        DASHBOARD_CAN_ID,
         FDCAN_STANDARD_ID,
         FDCAN_DATA_FRAME,
         DASHBOARD_MAIN_CAN_DLC,
