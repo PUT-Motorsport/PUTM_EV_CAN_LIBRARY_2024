@@ -19,6 +19,7 @@
 #include "CanHeaders/PM09-CANBUS-REARBOX.hpp"
 #include "CanHeaders/PM09-CANBUS-DASHBOARD.hpp"
 #include "CanHeaders/PM09-CANBUS-AMK-FRONT-LEFT.hpp"
+#include "CanHeaders/PM09_CANBUS_PC.hpp"
 
 namespace PUTM_CAN {
 
@@ -28,12 +29,14 @@ class Can_interface {
     Device<RearboxMain> rearbox { REARBOX_MAIN_CAN_ID };
     Device<Dashboard> dashboard { DASHBOARD_MAIN_CAN_ID };
     Device<AmkFrontLeftActualValues1> amkFrontLeftActualValue1 { FRONT_LEFT_AMK_ACTUAL_VALUES_1_CAN_ID };
+    Device<PcMainData> pcMainData { PC_MAIN_CAN_ID };
 
     std::array<Device_base*, 40> device_array = {
             &driverInput,
             &rearbox,
             &dashboard,
-			&amkFrontLeftActualValue1
+			&amkFrontLeftActualValue1,
+			&pcMainData
     };
 
 public:
@@ -65,6 +68,10 @@ public:
     	return amkFrontLeftActualValue1.data;
     }
 
+    PcMainData get_pc_main_data() {
+     	return pcMainData.data;
+     }
+
     bool get_driver_input_main_new_data() {
         return driverInput.get_new_data();
     }
@@ -72,6 +79,11 @@ public:
     bool get_dashboard_new_data() {
         return dashboard.get_new_data();
     }
+
+    bool get_pc_new_data() {
+        return pcMainData.get_new_data();
+    }
+
 
 };
 
