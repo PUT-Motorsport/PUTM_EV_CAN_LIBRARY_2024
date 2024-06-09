@@ -1,4 +1,3 @@
-// Generated on Wed Jun 15 10:27:21 2022
 #pragma once
 #include "can_ids.hpp"
 
@@ -41,8 +40,6 @@ const uint8_t DRIVER_INPUT_FREQUENCY = 100;
 const uint8_t FRONT_DATA_CAN_DLC = sizeof(FrontData);
 const uint8_t FRONT_DATA_FREQUENCY = 10;
 
-#ifndef PUTM_USE_CAN_FD
-
 const FDCAN_TxHeaderTypeDef can_tx_header_DRIVER_INPUT {
         DRIVER_INPUT_CAN_ID,
         FDCAN_STANDARD_ID,
@@ -66,7 +63,5 @@ const FDCAN_TxHeaderTypeDef can_tx_header_FRONT_DATA {
         FDCAN_NO_TX_EVENTS,
         0
 };
-
-#endif
 
 } // namespace PUTM_CAN

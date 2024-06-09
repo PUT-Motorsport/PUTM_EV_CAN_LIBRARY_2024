@@ -18,18 +18,22 @@
 #include "CanHeaders/PM09-CANBUS-FRONTBOX.hpp"
 #include "CanHeaders/PM09-CANBUS-REARBOX.hpp"
 #include "CanHeaders/PM09-CANBUS-DASHBOARD.hpp"
+#include "CanHeaders/PM09-CANBUS-AMK-FRONT-LEFT.hpp"
 
 namespace PUTM_CAN {
 
 class Can_interface {
+
     Device<DriverInput> driverInput { DRIVER_INPUT_CAN_ID };
-    Device<RearboxMain> rearbox { DRIVER_INPUT_CAN_ID };
-    Device<DashboardMain> dashboard { DRIVER_INPUT_CAN_ID };
+    Device<RearboxMain> rearbox { REARBOX_MAIN_CAN_ID };
+    Device<DashboardMain> dashboard { DASHBOARD_MAIN_CAN_ID };
+    Device<AmkFrontLeftActualValues1> amkFrontLeftActualValue1 { FRONT_LEFT_AMK_ACTUAL_VALUES_1_CAN_ID };
 
     std::array<Device_base*, 40> device_array = {
             &driverInput,
             &rearbox,
             &dashboard,
+			&amkFrontLeftActualValue1
     };
 
 public:
@@ -57,6 +61,10 @@ public:
         return dashboard.data;
     }
 
+    AmkFrontLeftActualValues1 get_amk_front_left_actual_values1() {
+    	return amkFrontLeftActualValue1.data;
+    }
+
     bool get_driver_input_main_new_data() {
         return driverInput.get_new_data();
     }
@@ -71,7 +79,6 @@ Can_interface can;
 
 } // namespace PUTM_CAN
 
-#ifndef PUTM_USE_CAN_FD
 void HAL_CAN_RxFifo0MsgPendingCallback(FDCAN_HandleTypeDef *hfdcan1) {
     PUTM_CAN::Can_rx_message rx { *hfdcan1, 0 };
     if(rx.status == HAL_StatusTypeDef::HAL_OK) {
@@ -81,6 +88,5 @@ void HAL_CAN_RxFifo0MsgPendingCallback(FDCAN_HandleTypeDef *hfdcan1) {
         }
     }
 }
-#endif
 
 #endif
