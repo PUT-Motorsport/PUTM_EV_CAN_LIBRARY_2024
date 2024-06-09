@@ -79,11 +79,9 @@ public:
     bool get_dashboard_new_data() {
         return dashboard.get_new_data();
     }
-
     bool get_pc_new_data() {
         return pcMainData.get_new_data();
     }
-
 
 };
 
@@ -91,7 +89,7 @@ Can_interface can;
 
 } // namespace PUTM_CAN
 
-void HAL_CAN_RxFifo0MsgPendingCallback(FDCAN_HandleTypeDef *hfdcan1) {
+void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan1, uint32_t RxFifo0ITs) {
     PUTM_CAN::Can_rx_message rx { *hfdcan1, 0 };
     if(rx.status == HAL_StatusTypeDef::HAL_OK) {
         if(not PUTM_CAN::can.parse_message(rx)) {
