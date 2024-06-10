@@ -30,13 +30,15 @@ class Can_interface {
     Device<Dashboard> dashboard { DASHBOARD_MAIN_CAN_ID };
     Device<AmkFrontLeftActualValues1> amkFrontLeftActualValue1 { FRONT_LEFT_AMK_ACTUAL_VALUES_1_CAN_ID };
     Device<PcMainData> pcMainData { PC_MAIN_CAN_ID };
+    Device<FrontData> frontData { FRONT_DATA_CAN_ID };
 
     std::array<Device_base*, 40> device_array = {
             &driverInput,
             &rearbox,
             &dashboard,
 			&amkFrontLeftActualValue1,
-			&pcMainData
+			&pcMainData,
+			&frontData,
     };
 
 public:
