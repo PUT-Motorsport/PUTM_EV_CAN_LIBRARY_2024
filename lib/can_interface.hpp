@@ -74,6 +74,10 @@ public:
      	return pcMainData.data;
      }
 
+    FrontData get_front_data_main_data() {
+         	return frontData.data;
+         }
+
     bool get_driver_input_main_new_data() {
         return driverInput.get_new_data();
     }
@@ -83,6 +87,10 @@ public:
     }
     bool get_pc_new_data() {
         return pcMainData.get_new_data();
+    }
+
+    bool get_front_data_main_new_data() {
+        return frontData.get_new_data();
     }
 
 };
