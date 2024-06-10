@@ -5,7 +5,7 @@
 
 namespace PUTM_CAN {
 
-struct __attribute__((packed)) RearboxMain {
+struct __attribute__((packed)) RearboxSafety {
     bool safety_rfu1 :1;
     bool safety_rfu2 :1;
     bool safety_asms :1;
@@ -18,27 +18,39 @@ struct __attribute__((packed)) RearboxMain {
     bool safety_wheel_fr :1;
     bool safety_wheel_rl :1;
     bool safety_wheel_rr :1;
-//    uint8_t mono_temperature;
-//    uint8_t water_temperature1;
-//    uint8_t water_temperature2;
-//    uint8_t analog_input1;
-//    uint8_t analog_input2;
-//    uint8_t water_pressure1;
-//    uint8_t water_pressure2;
-//    uint16_t hain_analog_potentiometer_r;
-//    uint16_t hain_analog_potentiometer_l;
 };
 
-const uint8_t REARBOX_MAIN_CAN_DLC = sizeof(RearboxMain);
-const uint8_t REARBOX = 100;
+struct __attribute__((packed)) RearboxTemperature {
+    uint8_t mono_temperature;
+    uint8_t coolant_temperature_in;
+    uint8_t coolant_temperature_out;
+    uint8_t oil_temperature_l;
+    uint8_t oil_temperature_r;
+};
+
+struct __attribute__((packed)) RearboxMiscellaneous {
+    uint8_t coolant_pressure_in;
+    uint8_t coolant_pressure_out;
+    uint16_t suspension_l;
+    uint16_t suspension_r;
+};
+
+const uint8_t REARBOX_SAFETY_CAN_DLC = sizeof(RearboxSafety);
+const uint8_t REARBOX_SAFETY_FREQUENCY = 10;
+
+const uint8_t REARBOX_TEMPERATURE_CAN_DLC = sizeof(RearboxTemperature);
+const uint8_t REARBOX_TEMPERATURE_FREQUENCY = 10;
+
+const uint8_t REARBOX_MISCELLANEOUS_CAN_DLC = sizeof(RearboxMiscellaneous);
+const uint8_t REARBOX_MISCELLANEOUS_FREQUENCY = 10;
 
 #ifndef PUTM_USE_CAN_FD
 
-const FDCAN_TxHeaderTypeDef can_tx_header_REARBOX_MAIN {
-        REARBOX_MAIN_CAN_ID,
+const FDCAN_TxHeaderTypeDef can_tx_header_REARBOX_SAFETY {
+        REARBOX_SAFETY_CAN_ID,
         FDCAN_STANDARD_ID,
         FDCAN_DATA_FRAME,
-        REARBOX_MAIN_CAN_DLC,
+        REARBOX_SAFETY_CAN_DLC,
         FDCAN_ESI_PASSIVE,
         FDCAN_BRS_OFF,
         FDCAN_CLASSIC_CAN,
@@ -46,6 +58,29 @@ const FDCAN_TxHeaderTypeDef can_tx_header_REARBOX_MAIN {
         0
 };
 
+const FDCAN_TxHeaderTypeDef can_tx_header_REARBOX_TEMPERATURE {
+        REARBOX_TEMPERATURE_CAN_ID,
+        FDCAN_STANDARD_ID,
+        FDCAN_DATA_FRAME,
+        REARBOX_TEMPERATURE_CAN_DLC,
+        FDCAN_ESI_PASSIVE,
+        FDCAN_BRS_OFF,
+        FDCAN_CLASSIC_CAN,
+        FDCAN_NO_TX_EVENTS,
+        0
+};
+
+const FDCAN_TxHeaderTypeDef can_tx_header_REARBOX_MISCELLANEOUS {
+        REARBOX_MISCELLANEOUS_CAN_ID,
+        FDCAN_STANDARD_ID,
+        FDCAN_DATA_FRAME,
+        REARBOX_MISCELLANEOUS_CAN_DLC,
+        FDCAN_ESI_PASSIVE,
+        FDCAN_BRS_OFF,
+        FDCAN_CLASSIC_CAN,
+        FDCAN_NO_TX_EVENTS,
+        0
+};
 #endif
 
 } // PUTM_CAN

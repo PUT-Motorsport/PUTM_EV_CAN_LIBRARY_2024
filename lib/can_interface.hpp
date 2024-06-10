@@ -24,17 +24,20 @@
 namespace PUTM_CAN {
 
 class Can_interface {
-
     Device<DriverInput> driverInput { DRIVER_INPUT_CAN_ID };
-    Device<RearboxMain> rearbox { REARBOX_MAIN_CAN_ID };
-    Device<Dashboard> dashboard { DASHBOARD_MAIN_CAN_ID };
+    Device<RearboxSafety> rearboxSafety { REARBOX_SAFETY_CAN_ID };
+    Device<RearboxTemperature> rearboxTemperature { REARBOX_TEMPERATURE_CAN_ID };
+    Device<RearboxMiscellaneous> rearboxMiscellaneous { REARBOX_MISCELLANEOUS_CAN_ID };
+    Device<Dashboard> dashboard { DASHBOARD_CAN_ID };
     Device<AmkFrontLeftActualValues1> amkFrontLeftActualValue1 { FRONT_LEFT_AMK_ACTUAL_VALUES_1_CAN_ID };
     Device<PcMainData> pcMainData { PC_MAIN_CAN_ID };
     Device<FrontData> frontData { FRONT_DATA_CAN_ID };
 
-    std::array<Device_base*, 40> device_array = {
+    std::array<Device_base*, 8> device_array = {
             &driverInput,
-            &rearbox,
+            &rearboxSafety,
+            &rearboxTemperature,
+            &rearboxMiscellaneous,
             &dashboard,
 			&amkFrontLeftActualValue1,
 			&pcMainData,
@@ -51,6 +54,7 @@ public:
                 return true;
             }
         }
+
         return false;
     }
 
@@ -58,8 +62,16 @@ public:
         return driverInput.data;
     }
 
-    RearboxMain get_rearbox_main() {
-        return rearbox.data;
+    RearboxSafety get_rearbox_safety() {
+        return rearboxSafety.data;
+    }
+
+    RearboxTemperature get_rearbox_temperature() {
+        return rearboxTemperature.data;
+    }
+
+    RearboxMiscellaneous get_rearbox_miscellaneous() {
+        return rearboxMiscellaneous.data;
     }
 
     Dashboard get_dashboard() {
@@ -80,6 +92,18 @@ public:
 
     bool get_driver_input_main_new_data() {
         return driverInput.get_new_data();
+    }
+
+    bool get_rearbox_safety_new_data() {
+        return rearboxSafety.get_new_data();
+    }
+
+    bool get_rearbox_temperature_new_data() {
+        return rearboxTemperature.get_new_data();
+    }
+
+    bool get_rearbox_miscellaneous_new_data() {
+        return rearboxMiscellaneous.get_new_data();
     }
 
     bool get_dashboard_new_data() {
