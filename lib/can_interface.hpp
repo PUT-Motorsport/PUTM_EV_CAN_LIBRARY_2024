@@ -19,6 +19,9 @@
 #include "CanHeaders/PM09-CANBUS-REARBOX.hpp"
 #include "CanHeaders/PM09-CANBUS-DASHBOARD.hpp"
 #include "CanHeaders/PM09-CANBUS-AMK-FRONT-LEFT.hpp"
+#include "CanHeaders/PM09-CANBUS-AMK-FRONT-RIGHT.hpp"
+#include "CanHeaders/PM09-CANBUS-AMK-REAR-LEFT.hpp"
+#include "CanHeaders/PM09-CANBUS-AMK-REAR-RIGHT.hpp"
 #include "CanHeaders/PM09_CANBUS_PC.hpp"
 
 namespace PUTM_CAN {
@@ -28,7 +31,17 @@ class Can_interface {
     Device<DriverInput> driverInput { DRIVER_INPUT_CAN_ID };
     Device<RearboxMain> rearbox { REARBOX_MAIN_CAN_ID };
     Device<Dashboard> dashboard { DASHBOARD_MAIN_CAN_ID };
-    Device<AmkFrontLeftActualValues1> amkFrontLeftActualValue1 { FRONT_LEFT_AMK_ACTUAL_VALUES_1_CAN_ID };
+
+    Device<AmkFrontLeftActualValues1>  amkFrontLeftActualValue1    { FRONT_LEFT_AMK_ACTUAL_VALUES_1_CAN_ID };
+    Device<AmkFrontRightActualValues1> amkFrontRightActualValues1  { FRONT_RIGHT_AMK_ACTUAL_VALUES_1_CAN_ID};
+    Device<AmkRearLeftActualValues1>  amkRearLeftActualValue1     { REAR_LEFT_AMK_ACTUAL_VALUES_1_CAN_ID };
+    Device<AmkRearRightActualValues1> amkRearRightActualValues1   { REAR_RIGHT_AMK_ACTUAL_VALUES_1_CAN_ID};
+
+    Device<AmkFrontLeftSetpoints1>  amkFrontLeftSetpoints   { FRONT_LEFT_AMK_SETPOINTS_1_CAN_ID };
+    Device<AmkFrontRightSetpoints1> amkFrontRightSetpoints  { FRONT_RIGHT_AMK_SETPOINTS_1_CAN_ID};
+    Device<AmkRearLeftSetpoints1>  amkRearLeftSetpoints     { REAR_LEFT_AMK_SETPOINTS_1_CAN_ID};
+    Device<AmkRearRightSetpoints1> amkRearRightSetpoints    { REAR_RIGHT_AMK_SETPOINTS_1_CAN_ID};
+
     Device<PcMainData> pcMainData { PC_MAIN_CAN_ID };
     Device<FrontData> frontData { FRONT_DATA_CAN_ID };
 
@@ -37,6 +50,13 @@ class Can_interface {
             &rearbox,
             &dashboard,
 			&amkFrontLeftActualValue1,
+			&amkFrontRightActualValues1,
+			&amkRearLeftActualValue1,
+			&amkRearRightActualValues1,
+			&amkFrontLeftSetpoints,
+			&amkFrontRightSetpoints,
+			&amkRearLeftSetpoints,
+			&amkRearRightSetpoints,
 			&pcMainData,
 			&frontData,
     };
@@ -69,14 +89,28 @@ public:
     AmkFrontLeftActualValues1 get_amk_front_left_actual_values1() {
     	return amkFrontLeftActualValue1.data;
     }
+    AmkFrontLeftSetpoints1 get_amk_front_left_setpoints() {
+     	return amkFrontLeftSetpoints.data;
+     }
+
+    AmkFrontRightActualValues1 get_amk_front_right_actual_values1() {
+       	return amkFrontRightActualValues1.data;
+    }
+
+    AmkRearLeftActualValues1 get_amk_rear_left_actual_values1() {
+           	return amkRearLeftActualValue1.data;
+    }
+    AmkRearRightActualValues1 get_amk_rear_right_actual_values1() {
+           	return amkRearRightActualValues1.data;
+    }
 
     PcMainData get_pc_main_data() {
      	return pcMainData.data;
      }
 
     FrontData get_front_data_main_data() {
-         	return frontData.data;
-         }
+         return frontData.data;
+     }
 
     bool get_driver_input_main_new_data() {
         return driverInput.get_new_data();
