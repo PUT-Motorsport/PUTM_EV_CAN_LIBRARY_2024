@@ -28,8 +28,7 @@ namespace PUTM_CAN {
 
 class Can_interface {
     Device<DriverInput> driverInput { DRIVER_INPUT_CAN_ID };
-    Device<RearboxMain> rearbox { REARBOX_MAIN_CAN_ID };
-    Device<Dashboard> dashboard { DASHBOARD_MAIN_CAN_ID };
+    Device<Dashboard> dashboard { DASHBOARD_CAN_ID };
 
     Device<AmkFrontLeftActualValues1>  amkFrontLeftActualValue1    { FRONT_LEFT_AMK_ACTUAL_VALUES_1_CAN_ID };
     Device<AmkFrontRightActualValues1> amkFrontRightActualValues1  { FRONT_RIGHT_AMK_ACTUAL_VALUES_1_CAN_ID};
@@ -48,7 +47,7 @@ class Can_interface {
     Device<PcMainData> pcMainData { PC_MAIN_CAN_ID };
     Device<FrontData> frontData { FRONT_DATA_CAN_ID };
 
-    std::array<Device_base*, 8> device_array = {
+    std::array<Device_base*, 40> device_array = {
             &driverInput,
             &rearboxSafety,
             &rearboxTemperature,
