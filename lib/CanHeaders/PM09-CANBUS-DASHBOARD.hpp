@@ -11,16 +11,16 @@ struct __attribute__((packed)) Dashboard {
     bool user_button :1;
 };
 
-const uint8_t DASHBOARD_MAIN_CAN_DLC = sizeof(Dashboard);
-const uint8_t DASHBOARD_MAIN_FREQUENCY = 100;
+const uint8_t DASHBOARD_CAN_DLC = sizeof(Dashboard);
+const uint8_t DASHBOARD_FREQUENCY = 100;
 
 #ifndef PUTM_USE_CAN_FD
 
 const FDCAN_TxHeaderTypeDef can_tx_header_DASHBOARD {
-		DASHBOARD_MAIN_CAN_DLC,
+        DASHBOARD_CAN_ID,
         FDCAN_STANDARD_ID,
         FDCAN_DATA_FRAME,
-        DASHBOARD_MAIN_CAN_DLC,
+        DASHBOARD_CAN_DLC,
         FDCAN_ESI_PASSIVE,
         FDCAN_BRS_OFF,
         FDCAN_CLASSIC_CAN,
