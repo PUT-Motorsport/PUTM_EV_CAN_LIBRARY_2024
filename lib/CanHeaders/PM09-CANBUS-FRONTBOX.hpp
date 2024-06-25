@@ -28,6 +28,7 @@ struct __attribute__((packed)) FrontData {
     bool sense_bspd :1;
     bool sense_overtravel :1;
     bool sense_right_wheel :1;
+    bool is_braking :1;
     uint16_t frontLeftSuspension;
     uint16_t frontRightSuspension;
     uint8_t frontLeftHubTemperature;
