@@ -23,6 +23,7 @@
 #include "CanHeaders/PM09-CANBUS-AMK-REAR-LEFT.hpp"
 #include "CanHeaders/PM09-CANBUS-AMK-REAR-RIGHT.hpp"
 #include "CanHeaders/PM09_CANBUS_PC.hpp"
+#include "CanHeaders/PM09-CANBUS-BMS-HV.hpp"
 
 namespace PUTM_CAN {
 
@@ -46,6 +47,7 @@ class Can_interface {
 
     Device<PcMainData> pcMainData { PC_MAIN_CAN_ID };
     Device<FrontData> frontData { FRONT_DATA_CAN_ID };
+    Device<BMS_HV_main> bmsHv { BMS_HV_MAIN_CAN_ID };
 
     std::array<Device_base*, 40> device_array = {
             &driverInput,
@@ -63,6 +65,7 @@ class Can_interface {
 			&amkRearRightSetpoints,
 			&pcMainData,
 			&frontData,
+			&bmsHv
     };
 
 public:
