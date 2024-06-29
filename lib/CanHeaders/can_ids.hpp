@@ -10,6 +10,8 @@ const uint16_t REARBOX_TEMPERATURE_CAN_ID = 0x26;
 const uint16_t REARBOX_MISCELLANEOUS_CAN_ID = 0x27;
 const uint16_t FRONT_DATA_CAN_ID = 0x35;
 const uint16_t BMS_HV_MAIN_CAN_ID = 0x45;
+const uint16_t BMS_LV_MAIN_CAN_ID = 0x55;
+const uint16_t BMS_LV_TEMPERATURE_CAN_ID = 0x56;
 
 
 /* Secondary Can Bus */
