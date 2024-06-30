@@ -44,7 +44,9 @@ const uint8_t BMS_LV_MAIN_FREQUENCY = 100;
 const uint8_t BMS_LV_TEMPERATURE_CAN_DLC = sizeof(BMS_LV_temperature);
 const uint8_t BMS_LV_TEMPERATURE_FREQUENCY = 1;
 
-// #ifndef PUTM_USE_CAN_FD
+#define PUTM_USE_CAN_FD
+
+#ifndef PUTM_USE_CAN_FD
 
 const CAN_TxHeaderTypeDef can_tx_header_BMS_LV_MAIN{
     BMS_LV_MAIN_CAN_ID,  0xFFF,  CAN_ID_STD, CAN_RTR_DATA,
@@ -54,7 +56,21 @@ const CAN_TxHeaderTypeDef can_tx_header_BMS_LV_TEMPERATURE{
     BMS_LV_TEMPERATURE_CAN_ID,  0xFFF,  CAN_ID_STD, CAN_RTR_DATA,
     BMS_LV_TEMPERATURE_CAN_DLC, DISABLE};
 
-// #endif
+#else
+
+const FDCAN_TxHeaderTypeDef can_tx_header_BMS_LV {
+        DRIVER_INPUT_CAN_ID,
+        FDCAN_STANDARD_ID,
+        FDCAN_DATA_FRAME,
+        DRIVER_INPUT_CAN_DLC,
+        FDCAN_ESI_PASSIVE,
+        FDCAN_BRS_OFF,
+        FDCAN_CLASSIC_CAN,
+        FDCAN_NO_TX_EVENTS,
+        0
+};
+
+#endif
 
 }   // namespace PUTM_CAN
 
