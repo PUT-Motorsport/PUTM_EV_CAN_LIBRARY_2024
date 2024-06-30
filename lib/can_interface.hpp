@@ -23,6 +23,8 @@
 #include "CanHeaders/PM09-CANBUS-AMK-REAR-LEFT.hpp"
 #include "CanHeaders/PM09-CANBUS-AMK-REAR-RIGHT.hpp"
 #include "CanHeaders/PM09_CANBUS_PC.hpp"
+#include "CanHeaders/PM09-CANBUS-BMS-HV.hpp"
+#include "CanHeaders/PM09-CANBUS-BMS-LV.hpp"
 
 namespace PUTM_CAN {
 
@@ -46,6 +48,10 @@ class Can_interface {
 
     Device<PcMainData> pcMainData { PC_MAIN_CAN_ID };
     Device<FrontData> frontData { FRONT_DATA_CAN_ID };
+    Device<BMS_HV_main> bmsHv { BMS_HV_MAIN_CAN_ID };
+
+    Device<BMS_LV_main> bmsLv { BMS_LV_MAIN_CAN_ID };
+    Device<BMS_LV_temperature> bmsLvTemperature { BMS_LV_TEMPERATURE_CAN_ID };
 
     std::array<Device_base*, 40> device_array = {
             &driverInput,
@@ -63,6 +69,9 @@ class Can_interface {
 			&amkRearRightSetpoints,
 			&pcMainData,
 			&frontData,
+			&bmsHv,
+            &bmsLv,
+            &bmsLvTemperature
     };
 
 public:
@@ -124,6 +133,18 @@ public:
     FrontData get_front_data_main_data() {
          return frontData.data;
      }
+    
+    BMS_HV_main get_bms_hv_main() {
+        return bmsHv.data;
+    }
+
+    BMS_LV_main get_bms_lv_main() {
+        return bmsLv.data;
+    }
+
+    BMS_LV_temperature get_bms_lv_temperature() {
+        return bmsLvTemperature.data;
+    }
 
     bool get_driver_input_main_new_data() {
         return driverInput.get_new_data();
@@ -153,6 +174,18 @@ public:
     }
     bool get_amk_front_left_actual_values_new_data() {
     	return amkFrontLeftActualValue1.get_new_data();
+    }
+
+    bool get_bms_hv_main_new_data() {
+        return bmsHv.get_new_data();
+    }
+
+    bool get_bms_lv_main_new_data() {
+        return bmsLv.get_new_data();
+    }
+
+    bool get_bms_lv_temperature_new_data() {
+        return bmsLvTemperature.get_new_data();
     }
 
 };
