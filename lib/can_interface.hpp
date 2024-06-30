@@ -151,6 +151,9 @@ public:
     bool get_front_data_main_new_data() {
         return frontData.get_new_data();
     }
+    bool get_amk_front_left_actual_values_new_data() {
+    	return amkFrontLeftActualValue1.get_new_data();
+    }
 
 };
 
