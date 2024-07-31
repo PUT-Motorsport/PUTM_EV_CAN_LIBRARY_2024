@@ -12,8 +12,8 @@
 
 namespace PUTM_CAN
 {
-	enum struct BMS_HV_states : uint8_t
-	{
+//	enum struct BMS_HV_states : uint8_t
+//	{
 //		  AIR_opened,            // normal
 //		  AIR_closed,            // normal
 //		  Precharge,             // normal
@@ -24,9 +24,7 @@ namespace PUTM_CAN
 //		  Voltage_high,          // shut down
 //		  Temp_high,             // shut down
 //		  Current_high,          // shut down
-		Normal,
-		ShutDown,
-	};
+//	};
 
 	struct __attribute__((packed)) BMS_HV_main
 	{
@@ -35,7 +33,7 @@ namespace PUTM_CAN
 		uint8_t temp_max;
 		uint8_t temp_avg;                 // in Celsius
 		uint16_t soc : 10;                // state of charge
-		BMS_HV_states device_state : 6;   //
+		bool ok: 1;
 	};
 
 	const uint8_t BMS_HV_MAIN_CAN_DLC = sizeof(BMS_HV_main);
