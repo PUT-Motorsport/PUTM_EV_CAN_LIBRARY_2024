@@ -4,6 +4,7 @@
 namespace PUTM_CAN {
 
 struct __attribute__((packed)) PcMainData {
+    bool rtd : 1;
     uint32_t time;
 };
 
