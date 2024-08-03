@@ -4,8 +4,8 @@
 namespace PUTM_CAN {
 
 struct __attribute__((packed)) PcMainData {
-    bool rtd : 1;
     uint32_t time;
+    bool rtd : 1;
 };
 
 const uint8_t PC_MAIN_CAN_DLC = sizeof(PcMainData);
