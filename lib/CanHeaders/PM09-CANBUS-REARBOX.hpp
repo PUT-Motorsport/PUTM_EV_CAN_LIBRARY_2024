@@ -6,18 +6,18 @@
 namespace PUTM_CAN {
 
 struct __attribute__((packed)) RearboxSafety {
-    bool safety_rfu1 :1;
-    bool safety_rfu2 :1;
-    bool safety_asms :1;
-    bool safety_fw :1;
-    bool safety_hv :1;
-    bool safety_res :1;
-    bool safety_hvd :1;
-    bool safety_inv :1;
-    bool safety_wheel_fl :1;
-    bool safety_wheel_fr :1;
-    bool safety_wheel_rl :1;
-    bool safety_wheel_rr :1;
+    bool safety_rfu1 : 1;
+    bool safety_rfu2 : 1;
+    bool safety_asms : 1;
+    bool safety_fw : 1;
+    bool safety_hv : 1;
+    bool safety_res : 1;
+    bool safety_hvd : 1;
+    bool safety_inv : 1;
+    bool safety_wheel_fl : 1;
+    bool safety_wheel_fr : 1;
+    bool safety_wheel_rl : 1;
+    bool safety_wheel_rr : 1;
 };
 
 struct __attribute__((packed)) RearboxTemperature {
@@ -46,42 +46,24 @@ const uint8_t REARBOX_MISCELLANEOUS_FREQUENCY = 10;
 
 #ifndef PUTM_USE_CAN_FD
 
-const FDCAN_TxHeaderTypeDef can_tx_header_REARBOX_SAFETY {
-        REARBOX_SAFETY_CAN_ID,
-        FDCAN_STANDARD_ID,
-        FDCAN_DATA_FRAME,
-        REARBOX_SAFETY_CAN_DLC,
-        FDCAN_ESI_PASSIVE,
-        FDCAN_BRS_OFF,
-        FDCAN_CLASSIC_CAN,
-        FDCAN_NO_TX_EVENTS,
-        0
-};
+const FDCAN_TxHeaderTypeDef can_tx_header_REARBOX_SAFETY{REARBOX_SAFETY_CAN_ID,  FDCAN_STANDARD_ID,  FDCAN_DATA_FRAME,
+                                                         REARBOX_SAFETY_CAN_DLC, FDCAN_ESI_PASSIVE,  FDCAN_BRS_OFF,
+                                                         FDCAN_CLASSIC_CAN,      FDCAN_NO_TX_EVENTS, 0};
 
-const FDCAN_TxHeaderTypeDef can_tx_header_REARBOX_TEMPERATURE {
-        REARBOX_TEMPERATURE_CAN_ID,
-        FDCAN_STANDARD_ID,
-        FDCAN_DATA_FRAME,
-        REARBOX_TEMPERATURE_CAN_DLC,
-        FDCAN_ESI_PASSIVE,
-        FDCAN_BRS_OFF,
-        FDCAN_CLASSIC_CAN,
-        FDCAN_NO_TX_EVENTS,
-        0
-};
+const FDCAN_TxHeaderTypeDef can_tx_header_REARBOX_TEMPERATURE{REARBOX_TEMPERATURE_CAN_ID,  FDCAN_STANDARD_ID,  FDCAN_DATA_FRAME,
+                                                              REARBOX_TEMPERATURE_CAN_DLC, FDCAN_ESI_PASSIVE,  FDCAN_BRS_OFF,
+                                                              FDCAN_CLASSIC_CAN,           FDCAN_NO_TX_EVENTS, 0};
 
-const FDCAN_TxHeaderTypeDef can_tx_header_REARBOX_MISCELLANEOUS {
-        REARBOX_MISCELLANEOUS_CAN_ID,
-        FDCAN_STANDARD_ID,
-        FDCAN_DATA_FRAME,
-        REARBOX_MISCELLANEOUS_CAN_DLC,
-        FDCAN_ESI_PASSIVE,
-        FDCAN_BRS_OFF,
-        FDCAN_CLASSIC_CAN,
-        FDCAN_NO_TX_EVENTS,
-        0
-};
+const FDCAN_TxHeaderTypeDef can_tx_header_REARBOX_MISCELLANEOUS{REARBOX_MISCELLANEOUS_CAN_ID,
+                                                                FDCAN_STANDARD_ID,
+                                                                FDCAN_DATA_FRAME,
+                                                                REARBOX_MISCELLANEOUS_CAN_DLC,
+                                                                FDCAN_ESI_PASSIVE,
+                                                                FDCAN_BRS_OFF,
+                                                                FDCAN_CLASSIC_CAN,
+                                                                FDCAN_NO_TX_EVENTS,
+                                                                0};
 #endif
 
-} // PUTM_CAN
+} // namespace PUTM_CAN
 #endif // __REARBOX_H__
