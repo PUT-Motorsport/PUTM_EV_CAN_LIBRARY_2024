@@ -11,19 +11,6 @@
 #include <cstdint>
 
 namespace PUTM_CAN {
-//	enum struct BMS_HV_states : uint8_t
-//	{
-//		  AIR_opened,            // normal
-//		  AIR_closed,            // normal
-//		  Precharge,             // normal
-//		  Charger_connected,     // normal
-//		  Unbalanced,            // warning
-//		  Unbalanced_critical,   // shut down
-//		  Voltage_low,           // shut down
-//		  Voltage_high,          // shut down
-//		  Temp_high,             // shut down
-//		  Current_high,          // shut down
-//	};
 
 struct __attribute__((packed)) BMS_HV_main {
     uint16_t voltage_sum;
