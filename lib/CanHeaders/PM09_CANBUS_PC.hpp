@@ -9,6 +9,7 @@ struct __attribute__((packed)) PcMainData {
     uint8_t rearRightMotorTemperature;
     uint8_t rearLeftMotorTemperature;
     uint8_t vehicleSpeed;
+    uint8_t power;
 	bool invertersReady: 1;
     bool rtd : 1;
 
