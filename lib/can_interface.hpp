@@ -37,6 +37,11 @@ class Can_interface {
     Device<AmkRearLeftActualValues1> amkRearLeftActualValue1{REAR_LEFT_AMK_ACTUAL_VALUES_1_CAN_ID};
     Device<AmkRearRightActualValues1> amkRearRightActualValues1{REAR_RIGHT_AMK_ACTUAL_VALUES_1_CAN_ID};
 
+    Device<AmkFrontLeftActualValues2> amkFrontLeftActualValue2{FRONT_LEFT_AMK_ACTUAL_VALUES_2_CAN_ID};
+    Device<AmkFrontRightActualValues2> amkFrontRightActualValues2{FRONT_RIGHT_AMK_ACTUAL_VALUES_2_CAN_ID};
+    Device<AmkRearLeftActualValues2> amkRearLeftActualValue2{REAR_LEFT_AMK_ACTUAL_VALUES_2_CAN_ID};
+    Device<AmkRearRightActualValues2> amkRearRightActualValues2{REAR_RIGHT_AMK_ACTUAL_VALUES_2_CAN_ID};
+
     Device<AmkFrontLeftSetpoints1> amkFrontLeftSetpoints{FRONT_LEFT_AMK_SETPOINTS_1_CAN_ID};
     Device<AmkFrontRightSetpoints1> amkFrontRightSetpoints{FRONT_RIGHT_AMK_SETPOINTS_1_CAN_ID};
     Device<AmkRearLeftSetpoints1> amkRearLeftSetpoints{REAR_LEFT_AMK_SETPOINTS_1_CAN_ID};
@@ -62,6 +67,10 @@ class Can_interface {
                                                  &amkFrontRightActualValues1,
                                                  &amkRearLeftActualValue1,
                                                  &amkRearRightActualValues1,
+												 &amkFrontLeftActualValue2,
+											     &amkFrontRightActualValues2,
+												 &amkRearLeftActualValue2,
+												 &amkRearRightActualValues2,
                                                  &amkFrontLeftSetpoints,
                                                  &amkFrontRightSetpoints,
                                                  &amkRearLeftSetpoints,
@@ -97,12 +106,19 @@ class Can_interface {
     Dashboard get_dashboard() { return dashboard.data; }
 
     AmkFrontLeftActualValues1 get_amk_front_left_actual_values1() { return amkFrontLeftActualValue1.data; }
+
     AmkFrontLeftSetpoints1 get_amk_front_left_setpoints() { return amkFrontLeftSetpoints.data; }
 
     AmkFrontRightActualValues1 get_amk_front_right_actual_values1() { return amkFrontRightActualValues1.data; }
 
     AmkRearLeftActualValues1 get_amk_rear_left_actual_values1() { return amkRearLeftActualValue1.data; }
+
+    AmkRearLeftActualValues2 get_amk_rear_left_actual_values2() { return amkRearLeftActualValue2.data; }
+
     AmkRearRightActualValues1 get_amk_rear_right_actual_values1() { return amkRearRightActualValues1.data; }
+
+    AmkRearRightActualValues2 get_amk_rear_right_actual_values2() { return amkRearRightActualValues2.data; }
+
 
     PcMainData get_pc_main_data() { return pcMainData.data; }
 

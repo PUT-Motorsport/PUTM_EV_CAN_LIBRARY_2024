@@ -4,8 +4,16 @@
 namespace PUTM_CAN {
 
 struct __attribute__((packed)) PcMainData {
-    uint32_t time;
+    uint8_t rearRightInverterTemperature;
+    uint8_t rearLeftInverterTemperature;
+    uint8_t rearRightMotorTemperature;
+    uint8_t rearLeftMotorTemperature;
+    uint8_t vehicleSpeed : 6;
+    uint8_t power : 6;
+    uint16_t rpm : 15;
+	bool invertersReady: 1;
     bool rtd : 1;
+
 };
 
 const uint8_t PC_MAIN_CAN_DLC = sizeof(PcMainData);

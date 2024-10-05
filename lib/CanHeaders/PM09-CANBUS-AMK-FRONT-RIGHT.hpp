@@ -56,11 +56,8 @@ struct __attribute__((packed)) AmkFrontRightSetpoints1 {
 
 // n = {1, 2, 5, 6} (inverter 1, 2 ,3 ,4)
 
-constexpr uint16_t FRONT_RIGHT_AMK_ACTUAL_VALUES_1_CAN_ID = 0x282 + 2; // + n
 constexpr uint8_t FRONT_RIGHT_AMK_ACTUAL_VALUES_1_CAN_DLC = sizeof(AmkFrontRightActualValues1);
-constexpr uint16_t FRONT_RIGHT_AMK_ACTUAL_VALUES_2_CAN_ID = 0x284 + 2; // + n
 constexpr uint8_t FRONT_RIGHT_AMK_ACTUAL_VALUES_2_CAN_DLC = sizeof(AmkFrontRightActualValues2);
-constexpr uint16_t FRONT_RIGHT_AMK_SETPOINTS_1_CAN_ID = 0x183 + 2; // + n
 constexpr uint8_t FRONT_RIGHT_AMK_SETPOINTS_1_CAN_DLC = sizeof(AmkFrontRightSetpoints1);
 
 const FDCAN_TxHeaderTypeDef can_tx_header_AMK_FRONT_RIGHT_SETPOINTS{FRONT_RIGHT_AMK_SETPOINTS_1_CAN_ID,
