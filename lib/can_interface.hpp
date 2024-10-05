@@ -139,10 +139,13 @@ Can_interface can;
 
 } // namespace PUTM_CAN
 
-void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef* hfdcan1, uint32_t RxFifo0ITs) {
-    PUTM_CAN::Can_rx_message rx{*hfdcan1, 0};
-    if(rx.status == HAL_StatusTypeDef::HAL_OK) {
-        if(not PUTM_CAN::can.parse_message(rx)) {
+void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef* hfdcan, uint32_t RxFifo0ITs)
+{
+    PUTM_CAN::Can_rx_message rx {*hfdcan};
+    if(rx.status == HAL_StatusTypeDef::HAL_OK)
+    {
+        if(not PUTM_CAN::can.parse_message(rx))
+        {
             // Unknown message
             // Error_Handler();
         }
