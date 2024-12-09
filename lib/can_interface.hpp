@@ -52,13 +52,14 @@ class Can_interface {
     Device<RearboxMiscellaneous> rearboxMiscellaneous{REARBOX_MISCELLANEOUS_CAN_ID};
 
     Device<PcMainData> pcMainData{PC_MAIN_CAN_ID};
+    Device<PcTemperatureData> pcTemperatureData{PC_TEMPERATURE_CAN_ID};
     Device<FrontData> frontData{FRONT_DATA_CAN_ID};
     Device<BMS_HV_main> bmsHv{BMS_HV_MAIN_CAN_ID};
 
     Device<BMS_LV_main> bmsLv{BMS_LV_MAIN_CAN_ID};
     Device<BMS_LV_temperature> bmsLvTemperature{BMS_LV_TEMPERATURE_CAN_ID};
 
-    std::array<Device_base*, 40> device_array = {&driverInput,
+    std::array<Device_base*, 42> device_array = {&driverInput,
                                                  &rearboxSafety,
                                                  &rearboxTemperature,
                                                  &rearboxMiscellaneous,
@@ -76,6 +77,7 @@ class Can_interface {
                                                  &amkRearLeftSetpoints,
                                                  &amkRearRightSetpoints,
                                                  &pcMainData,
+                                                 &pcTemperatureData,
                                                  &frontData,
                                                  &bmsHv,
                                                  &bmsLv,
@@ -122,6 +124,8 @@ class Can_interface {
 
     PcMainData get_pc_main_data() { return pcMainData.data; }
 
+    PcTemperatureData get_pc_temperature_data() { return pcTemperatureData.data; }
+
     FrontData get_front_data_main_data() { return frontData.data; }
 
     BMS_HV_main get_bms_hv_main() { return bmsHv.data; }
@@ -139,9 +143,13 @@ class Can_interface {
     bool get_rearbox_miscellaneous_new_data() { return rearboxMiscellaneous.get_new_data(); }
 
     bool get_dashboard_new_data() { return dashboard.get_new_data(); }
+
     bool get_pc_new_data() { return pcMainData.get_new_data(); }
 
+    bool get_pc_temperature_data_new_data() { return pcTemperatureData.get_new_data(); }
+
     bool get_front_data_main_new_data() { return frontData.get_new_data(); }
+    
     bool get_amk_front_left_actual_values_new_data() { return amkFrontLeftActualValue1.get_new_data(); }
 
     bool get_bms_hv_main_new_data() { return bmsHv.get_new_data(); }
