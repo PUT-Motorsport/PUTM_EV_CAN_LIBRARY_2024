@@ -20,6 +20,7 @@ struct __attribute__((packed)) BMS_HV_main
     uint8_t temp_avg;  // in Celsius
     uint16_t soc : 10; // state of charge
     bool ok : 1;
+	bool precharge : 1;
 };
 
 const uint8_t BMS_HV_MAIN_CAN_DLC = sizeof(BMS_HV_main);
