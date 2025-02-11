@@ -6,7 +6,6 @@
 #include <array>
 #include <cstdint>
 #include <variant>
-#include <vector>
 
 #ifdef UNIT_TESTS
 #include "../hal_can.hpp"
@@ -60,7 +59,7 @@ class Can_interface {
     Device<BMS_LV_main> bmsLv{BMS_LV_MAIN_CAN_ID};
     Device<BMS_LV_temperature> bmsLvTemperature{BMS_LV_TEMPERATURE_CAN_ID};
 
-       std::vector<Device_base*> device_vector = {&driverInput,
+       std::array<Device_base*, 42> device_array = {&driverInput,
                                                  &rearboxSafety,
                                                  &rearboxTemperature,
                                                  &rearboxMiscellaneous,
@@ -88,7 +87,7 @@ class Can_interface {
     Can_interface() = default;
 
     bool parse_message(const Can_rx_message& m) {
-        for(auto& device : device_vector) {
+        for(auto& device : device_array) {
             if(device->get_ID() == m.header.Identifier) {
                 device->set_data(m);
                 return true;
