@@ -68,6 +68,38 @@ If you'd like to verify that the frame accessed is new, you can call functions s
 - a frame is not new until it has been received
 - once a frame has been accessed, it is not new
 
+> [!IMPORTANT]
+> Check what value RxFIFOx takes by default. Most often it has to be edited appropriately after generating the project.
+For example, using FDCAN1 we change the value from 0 to 1:
+```c++
+//in Drivers/STM32x_HAL_Driver/Src/stm32x_hal_fdcan.c
+    if (RxLocation == 1) /* Rx element is assigned to the Rx FIFO 0 */
+    {
+      /* Check that the Rx FIFO 0 is not empty */
+      if ((hfdcan->Instance->RXF0S & FDCAN_RXF0S_F0FL) == 0U)
+      {
+        /* Update error code */
+        hfdcan->ErrorCode |= HAL_FDCAN_ERROR_FIFO_EMPTY;
+
+        return HAL_ERROR;
+      }
+// and
+    if (RxLocation == 1) /* Rx element is assigned to the Rx FIFO 0 */
+    {
+      /* Acknowledge the Rx FIFO 0 that the oldest element is read so that it increments the GetIndex */
+      hfdcan->Instance->RXF0A = GetIndex;
+    }
+    else /* Rx element is assigned to the Rx FIFO 1 */
+    {
+      /* Acknowledge the Rx FIFO 1 that the oldest element is read so that it increments the GetIndex */
+      hfdcan->Instance->RXF1A = GetIndex;
+    }
+
+    /* Return function status */
+    return HAL_OK;
+  }
+```
+
 # Adding the library as a submodule
 
 To add the library as a submodule, open the terminal in the repo folder and do:
