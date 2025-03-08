@@ -52,7 +52,9 @@ class Can_interface {
     Device<RearboxMiscellaneous> rearboxMiscellaneous{REARBOX_MISCELLANEOUS_CAN_ID};
 
     Device<PcMainData> pcMainData{PC_MAIN_CAN_ID};
+    Device<PcLapTimerData> pcLapTimerData{PC_LAP_TIMER_CAN_ID};
     Device<PcTemperatureData> pcTemperatureData{PC_TEMPERATURE_CAN_ID};
+
     Device<FrontData> frontData{FRONT_DATA_CAN_ID};
     Device<BMS_HV_main> bmsHv{BMS_HV_MAIN_CAN_ID};
 
@@ -77,6 +79,7 @@ class Can_interface {
                                                  &amkRearLeftSetpoints,
                                                  &amkRearRightSetpoints,
                                                  &pcMainData,
+                                                 &pcLapTimerData,
                                                  &pcTemperatureData,
                                                  &frontData,
                                                  &bmsHv,
@@ -124,6 +127,8 @@ class Can_interface {
 
     PcMainData get_pc_main_data() { return pcMainData.data; }
 
+    PcLapTimerData get_pc_lap_timer_data() { return pcLapTimerData.data; }
+
     PcTemperatureData get_pc_temperature_data() { return pcTemperatureData.data; }
 
     FrontData get_front_data_main_data() { return frontData.data; }
@@ -145,6 +150,8 @@ class Can_interface {
     bool get_dashboard_new_data() { return dashboard.get_new_data(); }
 
     bool get_pc_new_data() { return pcMainData.get_new_data(); }
+
+    bool get_pc_lap_timer_data_new_data() { return pcLapTimerData.get_new_data(); }
 
     bool get_pc_temperature_data_new_data() { return pcTemperatureData.get_new_data(); }
 

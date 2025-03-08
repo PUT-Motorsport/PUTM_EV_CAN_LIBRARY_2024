@@ -42,4 +42,18 @@ const uint8_t PC_MAIN_FREQUENCY = 50;
 const FDCAN_TxHeaderTypeDef can_tx_header_PC_MAIN_DATA{
     PC_MAIN_CAN_ID, FDCAN_STANDARD_ID, FDCAN_DATA_FRAME, PC_MAIN_CAN_DLC, FDCAN_ESI_PASSIVE, FDCAN_BRS_OFF, FDCAN_CLASSIC_CAN, FDCAN_NO_TX_EVENTS, 0};
 
+
+struct __attribute__((packed)) PcLapTimerData {
+    uint16_t currentLapTime;  
+    uint16_t bestLapTime;  
+    int16_t delta_time;   
+    uint8_t lap_counter;        
+};
+
+const uint8_t PC_LAP_TIMER_CAN_DLC = sizeof(PcLapTimerData);
+const uint8_t PC_LAP_TIMER_FREQUENCY = 50; 
+
+const FDCAN_TxHeaderTypeDef can_tx_header_PC_LAP_TIMER_DATA{
+    PC_LAP_TIMER_CAN_ID, FDCAN_STANDARD_ID, FDCAN_DATA_FRAME, PC_LAP_TIMER_CAN_DLC, FDCAN_ESI_PASSIVE, FDCAN_BRS_OFF, FDCAN_CLASSIC_CAN, FDCAN_NO_TX_EVENTS, 0};
+
 } // namespace PUTM_CAN
