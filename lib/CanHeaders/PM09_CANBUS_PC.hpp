@@ -21,8 +21,8 @@ const FDCAN_TxHeaderTypeDef can_tx_header_PC_TEMPERATURE_DATA{
     PC_TEMPERATURE_CAN_ID, FDCAN_STANDARD_ID, FDCAN_DATA_FRAME, PC_TEMPERATURE_CAN_DLC, FDCAN_ESI_PASSIVE, FDCAN_BRS_OFF, FDCAN_CLASSIC_CAN, FDCAN_NO_TX_EVENTS, 0};
 
 struct __attribute__((packed)) PcMainData {
-    uint8_t vehicleSpeed : 16;                  
-    uint8_t torqueCurrent : 16;                                               
+    uint16_t vehicleSpeed;                  
+    uint16_t torqueCurrent;                                               
     bool invertersReady : 1;                   // 1 bit
     bool rtd : 1;                              // 1 bit
     //Instead of sending information about each inverter individually, we send the inverter index and its status
