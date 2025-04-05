@@ -22,17 +22,13 @@ const FDCAN_TxHeaderTypeDef can_tx_header_PC_TEMPERATURE_DATA{
 
 struct __attribute__((packed)) PcMainData {
     uint8_t vehicleSpeed : 16;                  
-    uint8_t torque_current : 16;                                               
+    uint8_t torqueCurrent : 16;                                               
     bool invertersReady : 1;                   // 1 bit
     bool rtd : 1;                              // 1 bit
-    bool inv_FL_status : 1;                    // Status, 1 bit
-    bool inv_FR_status : 1;                    // Status, 1 bit
-    bool inv_RL_status : 1;                    // Status, 1 bit
-    bool inv_RR_status : 1;                    // Status, 1 bit
-    bool inv_FL_error : 1;                     // Error, 1 bit
-    bool inv_FR_error : 1;                     // Error, 1 bit
-    bool inv_RL_error : 1;                     // Error, 1 bit
-    bool inv_RR_error : 1;                     // Error, 1 bit
+    //Instead of sending information about each inverter individually, we send the inverter index and its status
+    uint16_t inverterErrorIdx;
+    uint8_t  inverterIdx : 4;                // 4 bits
+    bool inverterStatus : 1;         // 1 bit
 };
 
 const uint8_t PC_MAIN_CAN_DLC = sizeof(PcMainData);
