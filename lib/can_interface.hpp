@@ -25,6 +25,7 @@
 #include "CanHeaders/PM09-CANBUS-FRONTBOX.hpp"
 #include "CanHeaders/PM09-CANBUS-REARBOX.hpp"
 #include "CanHeaders/PM09_CANBUS_PC.hpp"
+#include "CanHeaders/PM09_CANBUS_PDU.hpp"
 
 namespace PUTM_CAN {
 
@@ -55,6 +56,7 @@ class Can_interface {
     Device<PcLapTimerData> pcLapTimerData{PC_LAP_TIMER_CAN_ID};
     Device<PcTemperatureData> pcTemperatureData{PC_TEMPERATURE_CAN_ID};
 
+    Device<PduData> pduData{PDU_DATA_CAN_ID};
     Device<FrontData> frontData{FRONT_DATA_CAN_ID};
     Device<BMS_HV_main> bmsHv{BMS_HV_MAIN_CAN_ID};
 
@@ -81,6 +83,7 @@ class Can_interface {
                                                  &pcMainData,
                                                  &pcLapTimerData,
                                                  &pcTemperatureData,
+                                                 &pduData,
                                                  &frontData,
                                                  &bmsHv,
                                                  &bmsLv,
@@ -131,6 +134,8 @@ class Can_interface {
 
     PcTemperatureData get_pc_temperature_data() { return pcTemperatureData.data; }
 
+    PduData get_pdu_data() { return pduData.data; }
+
     FrontData get_front_data_main_data() { return frontData.data; }
 
     BMS_HV_main get_bms_hv_main() { return bmsHv.data; }
@@ -154,6 +159,8 @@ class Can_interface {
     bool get_pc_lap_timer_data_new_data() { return pcLapTimerData.get_new_data(); }
 
     bool get_pc_temperature_data_new_data() { return pcTemperatureData.get_new_data(); }
+
+    bool get_pdu_data_new_data() { return pduData.get_new_data(); }
 
     bool get_front_data_main_new_data() { return frontData.get_new_data(); }
     
