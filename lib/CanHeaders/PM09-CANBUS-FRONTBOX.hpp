@@ -30,9 +30,9 @@ struct __attribute__((packed)) FrontData {
     bool sense_right_wheel : 1;
     bool is_braking : 1;
     bool apps : 1;
-    uint8_t apps_ implausibility;
-    uint16_t frontLeftSuspension;
-    uint16_t frontRightSuspension;
+    uint8_t apps_implausibility;
+    int16_t frontLeftSuspension;
+    int16_t frontRightSuspension;
 };
 
 const uint8_t DRIVER_INPUT_CAN_DLC = sizeof(DriverInput);
