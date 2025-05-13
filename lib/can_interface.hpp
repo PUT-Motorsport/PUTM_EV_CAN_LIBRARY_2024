@@ -25,11 +25,13 @@
 #include "CanHeaders/PM09-CANBUS-FRONTBOX.hpp"
 #include "CanHeaders/PM09-CANBUS-REARBOX.hpp"
 #include "CanHeaders/PM09_CANBUS_PC.hpp"
+#include "CanHeaders/PM09_CANBUS_PDU.hpp"
 
 namespace PUTM_CAN {
 
 class Can_interface {
     Device<DriverInput> driverInput{DRIVER_INPUT_CAN_ID};
+
     Device<Dashboard> dashboard{DASHBOARD_CAN_ID};
 
     Device<AmkFrontLeftActualValues1> amkFrontLeftActualValue1{FRONT_LEFT_AMK_ACTUAL_VALUES_1_CAN_ID};
@@ -55,13 +57,17 @@ class Can_interface {
     Device<PcLapTimerData> pcLapTimerData{PC_LAP_TIMER_CAN_ID};
     Device<PcTemperatureData> pcTemperatureData{PC_TEMPERATURE_CAN_ID};
 
+    Device<PduChannel> pduChannel{PDU_CHANNEL_CAN_ID};
+    Device<PduData> pduData{PDU_DATA_CAN_ID};
+
     Device<FrontData> frontData{FRONT_DATA_CAN_ID};
+
     Device<BMS_HV_main> bmsHv{BMS_HV_MAIN_CAN_ID};
 
     Device<BMS_LV_main> bmsLv{BMS_LV_MAIN_CAN_ID};
     Device<BMS_LV_temperature> bmsLvTemperature{BMS_LV_TEMPERATURE_CAN_ID};
 
-       std::array<Device_base*, 42> device_array = {&driverInput,
+    std::array<Device_base*, 26> device_array = {&driverInput,
                                                  &rearboxSafety,
                                                  &rearboxTemperature,
                                                  &rearboxMiscellaneous,
@@ -81,6 +87,8 @@ class Can_interface {
                                                  &pcMainData,
                                                  &pcLapTimerData,
                                                  &pcTemperatureData,
+                                                 &pduData,
+                                                 &pduChannel,
                                                  &frontData,
                                                  &bmsHv,
                                                  &bmsLv,
@@ -131,6 +139,10 @@ class Can_interface {
 
     PcTemperatureData get_pc_temperature_data() { return pcTemperatureData.data; }
 
+    PdmData get_pdu_channel() { return pduChannel.data; }
+
+    PdmData get_pdu_data() { return pduData.data; }
+
     FrontData get_front_data_main_data() { return frontData.data; }
 
     BMS_HV_main get_bms_hv_main() { return bmsHv.data; }
@@ -154,6 +166,10 @@ class Can_interface {
     bool get_pc_lap_timer_data_new_data() { return pcLapTimerData.get_new_data(); }
 
     bool get_pc_temperature_data_new_data() { return pcTemperatureData.get_new_data(); }
+
+    bool get_pdu_channel_new_data() { return pduChannel.get_new_data(); }
+
+    bool get_pdu_data_new_data() { return pduData.get_new_data(); }
 
     bool get_front_data_main_new_data() { return frontData.get_new_data(); }
     
