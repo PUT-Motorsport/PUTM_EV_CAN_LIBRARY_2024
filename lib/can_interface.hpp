@@ -139,9 +139,9 @@ class Can_interface {
 
     PcTemperatureData get_pc_temperature_data() { return pcTemperatureData.data; }
 
-    PdmData get_pdu_channel() { return pduChannel.data; }
+    PduChannel get_pdu_channel_data() { return pduChannel.data; }
 
-    PdmData get_pdu_data() { return pduData.data; }
+    PduData get_pdu_data() { return pduData.data; }
 
     FrontData get_front_data_main_data() { return frontData.data; }
 

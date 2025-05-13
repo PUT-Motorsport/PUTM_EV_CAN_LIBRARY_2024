@@ -23,7 +23,6 @@ const uint8_t PDU_CHANNEL_FREQUENCY = 50;
 
 const FDCAN_TxHeaderTypeDef can_tx_header_PDU_CHANNEL{
     PDU_CHANNEL_CAN_ID, FDCAN_STANDARD_ID, FDCAN_CHANNEL_FRAME, PDU_CHANNEL_CAN_DLC, FDCAN_ESI_PASSIVE, FDCAN_BRS_OFF, FDCAN_CLASSIC_CAN, FDCAN_NO_TX_EVENTS, 0};
-}
 
 struct __attribute__((packed)) PduData {
  uint32_t pc_current : 8;
