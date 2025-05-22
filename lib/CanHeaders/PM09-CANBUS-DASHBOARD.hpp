@@ -9,6 +9,7 @@ struct __attribute__((packed)) Dashboard {
     bool ready_to_drive_button : 1;
     bool ts_activation_button : 1;
     bool user_button : 1;
+    bool drs_button : 1;
 };
 
 const uint8_t DASHBOARD_CAN_DLC = sizeof(Dashboard);
