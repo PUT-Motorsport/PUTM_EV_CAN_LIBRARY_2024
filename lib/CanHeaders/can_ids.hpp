@@ -16,6 +16,7 @@ const uint16_t FRONT_DATA_CAN_ID = 0x35;
 const uint16_t BMS_HV_MAIN_CAN_ID = 0x45;
 const uint16_t BMS_LV_MAIN_CAN_ID = 0x55;
 const uint16_t BMS_LV_TEMPERATURE_CAN_ID = 0x56;
+const uint16_t DATA_LOGGER_CAN_ID = 0x57;
 
 /* Secondary Can Bus */
 constexpr uint16_t FRONT_RIGHT_AMK_ACTUAL_VALUES_1_CAN_ID = 0x282 + 1; // + n

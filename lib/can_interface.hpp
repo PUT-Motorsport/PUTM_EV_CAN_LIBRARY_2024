@@ -26,6 +26,7 @@
 #include "CanHeaders/PM09-CANBUS-REARBOX.hpp"
 #include "CanHeaders/PM09_CANBUS_PC.hpp"
 #include "CanHeaders/PM09_CANBUS_PDU.hpp"
+#include "CanHeaders/PM09-CANBUS-DATA-LOGGER.hpp"
 
 namespace PUTM_CAN {
 
@@ -67,7 +68,9 @@ class Can_interface {
     Device<BMS_LV_main> bmsLv{BMS_LV_MAIN_CAN_ID};
     Device<BMS_LV_temperature> bmsLvTemperature{BMS_LV_TEMPERATURE_CAN_ID};
 
-    std::array<Device_base*, 26> device_array = {&driverInput,
+    Device<DataLoggerStatus> dataLoggerStatus{DATA_LOGGER_STATUS_CAN_ID};
+
+    std::array<Device_base*, 27> device_array = {&driverInput,
                                                  &rearboxSafety,
                                                  &rearboxTemperature,
                                                  &rearboxMiscellaneous,
@@ -92,7 +95,8 @@ class Can_interface {
                                                  &frontData,
                                                  &bmsHv,
                                                  &bmsLv,
-                                                 &bmsLvTemperature};
+                                                 &bmsLvTemperature,
+                                                 &dataLoggerStatus};
 
   public:
     Can_interface() = default;
@@ -151,6 +155,8 @@ class Can_interface {
 
     BMS_LV_temperature get_bms_lv_temperature() { return bmsLvTemperature.data; }
 
+    DataLoggerStatus get_data_logger_status() { return dataLoggerStatus.data; }
+
     bool get_driver_input_main_new_data() { return driverInput.get_new_data(); }
 
     bool get_rearbox_safety_new_data() { return rearboxSafety.get_new_data(); }
@@ -180,6 +186,8 @@ class Can_interface {
     bool get_bms_lv_main_new_data() { return bmsLv.get_new_data(); }
 
     bool get_bms_lv_temperature_new_data() { return bmsLvTemperature.get_new_data(); }
+
+    bool get_data_logger_status_new_data() { return dataLoggerStatus.get_new_data(); }
 };
 
 Can_interface can;
