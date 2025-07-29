@@ -26,7 +26,7 @@
 #include "CanHeaders/PM09-CANBUS-REARBOX.hpp"
 #include "CanHeaders/PM09_CANBUS_PC.hpp"
 #include "CanHeaders/PM09_CANBUS_PDU.hpp"
-#include "CanHeaders/PM09-CANBUS-DATA-LOGGER.hpp"
+#include "CanHeaders/PM09-CANBUS-DATA_LOGGER.hpp"
 
 namespace PUTM_CAN {
 
@@ -68,7 +68,7 @@ class Can_interface {
     Device<BMS_LV_main> bmsLv{BMS_LV_MAIN_CAN_ID};
     Device<BMS_LV_temperature> bmsLvTemperature{BMS_LV_TEMPERATURE_CAN_ID};
 
-    Device<DataLoggerStatus> dataLoggerStatus{DATA_LOGGER_STATUS_CAN_ID};
+    Device<DataLoggerStatus> dataLoggerStatus{DATA_LOGGER_CAN_ID};
 
     std::array<Device_base*, 27> device_array = {&driverInput,
                                                  &rearboxSafety,
