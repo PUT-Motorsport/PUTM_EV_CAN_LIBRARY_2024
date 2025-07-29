@@ -6,6 +6,7 @@
 namespace PUTM_CAN {
 
 struct __attribute__((packed)) RearboxSafety {
+    bool safety_tsmp : 1;
     bool safety_rfu1 : 1;
     bool safety_rfu2 : 1;
     bool safety_asms : 1;
