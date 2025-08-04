@@ -27,7 +27,6 @@ struct __attribute__((packed)) FrontData {
     bool sense_inertia : 1;
     bool sense_bspd : 1;
     bool sense_overtravel : 1;
-    bool sense_right_wheel : 1;
     bool safety_suspension_fl : 1;
     bool safety_suspension_fr : 1;
     bool is_braking : 1;
