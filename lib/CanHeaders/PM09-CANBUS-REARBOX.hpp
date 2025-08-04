@@ -9,16 +9,17 @@ struct __attribute__((packed)) RearboxSafety {
     bool safety_tsmp : 1;
     bool safety_rfu1 : 1;
     bool safety_rfu2 : 1;
-    bool safety_asms : 1;
-    bool safety_fw : 1;
-    bool safety_hv : 1;
-    bool safety_res : 1;
+    bool safety_hv_battery : 1;
+    bool safety_inv_hv : 1;
     bool safety_hvd : 1;
     bool safety_inv : 1;
     bool safety_wheel_fl : 1;
     bool safety_wheel_fr : 1;
     bool safety_wheel_rl : 1;
     bool safety_wheel_rr : 1;
+    bool safety_suspension_rl : 1;
+    bool safety_suspension_rr : 1;
+    bool safety_motor_front : 1;
 };
 
 struct __attribute__((packed)) RearboxTemperature {
