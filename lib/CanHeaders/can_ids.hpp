@@ -19,22 +19,21 @@ const uint16_t BMS_LV_TEMPERATURE_CAN_ID = 0x56;
 const uint16_t DATA_LOGGER_CAN_ID = 0x57;
 
 /* Secondary Can Bus */
-constexpr uint16_t FRONT_RIGHT_AMK_ACTUAL_VALUES_1_CAN_ID = 0x282 + 1; // + n
-constexpr uint16_t FRONT_RIGHT_AMK_ACTUAL_VALUES_2_CAN_ID = 0x284 + 1; // + n
-constexpr uint16_t FRONT_RIGHT_AMK_SETPOINTS_1_CAN_ID = 0x183 + 1;     // + n
+constexpr uint16_t FRONT_RIGHT_AMK_ACTUAL_VALUES_1_CAN_ID = 0x286; // + n
+constexpr uint16_t FRONT_RIGHT_AMK_ACTUAL_VALUES_2_CAN_ID = 0x287; // + n
+constexpr uint16_t FRONT_RIGHT_AMK_SETPOINTS_1_CAN_ID = 0x185;     // + n
 
-constexpr uint16_t REAR_RIGHT_AMK_ACTUAL_VALUES_1_CAN_ID = 0x282 + 2; // + n
-constexpr uint16_t REAR_RIGHT_AMK_ACTUAL_VALUES_2_CAN_ID = 0x284 + 2; // + n
-constexpr uint16_t REAR_RIGHT_AMK_SETPOINTS_1_CAN_ID = 0x183 + 2; // + n
+constexpr uint16_t REAR_RIGHT_AMK_ACTUAL_VALUES_1_CAN_ID = 0x284; // + n
+constexpr uint16_t REAR_RIGHT_AMK_ACTUAL_VALUES_2_CAN_ID = 0x285; // + n
+constexpr uint16_t REAR_RIGHT_AMK_SETPOINTS_1_CAN_ID = 0x184; // + n
 
-constexpr uint16_t REAR_LEFT_AMK_ACTUAL_VALUES_1_CAN_ID = 0x282 + 5; // + n
-constexpr uint16_t REAR_LEFT_AMK_ACTUAL_VALUES_2_CAN_ID = 0x284 + 5; // + n
-constexpr uint16_t REAR_LEFT_AMK_SETPOINTS_1_CAN_ID = 0x183 + 5; // + n
+constexpr uint16_t REAR_LEFT_AMK_ACTUAL_VALUES_1_CAN_ID = 0x282; // + n
+constexpr uint16_t REAR_LEFT_AMK_ACTUAL_VALUES_2_CAN_ID = 0x283; // + n
+constexpr uint16_t REAR_LEFT_AMK_SETPOINTS_1_CAN_ID = 0x183; // + n
 
-
-constexpr uint16_t FRONT_LEFT_AMK_ACTUAL_VALUES_1_CAN_ID = 0x282 + 6; // + n
-constexpr uint16_t FRONT_LEFT_AMK_ACTUAL_VALUES_2_CAN_ID = 0x284 + 6; // + n
-constexpr uint16_t FRONT_LEFT_AMK_SETPOINTS_1_CAN_ID = 0x183 + 6; // + n
+constexpr uint16_t FRONT_LEFT_AMK_ACTUAL_VALUES_1_CAN_ID = 0x288; // + n
+constexpr uint16_t FRONT_LEFT_AMK_ACTUAL_VALUES_2_CAN_ID = 0x289; // + n
+constexpr uint16_t FRONT_LEFT_AMK_SETPOINTS_1_CAN_ID = 0x186; // + n
 
 
 
